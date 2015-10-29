@@ -1,0 +1,87 @@
+Intro
+=====
+Vagrant
+VirtualBox
+Putty
+
+pwntools (learn Python!)
+gdb
+IDA Pro (~10.000 kr)/Hopper (640 kr)/objdump (free)/ht (free)
+
+Pwnable.kr - http://pwnable.kr/
+SmashTheStack - http://io.smashthestack.org/
+Microcorruption - https://microcorruption.com
+Pwnies Treasure Hunt - http://treasure.pwnies.dk
+ctftime.org
+
+Reverse Engineering
+===================
+x86_32
+Assembly 101
+- Instructions
+- Registers/Immediates/Memory
+
+Stack
+
+if/for/while constructs
+
+Function prologue/epilogue
+EBP - args at [ebp+?], local vars at [ebp-?]
+
+Arrays, structs
+Calling conventions
+PIC and GOT/PLT
+
+Opgaver man kan løse med RE
+- Binary bomb
+- GITS 3d fps
+- Serial generators
+- File/Network formats
+- Vulnerability hunting
+- Evaluating software quality
+- Optimization (CPU/memory usage)
+- Analyze shellcode
+- Analyze malware
+
+Exploitation
+============
+Stack based buffer overflow
+Integer overflow
+Format strings
+
+Arbitrary read
+Arbitrary write/www (write what where)
+
+Stack cookie/canarie
+ASLR
+DEP
+
+Trampolines
+ret2libc
+ROP
+GOT overwrite
+DynELF!!!
+
+Heap
+- Use-after-free
+- Double-free?
+- C++ virtual function tables
+
+Shellcoding
+===========
+Position independent code
+Bad chars
+NOP
+INT3
+Sequence of instructions vs. executable file
+syscalls
+strace
+
+General purpose shellcode vs. specific purpose
+
+Singlestage vs. multistage
+Egg hunting
+Stager
+
+Unicode/Alpha numeric
+Encoders
