@@ -1,0 +1,64 @@
+Software som bruges i workshoppen
+---------------------------------
+
+På din maskine:
+[role="incremental"]
+- VirtualBox - https://www.virtualbox.org/
+- Vagrant - https://www.vagrantup.com/
+- Git - https://git-scm.com/
+- Putty (eller anden ssh klient) - http://www.chiark.greenend.org.uk/~sgtatham/putty/
+- IDA Pro - https://www.hex-rays.com/products/ida/
+** Gratis version kan fint bruges til vores formål men er lidt gammel
+** Demo version er også ok, men kan ikke gemme arbejdet og timer ud efter nogen brug
+- Resten leveres gennem det Vagrant setup som findes her:
+** https://github.com/RobertLarsen/ProsaWorkshop
+
+Hent den virtuelle maskine
+--------------------------
+
+[source,txt]
+------------------------------------------------
+$ git clone https://github.com/RobertLarsen/ProsaWorkshop.git
+------------------------------------------------
+
+Start den virtuelle maskine
+---------------------------
+
+[source,txt]
+------------------------------------------------
+$ cd ProsaWorkshop
+$ vagrant up
+------------------------------------------------
+
+Stop den virtuelle maskine
+---------------------------
+
+[source,txt]
+------------------------------------------------
+$ cd ProsaWorkshop
+$ vagrant suspend
+------------------------------------------------
+
+Opdater den virtuelle maskine
+-----------------------------
+
+[source,txt]
+------------------------------------------------
+$ cd ProsaWorkshop
+$ git pull
+$ vagrant destroy -f
+$ vagrant up
+------------------------------------------------
+
+Forbind til den virtuelle maskine
+---------------------------------
+Enten:
+[source,txt]
+------------------------------------------------
+$ cd ProsaWorkshop
+$ vagrant ssh
+------------------------------------------------
+
+Eller (user=vagrant password=vagrant):
+
+image::images/putty.png[]

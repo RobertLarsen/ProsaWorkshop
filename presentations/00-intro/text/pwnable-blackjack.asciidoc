@@ -1,0 +1,86 @@
+pwnable.kr - Toddler's Bottle - blackjack
+-----------------------------------------
+
+Hey! check out this C implementation of blackjack game!
+I found it online
+
+http://cboard.cprogramming.com/c-programming/114023-simple-blackjack-program.html (http://korturl.dk/4nh)
+
+I like to give my flags to millionares.
+
+how much money you got?
+
+Running at : nc pwnable.kr 9009
+
+pwnable.kr - Toddler's Bottle - blackjack - Sårbarhed 1
+-------------------------------------------------------
+
+Alle kald til 'rand()':
+
+[source,c]
+------------------------------------------------
+// Linje 229
+srand((unsigned) time(NULL)); //Generates random seed for rand() function
+k=rand()%13+1;
+
+// Linje 304
+srand((unsigned) time(NULL)); //Generates random seed for rand() function
+k=rand()%13+1;
+
+// Linje 374
+srand((unsigned) time(NULL)); //Generates random seed for rand() function
+k=rand()%13+1;
+
+// Linje 444
+srand((unsigned) time(NULL)); //Generates random seed for rand() function
+k=rand()%13+1;
+
+// Linje 514
+srand((unsigned) time(NULL)); //Generates random seed for rand() function
+random_card = rand()%4+1;
+
+// Linje 639
+srand((unsigned) time(NULL) + 1); //Generates random seed for rand() function
+z=rand()%13+1;
+------------------------------------------------
+
+pwnable.kr - Toddler's Bottle - blackjack - Sårbarhed 2
+-------------------------------------------------------
+
+[source,c]
+------------------------------------------------
+// Linje 721
+int betting() //Asks user amount to bet 
+{
+    printf("\n\nEnter Bet: $");
+    scanf("%d", &bet);
+
+    if (bet > cash) //If player tries to bet more money than player has 
+    {   
+        printf("\nYou cannot bet more money than you have.");
+        printf("\nEnter Bet: "); 
+        scanf("%d", &bet);
+        return bet;
+    }   
+    else return bet;
+} // End Function
+------------------------------------------------
+
+pwnable.kr - Toddler's Bottle - blackjack - Sårbarhed 3
+-------------------------------------------------------
+
+[source,c]
+------------------------------------------------
+// Linje 28
+int bet;
+
+// Linje 723
+printf("\n\nEnter Bet: $");
+scanf("%d", &bet);
+
+// Hvis man vinder
+cash = cash+bet;
+
+// Hvis man taber
+cash = cash - bet;
+-------------------------------------------------------

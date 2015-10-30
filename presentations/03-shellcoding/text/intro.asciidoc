@@ -1,0 +1,174 @@
+Shellcode?
+----------
+
+Fra Wikipedia:
+
+"In computer security, a shellcode is a small piece of code used as the payload in the exploitation of a software vulnerability. It is called "shellcode" because it typically starts a command shell from which the attacker can control the compromised machine, but any piece of code that performs a similar task can be called shellcode. Because the function of a payload is not limited to merely spawning a shell, some have suggested that the name shellcode is insufficient.[1] However, attempts at replacing the term have not gained wide acceptance. Shellcode is commonly written in machine code."
+
+Shellcode?
+----------
+
+Metasploit kalder det et "payload", men det dækker også over SQLi, CMDi, JavaScript og alt muligt andet.
+
+Shellcode?
+----------
+
+I pwntools hedder det "shellcode" og er Shellcrafts domæne.
+
+Hvorfor?
+--------
+
+Hvis både Metasploit og pwntools har velfungerende shellcode, hvorfor så lave det selv?
+
+[role="incremental"]
+- Der findes deciderede shellcode CTF opgaver
+- Visse opgaver kan ikke løses uden en specialudviklet shellcode
+- Opgaver kan kræve bestemte byte sekvenser midt i shellcoden (f.eks. pointere)
+- At forstå shellcode kan hjælpe med debugging
+- At forstå shellcode kan hjælpe med at sammensætte shellcode byggeklodser
+- General purpose shellcode afslutter/crasher processen. Nogen gange skal processen fortsætte som om intet var hændt.
+- For sjovt!
+
+Typiske krav til en shellcode
+-----------------------------
+
+[role="incremental"]
+- Kort!
+- Position independant
+- Kan typisk ikke gøre brug af libc eller andre libraries (undtagen hvis man via leaks ved hvor libc ligger)
+- Skal typisk undgå visse byte værdier ('\x00', '\n')
+
+Skelet
+------
+Vi vil bruge nedenstående som et shellkode skelet:
+
+[source,asm]
+------------------------------------------------
+include::../examples/bad_skeleton.asm[]
+------------------------------------------------
+
+Kan bygges til elf:
+[source,bash]
+------------------------------------------------
+$ nasm -f elf -o skeleton.o skeleton.asm
+$ ld -melf_i386 -o skeleton skeleton.o
+------------------------------------------------
+
+Eller til "ren" maskinkode:
+[source,bash]
+------------------------------------------------
+$ nasm -f bin -o skeleton.shellcode skeleton.asm
+------------------------------------------------
+
+Skelet
+------
+
+Nu er der godt nok problemer med skelettet:
+
+[source,bash]
+------------------------------------------------
+$ ndisasm -b 32 skeleton.shellcode
+00000000  B801000000        mov eax,0x1
+00000005  31DB              xor ebx,ebx
+00000007  CD80              int 0x80
+------------------------------------------------
+
+Skelet
+------
+
+Men det kan fixes:
+
+[source,asm]
+------------------------------------------------
+include::../examples/skeleton.asm[]
+------------------------------------------------
+
+[source,bash]
+------------------------------------------------
+$ ndisasm -b 32 skeleton.shellcode
+00000000  31C0              xor eax,eax
+00000002  40                inc eax
+00000003  31DB              xor ebx,ebx
+00000005  CD80              int 0x80
+------------------------------------------------
+
+System kald
+-----------
+
+Typisk skal shellcode "bare" udføre en stribe system kald med de rigtige argumenter.
+
+I i386/Linux bruger man 'int 0x80' instruktionen til at udføre system kald, system kald nummeret ligger i 'eax' og argumenter ligger i 'ebx', 'ecx', 'edx', 'esi' og 'edi'...typisk.
+
+System kald
+-----------
+
+Konstanter kan findes med 'constgrep'
+
+[source,c]
+------------------------------------------------
+open("/some/file", O_RDONLY);
+------------------------------------------------
+
+[source,bash]
+------------------------------------------------
+$ constgrep -c i386 SYS_open
+#define SYS_open   5
+#define SYS_openat 295
+$ constgrep -c i386 O_RDONLY
+#define O_RDONLY 0x0
+------------------------------------------------
+
+System kald
+-----------
+
+'man 2 open' giver 'open' system kaldets manual side
+
+System kald
+-----------
+
+Her er en liste: http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html
+
+Der kan man se, at 'exit' har system kald nr. 1 og at exit code skal i 'ebx', ligesom vi gjorde i skelettet.
+
+Hvor er vi?
+-----------
+
+Som sagt skal shellcode være position independent, men bærer den data skal den vide, hvor de er.
+
+Her er et trick:
+
+[source,asm]
+------------------------------------------------
+include::../examples/jmp_call.asm[]
+------------------------------------------------
+
+En afsluttende nul byte er ok...men KUN én og KUN den sidste byte! (hvorfor???)
+
+Undgå nul bytes i strenge
+-------------------------
+
+Skal vi have flere nul terminerede strenge bliver vi nødt til at gøre noget.
+
+Enten:
+[source,asm]
+------------------------------------------------
+include::../examples/remove_nul_bytes.asm[]
+------------------------------------------------
+
+Undgå nul bytes i strenge
+-------------------------
+
+Skal vi have flere nul terminerede strenge bliver vi nødt til at gøre noget.
+
+Eller:
+[source,asm]
+------------------------------------------------
+include::../examples/push_str.asm[]
+------------------------------------------------
+
+Hello, shellcode world!
+-----------------------
+
+Første opgave bliver at lave en shellcode, som skriver "Hello, shellcode world!\n" til standard out.
+
+Den laver vi sammen.

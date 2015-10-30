@@ -1,0 +1,378 @@
+Introduktion til i386 assembly
+------------------------------
+
+Kort introduktion eller genopfriskning.
+
+i386 = CISC = helvedes mange instruktioner.
+
+i386 assembly - Registre
+------------------------
+
+CPUens interne hukommelse
+[role="incremental"]
+- EAX : Accumulator
+- EBX : Base
+- ECX : Counter
+- EDX : Data
+- ESI : Source Index
+- EDI : Destination Index
+- EBP : Base Pointer
+- ESP : Stack Pointer
+- EIP : Instruction Pointer
+- FLAGS : Flags (duh)
+
+i386 assembly - FLAGS
+---------------------
+
+Bruges til betingede spring.
+
+[role="incremental"]
+- CF : Carry flag (sat ved mente eller lån)
+- ZF : Zero flag (hvis resultat = 0)
+- SF : Sign flag (MSB i resultat)
+- DF : Direction flag (bruges til string instruktioner)
+- OF : Overflow flag (hvis resultat overflower
+       fra positiv til negativ eller omvendt)
+
+i386 assembly - Instruktioner
+-----------------------------
+
+Hvad CPUen kan gøre
+
+i386 assembly - mov
+-------------------
+
+Kopierer data fra source til destination.
+[source,asm]
+------------------------------------------------
+mov <dst>, <src>
+
+mov eax, 0x20                ;Register/Immediate
+mov ebx, eax                 ;Register/Register
+mov ecx, DWORD PTR [ebp+0x8] ;Register/Memory
+mov DWORD PTR [ebp-0x4], eax ;Memory/Register
+mov eax, DWORD PTR [eax]     ;Register/Memory
+------------------------------------------------
+
+'movsx' = move and sign extend
+
+'movzx' = move and zero extend
+
+i386 assembly - push/pop
+------------------------
+
+'push' dekrementerer 'esp' med fire og ligger data hvor 'esp' peger.
+
+'pop' kopierer data fra hvor 'esp' peger til et register og inkrementerer 'esp' med fire.
+
+[source,asm]
+------------------------------------------------
+push 0x01020304     ;32 bit immediate
+push byte 0x1       ;8 bit immediate (samme som 'push 0x1'
+                    ;men kortere opcode)
+push eax            ;Register
+
+pop ebp             ;Register
+------------------------------------------------
+
+i386 assembly - inc/dec
+-----------------------
+
+'inc' ligger én til destinations registret.
+
+'dec' trækker én fra destinations registret.
+
+[source,asm]
+------------------------------------------------
+inc eax             ;Register
+dec eax             ;Register
+------------------------------------------------
+
+i386 assembly - add/sub
+-----------------------
+
+'add' ligger source til destination.
+
+'sub' trækker source fra destination.
+
+[source,asm]
+------------------------------------------------
+add <dst>, <src>
+add eax, 100              ;Register/Immediate
+add eax, '0'              ;Register/Immediate
+add eax, edx              ;Register/Register
+add eax, DWORD PTR [edx]  ;Register/Memory
+add [esp], edx            ;Memory/Register
+
+sub <dst>, <src>
+sub eax, 100              ;Register/Immediate
+sub eax, '0'              ;Register/Immediate
+sub eax, edx              ;Register/Register
+sub eax, DWORD PTR [edx]  ;Register/Memory
+sub [esp], edx            ;Memory/Register
+------------------------------------------------
+
+i386 assembly - mul/imul
+------------------------
+
+'mul' = Unsigned multiplication (bliver stort set aldrig brugt af compilerne).
+
+'edx' og 'eax' får henholdsvis de høje og lave 32 bit af unsigned multiplikation mellem 'eax' og source.
+
+'imul' = Signed multiplication.
+
+[source,asm]
+-------------------------------------------
+mul ebx             ; edx = (eax * ebx) >> 32
+                    ; eax = (eax * ebx) & 0xffffffff
+
+imul ebx            ; edx = (eax * ebx) >> 32
+                    ; eax = (eax * ebx) & 0xffffffff
+
+imul eax, 10        ; eax = eax * 10
+imul eax, ebx, 10   ; eax = ebx * 10
+imul eax, [ebx]     ; eax = eax * [ebx]
+imul eax, [ebx], 10 ; eax = [ebx] * 10
+-------------------------------------------
+
+i386 assembly - div/idiv
+------------------------
+
+'div' = Unsigned division.
+
+'idiv' = Signed division.
+
+[source,asm]
+------------------------------------------------
+div ebx           ; eax = edx:eax / ebx
+                  ; edx = edx:eax % ebx
+
+idiv ebx          ; eax = edx:eax / ebx
+                  ; edx = edx:eax % ebx
+------------------------------------------------
+
+i386 assembly - neg
+-------------------
+
+Negér source.
+
+[source,asm]
+------------------------------------------------
+neg eax    ; eax = -eax
+------------------------------------------------
+
+i386 assembly - shl/shr
+-----------------------
+
+'shl' = logical shift left
+
+'shr' = logical shift right
+
+[source,asm]
+------------------------------------------------
+shl eax, 2       ; eax = eax << 2
+shl eax, ebx     ; eax = eax << ebx
+shr eax, 2       ; eax = eax >> 2
+shr eax, ebx     ; eax = eax >> ebx
+------------------------------------------------
+
+i386 assembly - sal/sar
+-----------------------
+
+'sal' = arithmetic shift left (ingen forskel fra 'shl')
+
+'sar' = arithmetic shift right
+
+[source,asm]
+------------------------------------------------
+sal eax, 2       ; eax = eax << 2
+sal eax, ebx     ; eax = eax << ebx
+sar eax, 2       ; eax = eax >> 2
+                 ; mest betydende bit bliver shiftet ind
+sar eax, ebx     ; eax = eax >> ebx
+                 ; mest betydende bit bliver shiftet ind
+------------------------------------------------
+
+i386 assembly - ror/rol
+-----------------------
+
+'rol' = rotate left
+
+'ror' = rotate right
+
+[source,asm]
+------------------------------------------------
+rol eax, 13
+rol eax, ebx
+
+ror eax, ebx
+ror eax, 13
+------------------------------------------------
+
+i386 assembly - and
+-------------------
+
+Bitvise and. Nulstil bits.
+
+[source,asm]
+------------------------------------------------
+and eax 0x0000ff00   ;Isolér 16 bits
+                     ;Måske den grønne komponent i ARGB
+
+and eax, ebx
+------------------------------------------------
+
+i386 assembly - or
+------------------
+
+Bitwise or. Sæt bits.
+
+[source,asm]
+------------------------------------------------
+or eax, 0x80000000  ;Sæt most significant bit
+------------------------------------------------
+
+i386 assembly - xor
+-------------------
+
+Bitwise exclusive or. Skift bits tilstand.
+
+[source,asm]
+------------------------------------------------
+xor eax, eax     ; Hurtigste og korteste måde at sætte eax = 0
+xor eax, 1       ; Ændr least significant bit til modsat værdi
+                 ; af hvad den har nu
+------------------------------------------------
+
+i386 assembly - not
+-------------------
+
+Bitwise not. Ændr værdi for alle bits.
+
+[source,asm]
+------------------------------------------------
+not eax
+------------------------------------------------
+
+i386 assembly - test
+--------------------
+
+Er som en bitwise 'and' instruktion bortset fra at destinations registret ikke ændres.
+
+[source,asm]
+------------------------------------------------
+test eax, eax   ; Sæt ZF hvis eax == 0, SF hvis eax < 0
+test eax, 16    ; Sæt ZF hvis EAX == 16
+------------------------------------------------
+
+i386 assembly - cmp
+-------------------
+
+Er som en 'sub' instruktion bortset fra at destinations registret ikke ændres.
+
+[source,asm]
+------------------------------------------------
+cmp eax, 10   ; Sæt ZF hvis eax == 10
+              ; Nulstil ZF og sæt SF = OF hvis eax > 10
+              ; Sæt SF != OF hvis eax > 10
+------------------------------------------------
+
+i386 assembly - jmp
+-------------------
+
+Betingelsesløst spring enten relativt til næste instruktion eller absolut.
+
+[source,asm]
+------------------------------------------------
+jmp short -2  ; Spring to bytes baglæns fra næste instruktion
+              ; (uendeligt loop)
+jmp eax       ; Spring til adressen i eax
+------------------------------------------------
+
+Spring er en kilde til forvirring, for assembleren vil oversætte 'jmp short 0' til '0xeb 0xfe' som betyder 'spring 2 tilbage'.
+Det er fordi, vi som programmører ikke bør bekymre os om størrelsen på opcoder, så vi læser springene som relative til instruktionen selv.
+
+Spring baglæns angiver typisk afslutningen af et loop, mens spring fremad er typiske for 'if' statements. IDA Pro er god til at visualisere dette.
+
+i386 assembly - je/jz/jne/jnz
+-----------------------------
+
+De nærmest uendeligt mange (32 i hvert fald) betingede spring.
+
+http://unixwiz.net/techtips/x86-jumps.html
+
+[source,asm]
+------------------------------------------------
+test eax, eax      ;Sæt EFLAGS ud fra EAX
+je nul             ;Hvis ZF er sat så spring til 'nul' label
+;eax is not nul    ;Gør dette, hvis eax ikke er nul
+
+jmp end            ;Spring over de næste instruktioner
+nul:
+;eax is nul        ;Gør dette, hvis eax ér nul
+
+end:               ;Afslut
+------------------------------------------------
+
+i386 assembly - call/ret
+------------------------
+
+'call' ligger adresse på næste instruktion på stakken og springer så til en (relativ eller absolut) adresse.
+
+'ret' popper adressen fra stakken ind i 'eip'.
+
+[source,asm]
+------------------------------------------------
+my_routine:
+   ret
+
+call my_routine   ; Relativt kald til my_routine
+
+call ebx          ; Absolut kald til adressen i ebx
+
+call [ebx]        ; Absolut kald til adressen som
+                  ; ligger i hukommelsen på adressen
+                  ; som ebx peger på
+------------------------------------------------
+
+i386 assembly - lea
+-------------------
+
+Load Effective Address = pointer aritmetik.
+
+Ligner en læsning af hukommelse, men er bare en fancy 'mov' instruktion.
+
+[source,c]
+------------------------------------------------
+struct Coordinate {
+    int x;
+    int y;
+};
+
+struct Coordinate coords[128];
+
+coords[15].y = 42;
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+mov ebx, coords     ; Adressen på coords arrayet
+mov eax, 15         ; Index ind i arrayet
+lea eax, [ebx + 8 * eax + 4]
+                    ; Indlæs adressen på y koordinat elementet
+                    ; til eax registret
+mov [eax], 42       ; Skriv 42 til denne adresse
+------------------------------------------------
+
+i386 assembly - leave
+---------------------
+
+'leave' gør følgende:
+
+[source,asm]
+------------------------------------------------
+mov esp, ebp
+pop ebp
+------------------------------------------------
+
+Det giver mening senere.

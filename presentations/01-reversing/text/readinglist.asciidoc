@@ -1,0 +1,41 @@
+Selvstudie - Bøger
+------------------
+
+image::../images/reversing-secrets_of_reverse_engineering.jpg[]
+
+Selvstudie - Bøger
+------------------
+
+image::../images/practical_reverse_engineering.jpg[]
+
+Selvstudie - Bøger
+------------------
+
+image::../images/the_ida_pro_book.jpg[]
+
+Selvstudie - Bøger
+------------------
+
+image::../images/re_for_beginners.png[]
+
+Ligger i 'papers'
+
+Selvstudie - Bøger
+------------------
+
+image::../images/reverse_engineering_code_with_ida_pro.jpg[]
+
+image::../images/bad_review.png[]
+
+Selvstudie - Video
+------------------
+
+OpenSecurityTraining
+
+http://www.opensecuritytraining.info/IntroX86.html (12:08:24)
+
+http://www.opensecuritytraining.info/IntermediateX86.html (13:28:40)
+
+http://www.opensecuritytraining.info/IntroductionToReverseEngineering.html (6:47:55)
+
+http://www.opensecuritytraining.info/ReverseEngineeringMalware.html (5:31:58)

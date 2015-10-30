@@ -1,0 +1,24 @@
+Binary Reverse Engineering
+==========================
+:title: Binary Reverse Engineering
+:description: reverse engineering binary software on an x86_32/Linux platform.
+:keywords: reverse engineering reversing x86 i386 x86_32 linux ida pro assembly
+:Author:    Robert Larsen
+:Author Initials: RL
+:Email: robert@the-playground.dk
+:copyright: {date={localdate}}, {author}
+:backend:   slidy2
+:max-width: 45em
+:data-uri:
+
+include::text/intro.asciidoc[]
+
+include::text/static-analysis-tools.asciidoc[]
+
+include::text/dynamic-analysis-tools.asciidoc[]
+
+include::text/i386-intro.asciidoc[]
+
+include::text/reversing.asciidoc[]
+
+include::text/readinglist.asciidoc[]

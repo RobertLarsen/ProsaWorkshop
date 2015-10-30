@@ -1,0 +1,28 @@
+Intro til reversing, exploitation og shellcoding
+================================================
+:title: Intro til reversing, exploitation og shellcoding
+:description: Introduktion til workshoppen
+:keywords: reverse engineering reversing x86 i386 x86_32 linux ida pro assembly pwntools shellcode exploit exploitation
+:Author:    Robert Larsen
+:Author Initials: RL
+:Email: robert@the-playground.dk
+:copyright: {date={localdate}}, {author}
+:backend:   slidy2
+:max-width: 45em
+:data-uri:
+
+include::text/intro.asciidoc[]
+
+include::text/software.asciidoc[]
+
+include::text/wargames.asciidoc[]
+
+include::text/pwnable-cmd1.asciidoc[]
+
+include::text/pwnable-cmd2.asciidoc[]
+
+include::text/pwnable-blackjack.asciidoc[]
+
+include::text/pwntools.asciidoc[]
+
+include::text/selfstudy.asciidoc[]

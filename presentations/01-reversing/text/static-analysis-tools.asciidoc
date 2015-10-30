@@ -1,0 +1,62 @@
+Statisk analyse værktøjer - IDA Pro
+-----------------------------------
+https://www.hex-rays.com/products/ida/
+
+https://www.hex-rays.com/products/ida/support/download_freeware.shtml
+
+https://www.hex-rays.com/products/ida/support/download_demo.shtml
+
+image::../images/ida-pro.jpg[]
+
+Statisk analyse værktøjer - Hopper
+----------------------------------
+http://www.hopperapp.com/
+
+image::../images/hopper.jpg[]
+
+Statisk analyse værktøjer - HT Editor
+-------------------------------------
+http://hte.sourceforge.net/
+
+[source,shell]
+-------------------
+$ apt-get install hte
+-------------------
+
+image::../images/hte.png[]
+
+Statisk analyse værktøjer - objdump/readelf
+-------------------------------------------
+https://sourceware.org/binutils/docs/binutils/objdump.html
+[source,bash]
+-------------------
+$ apt-get install binutils
+$ objdump -Mintel -d my_proggie | less
+...
+0000000000400916 <name_watch_alloc>:
+400916:       55                      push   rbp
+400917:       48 89 e5                mov    rbp,rsp
+40091a:       48 83 ec 30             sub    rsp,0x30
+40091e:       48 89 7d e8             mov    QWORD PTR [rbp-0x18],rdi
+400922:       89 75 e4                mov    DWORD PTR [rbp-0x1c],esi
+400925:       48 89 55 d8             mov    QWORD PTR [rbp-0x28],rdx
+400929:       bf 18 00 00 00          mov    edi,0x18
+40092e:       e8 9d fe ff ff          call   4007d0 <malloc@plt>
+400933:       48 89 45 f8             mov    QWORD PTR [rbp-0x8],rax
+400937:       48 8b 45 f8             mov    rax,QWORD PTR [rbp-0x8]
+40093b:       48 8b 55 e8             mov    rdx,QWORD PTR [rbp-0x18]
+...
+-------------------
+
+Statisk analyse værktøjer - radare2
+-----------------------------------
+http://www.radare.org/r/
+
+image::../images/webui.png[]
+
+Statisk analyse værktøjer - radare2
+-----------------------------------
+http://www.radare.org/r/
+
+image::../images/webui-graph.png[]
+

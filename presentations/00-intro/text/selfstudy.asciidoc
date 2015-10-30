@@ -1,0 +1,12 @@
+
+Selvstudie - Video
+------------------
+
+Introductory Intel x86: Architecture, Assembly, Applications, & Alliteration
+http://www.opensecuritytraining.info/IntroX86.html (12:08:24)
+
+Introduction To Reverse Engineering Software
+http://www.opensecuritytraining.info/IntroductionToReverseEngineering.html (6:47:55)
+
+Introduction To Software Exploits
+http://www.opensecuritytraining.info/Exploits1.html (9:38:54)

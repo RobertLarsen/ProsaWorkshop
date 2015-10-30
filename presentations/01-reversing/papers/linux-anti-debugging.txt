@@ -1,0 +1,215 @@
+LINUX ANTI-DEBUGGING TECHNIQUES (FOOLING THE DEBUGGER)
+------------------------------------------------------
+
+	- Silvio Cesare <silvio@big.net.au>
+	- http://www.big.net.au/~silvio
+	- http://virus.beergrave.net
+	- January 1999
+
+
+TABLE OF CONTENTS
+-----------------
+
+INTRODUCTION
+FALSE DISASSEMBLY
+DETECTING BREAKPOINTS
+SETTING UP FALSE BREAKPOINTS
+DETECTING DEBUGGING
+
+
+INTRODUCTION
+------------
+
+This article describes anti debugger techniques for x86/Linux (though some of
+these techniques are not x86 specific).  That is techniques to either fool,
+stop, or modify the process of debugging the target program.  This can be
+useful to the development of viruses and also to those implementing software
+protection.
+
+
+FALSE DISASSEMBLY
+-----------------
+
+This elegant technique produces false disassembly when listed.  It produces
+this by jumping into the middle of instruction.  The real code starts in the
+middle of this instruction, but the disassembly uses the entire instruction
+and thus continues disassembly not alligned to the real assembly.
+
+        jmp antidebug1 + 2
+antidebug1:
+.short 0xc606
+        call reloc
+reloc:
+        popl %esi
+        jmp antidebug2
+antidebug2:	
+        addl $(data - reloc),%esi
+        movl 0(%esi),%edi
+        pushl %esi
+        jmp *%edi
+data:
+        .long 0
+
+--
+
+$ objdump -d a.out
+
+.
+.
+.
+
+ 8048340:       55              pushl  %ebp
+ 8048341:       89 e5           movl   %esp,%ebp
+ 8048343:       eb 02           jmp    0x8048347
+ 8048345:       06              pushl  %es
+ 8048346:       c6 e8 00        movb   $0x0,%al
+ 8048349:       00 00           addb   %al,(%eax)
+ 804834b:       00 5e eb        addb   %bl,0xffffffeb(%esi)
+ 804834e:       00 81 c6 0f 00  addb   %al,0xfc6(%ecx)
+ 8048353:       00
+ 8048354:       00 8b 7e 00 56  addb   %cl,0xff56007e(%ebx)
+ 8048359:       ff
+ 804835a:       e7 00           outl   %eax,$0x0
+ 804835c:       00 00           addb   %al,(%eax)
+ 804835e:       00 89 ec 5d c3  addb   %cl,0x90c35dec(%ecx)
+ 8048363:       90
+ 8048364:       90              nop
+
+.
+.
+.
+
+
+DETECTING BREAKPOINTS
+---------------------
+
+A breakpoint is defined by overwriting the breakpoint address with an int3
+opcode (0xcc).  If a program is being traced (man ptrace) then an int3 will
+cause the process to stop.  This is when the parent process debugging takes
+over control.  To continue processing it is up to the debugger to overwrite
+the int3 opcode with the original opcode.  Thus to detect a breakpoint, the
+program simply has to check for an int3 opcode.  Another solution is to
+checksum the code image.  If the checksum fails, the code has been modified,
+and a breakpoint is probably the culprit.
+
+void foo()
+{
+        printf("Hello\n");
+}
+
+int main()
+{
+        if ((*(volatile unsigned *)((unsigned)foo + 3) & 0xff) == 0xcc) {
+                printf("BREAKPOINT\n");
+                exit(1);
+        }
+        foo();
+}
+
+--
+
+$ gdb
+GDB is free software and you are welcome to distribute copies of it
+ under certain conditions; type "show copying" to see the conditions.
+There is absolutely no warranty for GDB; type "show warranty" for details.
+GDB 4.16 (i586-debian-linux), Copyright 1996 Free Software Foundation, Inc.
+(gdb) file a.out
+Reading symbols from a.out...done.
+(gdb) break foo
+Breakpoint 1 at 0x8048373: file break.c, line 3.
+(gdb) run
+Starting program: /home/silvio/src/antidebug/a.out
+BREAKPOINT
+
+Program exited with code 01.
+(gdb) quit
+$ ./a.out
+Hello
+$
+
+
+SETTING UP FALSE BREAKPOINTS
+----------------------------
+
+As stated earlier, a breakpoint is created by overwriting the address with an
+int3 opcode (0xcc).  To setup a false breakpoint then we simply insert an int3
+into the code.  This also raises a SIGTRAP, and thus if our code has a signal
+handler we can continue processing after the breakpoint.
+
+#include <signal.h>
+
+void handler(int signo)
+{
+}
+
+int main()
+{
+	signal(handler, SIGTRAP);
+__asm__("
+	int3
+");
+	printf("Hello\n");
+}
+
+--
+
+$ gdb
+GDB is free software and you are welcome to distribute copies of it
+ under certain conditions; type "show copying" to see the conditions.
+There is absolutely no warranty for GDB; type "show warranty" for details.
+GDB 4.16 (i586-debian-linux), Copyright 1996 Free Software Foundation, Inc.
+(gdb) file a.out
+Reading symbols from a.out...(no debugging symbols found)...done.
+(gdb) run
+Starting program: /home/silvio/src/antidebug/a.out
+(no debugging symbols found)...(no debugging symbols found)...
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x80483c3 in main ()
+(gdb) c
+Continuing.
+Hello
+
+Program exited with code 06.
+(gdb) quit
+$ ./a.out
+Hello
+$
+
+
+DETECTING DEBUGGING
+-------------------
+
+This is an elegant technique to detect if a debugger or program tracer such as
+strace or ltrace is being used on the target program.  The premise of this
+technique is that a ptrace[PTRACE_TRACEME] cannot be called in succsession more
+than once for a process.  All debuggers and program tracers use this call to
+setup debugging for a process.
+
+int main()
+{
+	if (ptrace(PTRACE_TRACEME, 0, 1, 0) < 0) {
+		printf("DEBUGGING... Bye\n");
+		return 1;
+	}
+	printf("Hello\n");
+	return 0;
+}
+
+--
+
+$ gdb
+GDB is free software and you are welcome to distribute copies of it
+ under certain conditions; type "show copying" to see the conditions.
+There is absolutely no warranty for GDB; type "show warranty" for details.
+GDB 4.16 (i586-debian-linux), Copyright 1996 Free Software Foundation, Inc.
+(gdb) file a.out
+Reading symbols from a.out...done.
+(gdb) run
+Starting program: /home/silvio/src/antidebug/a.out
+DEBUGGING... Bye
+
+Program exited with code 01.
+(gdb) quit
+$ ./a.out
+Hello
+$

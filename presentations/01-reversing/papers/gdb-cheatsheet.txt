@@ -1,0 +1,145 @@
+Start gdb
+---------
+
+Åben et program i gdb:
+
+$ gdb ./my_proggie
+
+Åben et program i gdb sammen med et core dump:
+
+$ gdb ./my_proggie core
+
+Åben et program i gdb og attach til PID:
+
+$ gdb ./my_proggie 15835
+
+Åben et program i gdb og udfør alle gdb kommandoer i commands.gdb:
+
+$ gdb -X commands.gdb ./my_proggie
+
+gdb kommandoer i ./.gdbinit udføres normalt altid
+
+gdb kommandoer i ~/.gdbinit udføres normalt altid
+
+gdb opsætning
+-------------
+
+Brug intel style disassembly:
+
+$ set disassembly-flavor intel
+
+Hvis program forker så følg barnet:
+
+$ set follow-fork-mode child
+
+Tillad auto load af .gdbinit fra alle stier:
+
+$ set auto-load safe-path /
+
+Udfør program
+-------------
+
+Kør programmet:
+
+$ r
+
+Kør programmet med argumenter:
+
+$ r hello world
+
+Kør programmet med mere komplekse argumenter:
+
+$ r $(python -c "print 'A' * 200 + '\xef\xbe\xad\xde'")
+
+Kør programmet med standard in fra fil:
+
+$ r < some_file
+
+Dræb det kørende program:
+
+$ k
+
+Udfør shell kommando
+
+$ shell cyclic 50
+
+Læs hukommelse
+--------------
+
+Disassemble 10 instruktioner på bestemt adresse:
+
+$ x/10i 0x08048956
+
+Disassemble 10 instruktioner fra hvor vi er nu:
+
+$ x/10i $eip
+
+Dump en streng på en bestemt adresse:
+
+$ x/s 0x080492d4
+
+Dump 10 hex words (4 byte integers) på bestemt adresse:
+
+$ x/10xw 0x080492d4
+
+Dump 10 hex words fra stakken:
+
+$ x/10xw $esp
+
+Dump 100 hex bytes på bestemt adresse:
+
+$ x/100xb 0x080492d4
+
+Dump 2 hex words relativt til register:
+
+$ x/2xw $ebp - 0x8
+
+Læs eller ret registre
+----------------------
+
+Læs registre:
+
+$ i r eax ebx eip esp
+
+Ret indhold af register:
+
+$ set $eax = 0
+
+Breakpoints
+-----------
+
+Sæt breakpoint på bestemt adresse:
+
+$ b *0x080485ec
+
+Sæt betinget breakpoint på bestemt adresse:
+
+$ b *0x080485ec if $eax == 0
+
+List breakpoints:
+
+$ i b
+
+Slet breakpoint nr. 3:
+
+$ d 3
+
+Udfør gdb kommandoer når breakpoint rammes:
+
+$ b *0x080487cf
+commands
+    set $eax = 0
+    continue
+end
+
+Step én instruktion:
+
+$ si
+
+Step én instruktion uden at følge subroutine kald:
+
+$ ni
+
+Fortsæt eksekvering:
+
+$ c

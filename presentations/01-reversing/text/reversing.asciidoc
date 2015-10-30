@@ -1,0 +1,557 @@
+Reversing - Calling conventions
+-------------------------------
+
+En politik som (bl.a.) definerer følgende:
+[role="incremental"]
+* Hvordan parametre leveres til subroutine kald
+* Hvem der skal rydde parametre af stakken (hvis den bruges til parametre)
+* Hvordan retur værdier leveres til kalderen
+* Hvilke registre, som skal bibeholde deres værdi gennem subroutine kald
+
+Reversing - Calling conventions - cdecl
+---------------------------------------
+
+https://en.wikipedia.org/wiki/X86_calling_conventions#cdecl
+
+[role="incremental"]
+* Parametre til subroutiner leveres (generelt) på stakken, første argument øverst
+* Den kaldende funktion rydder selv stakken op
+* Returværdien leveres (generelt) i 'eax' registeret
+* Alle registre undtagen 'eax', 'ecx' og 'edx' skal bibeholde deres værdi under subroutine kald
+
+Reversing - Argumenter og returværdi
+------------------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/arguments_and_ret.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/arguments_and_ret.s[]
+------------------------------------------------
+
+Reversing - Argumenter til funktionskald
+----------------------------------------
+
+To metoder:
+
+[role="incremental"]
+[source,asm]
+------------------------------------------------
+push 3
+push 2
+push 1
+call subroutine
+add esp, 12
+------------------------------------------------
+
+[role="incremental"]
+[source,asm]
+------------------------------------------------
+mov DWORD PTR [esp], 1
+mov DWORD PTR [esp+4], 2
+mov DWORD PTR [esp+8], 3
+call subroutine
+------------------------------------------------
+
+Reversing - Function prologue/epilogue
+--------------------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/prologue_epilogue.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/prologue_epilogue.s[]
+------------------------------------------------
+
+Reversing - Function prologue/epilogue - Inden 'push ebp'
+--------------------------------------------------------
+
+image::../images/prologue_epilogue_01.png[height=600,float="right"]
+
+[source,asm]
+------------------------------------------------
+include::../examples/prologue_epilogue.s_0[]
+------------------------------------------------
+
+Reversing - Function prologue/epilogue - Efter 'push ebp'
+--------------------------------------------------------
+
+image::../images/prologue_epilogue_02.png[height=600,float="right"]
+
+[source,asm]
+------------------------------------------------
+include::../examples/prologue_epilogue.s_1[]
+------------------------------------------------
+
+Reversing - Function prologue/epilogue - Efter 'mov ebp, esp'
+-------------------------------------------------------------
+
+image::../images/prologue_epilogue_03.png[height=600,float="right"]
+
+[source,asm]
+------------------------------------------------
+include::../examples/prologue_epilogue.s_2[]
+------------------------------------------------
+
+Reversing - Function prologue/epilogue - Efter 'sub esp, 0x30'
+--------------------------------------------------------------
+
+image::../images/prologue_epilogue_04.png[height=600,float="right"]
+
+[source,asm]
+------------------------------------------------
+include::../examples/prologue_epilogue.s_3[]
+------------------------------------------------
+
+Reversing - Function prologue/epilogue - Inden 'leave'
+------------------------------------------------------
+
+image::../images/prologue_epilogue_04.png[height=600,float="right"]
+
+[source,asm]
+------------------------------------------------
+include::../examples/prologue_epilogue.s_4[]
+------------------------------------------------
+
+Reversing - Function prologue/epilogue - Efter 'leave'
+------------------------------------------------------
+
+image::../images/prologue_epilogue_05.png[height=600,float="right"]
+
+[source,asm]
+------------------------------------------------
+include::../examples/prologue_epilogue.s_5[]
+------------------------------------------------
+
+Reversing - Betingelser - if
+----------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/condition_1.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/condition_1.s[]
+------------------------------------------------
+
+Reversing - Betingelser - if
+----------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/condition_2.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/condition_2.s[]
+------------------------------------------------
+
+Reversing - Betingelser - if
+----------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/condition_3.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/condition_3.s[]
+------------------------------------------------
+
+Reversing - Betingelser - switch
+--------------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/condition_switch.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/condition_switch.s[]
+------------------------------------------------
+
+Reversing - Loops - for
+-----------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/for_loop.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/for_loop.s[]
+------------------------------------------------
+
+Reversing - Loops - while
+-------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/while_loop.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/while_loop.s[]
+------------------------------------------------
+
+Reversing - Loops - do while
+----------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/do_while_loop.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/do_while_loop.s[]
+------------------------------------------------
+
+Reversing - Pointers
+--------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/linked_list_tail.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/linked_list_tail.s[]
+------------------------------------------------
+
+Reversing - Arrays
+------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/arrays.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/arrays.s[]
+------------------------------------------------
+
+Reversing - Structures
+----------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/structures.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/structures.s[]
+------------------------------------------------
+
+Reversing - Intrinsics
+----------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/intrinsics.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/intrinsics.s[]
+------------------------------------------------
+
+Reversing - Optimeringer
+------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/optimizations_1.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/optimizations_1.s[]
+------------------------------------------------
+
+Reversing - Optimeringer
+------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/optimizations_2.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+include::../examples/optimizations_2.s[]
+------------------------------------------------
+
+Reversing - Første opgave
+-------------------------
+
+Skriv en serienummergenerator til ProsaCrackme.bin
+
+Denne laver vi sammen og introducerer samtidig IDA Pro.
+
+Reversing - Position Independent Code - Relocations
+---------------------------------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/relocations.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+0000054b <local_function>:
+ 54b:   55                      push   ebp
+ 54c:   89 e5                   mov    ebp,esp
+ 54e:   c7 05 00 00 00 00 2a    mov    DWORD PTR ds:0x0,0x2a
+ 555:   00 00 00 
+ 558:   5d                      pop    ebp
+ 559:   c3                      ret    
+
+0000055a <relocations>:
+ 55a:   55                      push   ebp
+ 55b:   89 e5                   mov    ebp,esp
+ 55d:   e8 fc ff ff ff          call   55e <relocations+0x4>
+ 562:   5d                      pop    ebp
+ 563:   c3                      ret
+------------------------------------------------
+
+Reversing - Position Independent Code - Relocations
+---------------------------------------------------
+
+[source,sh]
+------------------------------------------------
+$ objdump -R examples/libpic.so | grep -E '(meaning_of_life)|(local_function)'
+00000550 R_386_32          meaning_of_life
+0000055e R_386_PC32        local_function
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+0000054b <local_function>:
+ 54b:   55                      push   ebp
+ 54c:   89 e5                   mov    ebp,esp
+ 54e:   c7 05 00 00 00 00 2a    mov    DWORD PTR ds:0x0,0x2a
+ 555:   00 00 00 
+ 558:   5d                      pop    ebp
+ 559:   c3                      ret    
+
+0000055a <relocations>:
+ 55a:   55                      push   ebp
+ 55b:   89 e5                   mov    ebp,esp
+ 55d:   e8 fc ff ff ff          call   55e <relocations+0x4>
+ 562:   5d                      pop    ebp
+ 563:   c3                      ret
+------------------------------------------------
+
+Reversing - Position Independent Code - Relocations
+---------------------------------------------------
+
+[source,sh]
+------------------------------------------------
+(gdb) disassemble relocations
+Dump of assembler code for function relocations:
+=> 0xf7fd655a <+0>:     push   ebp
+   0xf7fd655b <+1>:     mov    ebp,esp
+   0xf7fd655d <+3>:     call   0xf7fd654b <local_function>
+   0xf7fd6562 <+8>:     pop    ebp
+   0xf7fd6563 <+9>:     ret    
+End of assembler dump.
+(gdb) disassemble local_function
+Dump of assembler code for function local_function:
+   0xf7fd654b <+0>:     push   ebp
+   0xf7fd654c <+1>:     mov    ebp,esp
+   0xf7fd654e <+3>:     mov    DWORD PTR ds:0xf7fd801c,0x2a
+   0xf7fd6558 <+13>:    pop    ebp
+   0xf7fd6559 <+14>:    ret    
+End of assembler dump.
+(gdb)
+------------------------------------------------
+
+Reversing - Position Independent Code - PIC
+-------------------------------------------
+
+[source,c]
+------------------------------------------------
+include::../examples/pic.c[]
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+000003f0 <__x86.get_pc_thunk.bx>:
+ 3f0:	8b 1c 24             	mov    ebx,DWORD PTR [esp]
+ 3f3:	c3                   	ret    
+
+0000051b <pic_function1>:
+ 51b:	55                   	push   ebp
+ 51c:	89 e5                	mov    ebp,esp
+ 51e:	e8 24 00 00 00       	call   547 <__x86.get_pc_thunk.cx>
+ 523:	81 c1 dd 1a 00 00    	add    ecx,0x1add
+ 529:	8b 81 18 00 00 00    	mov    eax,DWORD PTR [ecx+0x18]
+ 52f:	5d                   	pop    ebp
+ 530:	c3                   	ret    
+
+00000531 <pic_function2>:
+ 531:	55                   	push   ebp
+ 532:	89 e5                	mov    ebp,esp
+ 534:	e8 0e 00 00 00       	call   547 <__x86.get_pc_thunk.cx>
+ 539:	81 c1 c7 1a 00 00    	add    ecx,0x1ac7
+ 53f:	8b 81 18 00 00 00    	mov    eax,DWORD PTR [ecx+0x18]
+ 545:	5d                   	pop    ebp
+ 546:	c3                   	ret    
+
+00000547 <__x86.get_pc_thunk.cx>:
+ 547:	8b 0c 24             	mov    ecx,DWORD PTR [esp]
+ 54a:	c3                   	ret    
+------------------------------------------------
+
+Reversing - Position Independent Code - GOT/PLT
+-----------------------------------------------
+
+[source,c]
+------------------------------------------------
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+    getpid();   
+    return 0;
+}
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+Disassembly of section .plt:
+
+080482e0 <getpid@plt-0x10>:
+ 80482e0:	ff 35 04 a0 04 08    	push   DWORD PTR ds:0x804a004
+ 80482e6:	ff 25 08 a0 04 08    	jmp    DWORD PTR ds:0x804a008
+ 80482ec:	00 00                	add    BYTE PTR [eax],al
+	...
+
+080482f0 <getpid@plt>:
+ 80482f0:	ff 25 0c a0 04 08    	jmp    DWORD PTR ds:0x804a00c
+ 80482f6:	68 00 00 00 00       	push   0x0
+ 80482fb:	e9 e0 ff ff ff       	jmp    80482e0 <_init+0x2c>
+
+0804841d <main>:
+ 804841d:	55                   	push   ebp
+ 804841e:	89 e5                	mov    ebp,esp
+ 8048420:	83 e4 f0             	and    esp,0xfffffff0
+ 8048423:	e8 c8 fe ff ff       	call   80482f0 <getpid@plt>
+ 8048428:	b8 00 00 00 00       	mov    eax,0x0
+ 804842d:	c9                   	leave  
+ 804842e:	c3                   	ret    
+ 804842f:	90                   	nop
+------------------------------------------------
+
+Reversing - Position Independent Code - GOT/PLT
+-----------------------------------------------
+
+[source,sh]
+------------------------------------------------
+$ objdump -R got_plt | grep 0804a00c
+0804a00c R_386_JUMP_SLOT   getpid
+------------------------------------------------
+
+[source,asm]
+------------------------------------------------
+Disassembly of section .plt:
+
+080482e0 <getpid@plt-0x10>:
+ 80482e0:	ff 35 04 a0 04 08    	push   DWORD PTR ds:0x804a004
+ 80482e6:	ff 25 08 a0 04 08    	jmp    DWORD PTR ds:0x804a008
+ 80482ec:	00 00                	add    BYTE PTR [eax],al
+	...
+
+080482f0 <getpid@plt>:
+ 80482f0:	ff 25 0c a0 04 08    	jmp    DWORD PTR ds:0x804a00c
+ 80482f6:	68 00 00 00 00       	push   0x0
+ 80482fb:	e9 e0 ff ff ff       	jmp    80482e0 <_init+0x2c>
+
+0804841d <main>:
+ 804841d:	55                   	push   ebp
+ 804841e:	89 e5                	mov    ebp,esp
+ 8048420:	83 e4 f0             	and    esp,0xfffffff0
+ 8048423:	e8 c8 fe ff ff       	call   80482f0 <getpid@plt>
+ 8048428:	b8 00 00 00 00       	mov    eax,0x0
+ 804842d:	c9                   	leave  
+ 804842e:	c3                   	ret    
+ 804842f:	90                   	nop
+------------------------------------------------
+
+Reversing - Position Independent Code - GOT/PLT
+-----------------------------------------------
+
+image::../images/got_plt_01.png[height=600]
+
+Reversing - Position Independent Code - GOT/PLT
+-----------------------------------------------
+
+image::../images/got_plt_02.png[height=600]
+
+Reversing - Anden opgave
+------------------------
+
+Gennemsku filformatet som ProsaFileFormat.bin benytter.
+
+Denne laver vi også sammen og ser på IDA Pros structure definitions.
+
+Ekstraopgave...der er en memory leak. Kan I finde den?
+
+Reversing - Anti debugging - Debug dig selv
+-------------------------------------------
+
+[source,c]
+------------------------------------------------
+if (ptrace(PTRACE_TRACEME, 0, 0, 0) == -1) {
+    printf("Debugging not allowed!\n");
+    exit(-1);
+}
+------------------------------------------------
+
+Reversing - Anti debugging - Crash værktøjerne
+----------------------------------------------
+
+[source,bash]
+------------------------------------------------
+$ gdb -q ./breakme                                                       
+Reading symbols from ./breakme...Segmentation fault (core dumped)
+$
+------------------------------------------------
+
+Reversing - Tredje opgave
+-------------------------
+
+ProsaBomb.bin
+
+Denne starter vi på sammen, derefter tager I resten på egen hånd eller i grupper.
+
+Reversing - Fjerde opgave
+-------------------------
+http://www.crackmes.de/users/tryger/keygen_rivendel/
+
+Hvis nogen bliver færdig med bomben.
+
+Kan findes i assignments/rivendel.zip
+
+Reversing - Hvis det er for nemt
+--------------------------------
+
+http://treasure.pwnies.dk/8c767ed2a012c16acb1b9fea94b86129/
+
+Held og lykke!

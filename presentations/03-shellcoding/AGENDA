@@ -1,0 +1,17 @@
+Simple general purpose
+    * sh
+    * bindsh
+    * connect
+    * findpeersh
+    * sendfile
+Special purpose
+    * Find krypto keys
+    * Find password
+    * Fix general purpose med "huller"
+    * Stealth...ungå crash/exit
+
+Staged
+    * Egg hunting
+    * Store payloads
+
+Bad characters og encoding (venetian, alpha-numeric, alpha-upper, shikata ga nai)

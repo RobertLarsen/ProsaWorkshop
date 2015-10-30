@@ -1,0 +1,26 @@
+Short intro to:
+* Reversing
+* Exploitation
+* Shellcoding
+
+Software you'll need
+
+Intro to pwntools
+
+Assignments:
+----Blackjack---------------------------
+Hey! check out this C implementation of blackjack game!
+I found it online
+* http://cboard.cprogramming.com/c-programming/114023-simple-blackjack-program.html
+
+I like to give my flags to millionares.
+how much money you got?
+
+
+Running at : nc pwnable.kr 9009
+----Coin1-------------------------------
+Mommy, I wanna play a game!
+(if your network response time is too slow, try nc 0 9007 inside pwnable.kr server)
+
+Running at : nc pwnable.kr 9007
+----------------------------------------

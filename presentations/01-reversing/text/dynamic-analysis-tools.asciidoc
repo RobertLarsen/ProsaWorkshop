@@ -1,0 +1,26 @@
+Dynamisk analyse værktøjer - GDB + peda
+---------------------------------------
+https://www.gnu.org/software/gdb/ https://github.com/zachriggle/peda
+
+image::../images/gdb-peda.png[]
+
+Dynamisk analyse værktøjer - strace
+-----------------------------------
+[source,bash]
+------------------------------------------------
+$ strace ./breakme 2>&1 | tail -n 8
+ptrace(PTRACE_TRACEME, 0, 0x1, 0)       = -1 EPERM (Operation not permitted)
+fstat64(1, {st_mode=S_IFIFO|0600, st_size=0, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff772a000
+write(1, "\nYou are debugging me, I don't l"..., 42
+You are debugging me, I don't like it :(
+) = 42
+exit_group(1)                           = ?
++++ exited with 1 +++
+------------------------------------------------
+
+Dynamisk analyse værktøjer - Wireshark
+--------------------------------------
+https://www.wireshark.org/
+
+image::images/wireshark.png[]
