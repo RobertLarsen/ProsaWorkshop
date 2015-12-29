@@ -8,6 +8,7 @@ presentations/*/index.html
 *.til
 *.id0
 *.id1
+*.o
 
 presentations/02-exploitation/assignments/integer_conversion
 presentations/02-exploitation/assignments/integer_overflow
