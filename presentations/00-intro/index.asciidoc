@@ -11,18 +11,4 @@ Intro til reversing, exploitation og shellcoding
 :max-width: 45em
 :data-uri:
 
-include::text/intro.asciidoc[]
-
-include::text/software.asciidoc[]
-
-include::text/wargames.asciidoc[]
-
-include::text/pwnable-cmd1.asciidoc[]
-
-include::text/pwnable-cmd2.asciidoc[]
-
-include::text/pwnable-blackjack.asciidoc[]
-
-include::text/pwntools.asciidoc[]
-
-include::text/selfstudy.asciidoc[]
+include::text/index.asciidoc[]

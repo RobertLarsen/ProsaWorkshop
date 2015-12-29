@@ -32,4 +32,4 @@ Wargames - ctftime
 ------------------
 http://ctftime.org/
 
-image::images/ctftime.png[]
+image::../images/ctftime.png[]

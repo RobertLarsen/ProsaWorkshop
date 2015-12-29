@@ -61,4 +61,4 @@ $ vagrant ssh
 
 Eller (user=vagrant password=vagrant):
 
-image::images/putty.png[]
+image::../images/putty.png[]
