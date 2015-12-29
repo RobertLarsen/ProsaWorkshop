@@ -1,0 +1,11 @@
+include::intro.asciidoc[]
+
+include::static-analysis-tools.asciidoc[]
+
+include::dynamic-analysis-tools.asciidoc[]
+
+include::i386-intro.asciidoc[]
+
+include::reversing.asciidoc[]
+
+include::readinglist.asciidoc[]
