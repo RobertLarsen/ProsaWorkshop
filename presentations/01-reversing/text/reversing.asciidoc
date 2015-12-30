@@ -543,6 +543,13 @@ Denne starter vi på sammen, derefter tager I resten på egen hånd eller i grup
 
 Reversing - Fjerde opgave
 -------------------------
+
+Første level i SmashTheStack IO er en ren reverser opgave:
+
+http://io.smashthestack.org:84/
+
+Reversing - Femte opgave
+-------------------------
 http://www.crackmes.de/users/tryger/keygen_rivendel/
 
 Hvis nogen bliver færdig med bomben.
