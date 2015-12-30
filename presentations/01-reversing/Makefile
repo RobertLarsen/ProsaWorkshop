@@ -20,7 +20,7 @@ DIS_FUNC=$(SCRIPTS_LOCATION)/disassemble_function.py
 
 all: index.html $(ASSIGNMENT_BINARIES)
 
-index.html: index.asciidoc $(EXAMPLE_ASM_FILES) $(SVG_PNG_FILES) $(PROLOGUE_FILES)
+index.html: index.asciidoc text/*.asciidoc $(EXAMPLE_ASM_FILES) $(SVG_PNG_FILES) $(PROLOGUE_FILES)
 	asciidoc $(ASCIIDOC_FLAGS) --backend slidy2 --out-file=- $< | sed -e '/id="footer"/,+6d' -e 's/next_slide(false/next_slide(true/' -e 's/previous_slide(false/previous_slide(true/' -e 's/key == 188/key == 116 || key == 27/' > $@
 
 examples/prologue_epilogue.s_0: examples/prologue_epilogue.s
