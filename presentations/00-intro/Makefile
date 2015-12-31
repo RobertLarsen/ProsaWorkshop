@@ -2,7 +2,7 @@ EXAMPLE_C_FILES=$(wildcard examples/*.c)
 EXAMPLE_ASM_FILES=$(EXAMPLE_C_FILES:.c=.s)
 SVG_FILES=$(wildcard images/*.svg)
 SVG_PNG_FILES=$(SVG_FILES:.svg=.png)
-ASCIIDOC_FLAGS=--attribute duration=5 --attribute data-uri
+ASCIIDOC_FLAGS=--attribute duration=180 --attribute data-uri
 
 .phony: watch clean all
 
