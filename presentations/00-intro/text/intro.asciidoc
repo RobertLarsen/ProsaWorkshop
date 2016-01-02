@@ -1,3 +1,13 @@
+Hakker?
+-------
+
+image::../images/trivial_question.jpg[]
+
+Hakker?
+-------
+
+image::../images/trivial_answer.jpg[]
+
 Prosas binary hacking workshop
 ------------------------------
 Aftenens formål:
