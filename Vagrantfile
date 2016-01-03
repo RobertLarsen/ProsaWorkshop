@@ -79,7 +79,6 @@ echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow --port 1000
 echo '#Last services have canaries and aslr' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion_canarie --port 10005' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canarie --port 10006' >> /tmp/rc.local
-echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' >> /tmp/rc.local
 chmod 755 /tmp/rc.local
 sudo chown root.root /tmp/rc.local
 sudo rm -f /etc/rc.local
