@@ -23,23 +23,23 @@ Formål med workshoppen:
 
 At blive istand til at løse CTF opgaver som involverer programmer i binær form
 
-ProsasCTF 2014
+ProsaCTF 2014
 --------------
 image::../images/ctf2014_teams.png[]
 
-ProsasCTF 2014
+ProsaCTF 2014
 --------------
 image::../images/ctf2014_crackme.png[]
 
-ProsasCTF 2014
+ProsaCTF 2014
 --------------
 image::../images/ctf2014_bof.png[]
 
-ProsasCTF 2014
+ProsaCTF 2014
 --------------
 image::../images/ctf2014_trampolining.png[]
 
-ProsasCTF 2014
+ProsaCTF 2014
 --------------
 image::../images/ctf2014_ret2libc.png[]
 
