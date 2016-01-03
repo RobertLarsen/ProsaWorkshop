@@ -11,7 +11,7 @@ PROLOGUE_FILES+=examples/prologue_epilogue.s_2
 PROLOGUE_FILES+=examples/prologue_epilogue.s_3
 PROLOGUE_FILES+=examples/prologue_epilogue.s_4
 PROLOGUE_FILES+=examples/prologue_epilogue.s_5
-ASCIIDOC_FLAGS=--attribute duration=240 --attribute data-uri
+ASCIIDOC_FLAGS=--attribute duration=240 --attribute data-uri --attribute stylesheet=prosa.css
 SCRIPTS_LOCATION=../../scripts
 EIP=$(SCRIPTS_LOCATION)/eip.py
 DIS_FUNC=$(SCRIPTS_LOCATION)/disassemble_function.py

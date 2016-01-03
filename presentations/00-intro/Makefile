@@ -2,7 +2,7 @@ EXAMPLE_C_FILES=$(wildcard examples/*.c)
 EXAMPLE_ASM_FILES=$(EXAMPLE_C_FILES:.c=.s)
 SVG_FILES=$(wildcard images/*.svg)
 SVG_PNG_FILES=$(SVG_FILES:.svg=.png)
-ASCIIDOC_FLAGS=--attribute duration=180 --attribute data-uri
+ASCIIDOC_FLAGS=--attribute duration=180 --attribute data-uri --attribute stylesheet=prosa.css
 
 .phony: watch clean all
 
@@ -24,4 +24,4 @@ clean:
 	rm -f index.html examples/*.s examples/*.so
 
 watch: all
-	wait_for_change Makefile *.asciidoc text/*.asciidoc | while read f; do rm -f index.html; make; done
+	wait_for_change mystyle.css Makefile *.asciidoc text/*.asciidoc | while read f; do rm -f index.html; make; done
