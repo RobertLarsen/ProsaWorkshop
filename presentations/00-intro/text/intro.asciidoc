@@ -29,6 +29,10 @@ image::../images/ctf2014_teams.png[]
 
 ProsasCTF 2014
 --------------
+image::../images/ctf2014_crackme.png[]
+
+ProsasCTF 2014
+--------------
 image::../images/ctf2014_bof.png[]
 
 ProsasCTF 2014
