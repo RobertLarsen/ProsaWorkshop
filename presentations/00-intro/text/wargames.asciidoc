@@ -10,6 +10,12 @@ http://treasure.pwnies.dk
 
 image::../images/treasure.png[]
 
+Wargames - VulnHub
+------------------
+https://www.vulnhub.com/
+
+image::../images/vulnhub.png[]
+
 Wargames - Smash The Stack
 --------------------------
 http://io.smashthestack.org/
