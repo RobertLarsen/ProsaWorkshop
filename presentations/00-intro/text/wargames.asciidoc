@@ -39,3 +39,9 @@ Wargames - ctftime
 http://ctftime.org/
 
 image::../images/ctftime.png[]
+
+Wargames - CTF Repository
+-------------------------
+http://shell-storm.org/repo/CTF/
+
+image::../images/ctf_repo.png[]
