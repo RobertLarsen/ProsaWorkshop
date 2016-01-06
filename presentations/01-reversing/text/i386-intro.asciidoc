@@ -10,34 +10,32 @@ i386 assembly - Registre
 
 CPUens interne hukommelse
 [role="incremental"]
-- EAX : Accumulator
-- EBX : Base
-- ECX : Counter
-- EDX : Data
-- ESI : Source Index
-- EDI : Destination Index
-- EBP : Base Pointer
-- ESP : Stack Pointer
-- EIP : Instruction Pointer
+- EAX (ax,ah,al): Accumulator (IO, multiplikation, division, syscall number, return value)
+- EBX (bx,bh,bl): Base (base pointer for memory access)
+- ECX (cx,ch,cl): Counter (looping and counting)
+- EDX (dx,dh,dl): Data (multiplikation, division, udviddelse af eax til 64 bit)
+- ESI : Source Index (memory reads)
+- EDI : Destination Index (memory writes)
+- EBP : Base Pointer (bund af nuværende stack frame)
+- ESP : Stack Pointer (top af nuværende stack frame)
+- EIP : Instruction Pointer (også kaldet program counter)
 - FLAGS : Flags (duh)
 
 i386 assembly - FLAGS
 ---------------------
 
-Bruges til betingede spring.
-
+Bruges til betingede spring. Der er mange, men her er de vigtigste:
 [role="incremental"]
-- CF : Carry flag (sat ved mente eller lån)
 - ZF : Zero flag (hvis resultat = 0)
+- CF : Carry flag (sat ved mente eller lån)
 - SF : Sign flag (MSB i resultat)
-- DF : Direction flag (bruges til string instruktioner)
 - OF : Overflow flag (hvis resultat overflower
        fra positiv til negativ eller omvendt)
 
 i386 assembly - Instruktioner
 -----------------------------
 
-Hvad CPUen kan gøre
+Hvad CPUen kan gøre. Igen, der er mange (CISC husker I nok), men vi kan klare os med meget få.
 
 i386 assembly - mov
 -------------------
