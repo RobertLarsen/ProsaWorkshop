@@ -164,10 +164,11 @@ i386 assembly - shl/shr
 
 'shl' = logical shift left
 
+image::../images/shl.png[]
+
 'shr' = logical shift right
 
 image::../images/shr.png[]
-image::../images/shl.png[]
 
 [source,asm]
 ------------------------------------------------
@@ -201,7 +202,11 @@ i386 assembly - ror/rol
 
 'rol' = rotate left
 
+image::../images/rol.png[]
+
 'ror' = rotate right
+
+image::../images/ror.png[]
 
 [source,asm]
 ------------------------------------------------
