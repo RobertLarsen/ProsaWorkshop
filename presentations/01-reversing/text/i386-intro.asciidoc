@@ -273,6 +273,8 @@ i386 assembly - test
 
 Er som en bitwise 'and' instruktion bortset fra at destinations registret ikke ændres.
 
+Bruges ofte til at teste for lighed.
+
 [source,asm]
 ------------------------------------------------
 test eax, eax   ; Sæt ZF hvis eax == 0, SF hvis eax < 0
@@ -283,6 +285,8 @@ i386 assembly - cmp
 -------------------
 
 Er som en 'sub' instruktion bortset fra at destinations registret ikke ændres.
+
+Bruges ofte til at teste for større end og mindre end.
 
 [source,asm]
 ------------------------------------------------
