@@ -28,6 +28,9 @@ name_watch_t * name_watch_alloc(char * file, int descriptor, name_watch_t * next
 }
 ------------------------------------------------
 
+Statisk analyse værktøjer - IDA Pro + disassembler
+--------------------------------------------------
+
 [source,c]
 ------------------------------------------------
 void *__fastcall name_watch_alloc(__int64 a1, int a2, __int64 a3) 
@@ -43,6 +46,9 @@ void *__fastcall name_watch_alloc(__int64 a1, int a2, __int64 a3)
     return result;
 }
 ------------------------------------------------
+
+Statisk analyse værktøjer - IDA Pro + disassembler
+--------------------------------------------------
 
 [source,c]
 ------------------------------------------------
