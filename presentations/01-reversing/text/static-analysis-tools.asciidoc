@@ -8,6 +8,58 @@ https://www.hex-rays.com/products/ida/support/download_demo.shtml
 
 image::../images/ida-pro.jpg[]
 
+Statisk analyse værktøjer - IDA Pro + disassembler
+--------------------------------------------------
+
+[source,c]
+------------------------------------------------
+typedef struct _name_watch_t {
+    char * file;
+    int descriptor;
+    struct _name_watch_t * next;
+} name_watch_t;
+
+name_watch_t * name_watch_alloc(char * file, int descriptor, name_watch_t * next) {
+    name_watch_t * w = malloc(sizeof(name_watch_t));
+    w->file = file;
+    w->descriptor = descriptor;
+    w->next = next;
+    return w;
+}
+------------------------------------------------
+
+[source,c]
+------------------------------------------------
+void *__fastcall name_watch_alloc(__int64 a1, int a2, __int64 a3) 
+{
+    __int64 v3; // ST08_8@1
+    void *result; // rax@1
+    
+    v3 = a3; 
+    result = malloc(0x18uLL);
+    *(_QWORD *)result = a1; 
+    *((_DWORD *)result + 2) = a2; 
+    *((_QWORD *)result + 2) = v3;
+    return result;
+}
+------------------------------------------------
+
+[source,c]
+------------------------------------------------
+name_watch_t *__fastcall name_watch_alloc(char *a1, int a2, name_watch_t *a3)
+{
+  __int64 v3; // ST08_8@1
+  name_watch_t *result; // rax@1
+
+  v3 = (__int64)a3;
+  result = (name_watch_t *)malloc(0x18uLL);
+  result->file = (__int64)a1;
+  result->descriptor = a2;
+  result->next = v3;
+  return result;
+}
+------------------------------------------------
+
 Statisk analyse værktøjer - Hopper
 ----------------------------------
 http://www.hopperapp.com/
