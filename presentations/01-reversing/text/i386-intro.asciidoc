@@ -222,6 +222,8 @@ i386 assembly - and
 
 Bitvise and. Nulstil bits.
 
+image::../images/and.png[]
+
 [source,asm]
 ------------------------------------------------
 and eax 0x0000ff00   ;Isolér 16 bits
@@ -235,6 +237,8 @@ i386 assembly - or
 
 Bitwise or. Sæt bits.
 
+image::../images/or.png[]
+
 [source,asm]
 ------------------------------------------------
 or eax, 0x80000000  ;Sæt most significant bit
@@ -244,6 +248,8 @@ i386 assembly - xor
 -------------------
 
 Bitwise exclusive or. Skift bits tilstand.
+
+image::../images/xor.png[]
 
 [source,asm]
 ------------------------------------------------
