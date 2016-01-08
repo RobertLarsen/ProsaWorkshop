@@ -19,7 +19,7 @@ CPUens interne hukommelse
 - EBP : Base Pointer (bunden af nuværende stack frame)
 - ESP : Stack Pointer (toppen af stakken, toppen af nuværende stack frame)
 - EIP : Instruction Pointer (peger på NÆSTE, ikke nuværende, instruktion)
-- FLAGS : Flags (duh)
+- FLAGS : En række boolske værdier (de vigtigste er beskrevet på næste slide)
 
 i386 assembly - FLAGS
 ---------------------
