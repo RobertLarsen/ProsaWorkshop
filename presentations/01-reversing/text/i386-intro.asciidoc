@@ -273,7 +273,7 @@ i386 assembly - test
 
 Er som en bitwise 'and' instruktion bortset fra at destinations registret ikke ændres.
 
-Bruges ofte til at teste for lighed.
+Bruges ofte til at teste for lighed og ulighed.
 
 [source,asm]
 ------------------------------------------------
@@ -286,7 +286,7 @@ i386 assembly - cmp
 
 Er som en 'sub' instruktion bortset fra at destinations registret ikke ændres.
 
-Bruges ofte til at teste for større end og mindre end.
+Bruges ofte til at teste for større end og mindre end eller lighed/ulighed.
 
 [source,asm]
 ------------------------------------------------
@@ -298,7 +298,7 @@ cmp eax, 10   ; Sæt ZF hvis eax == 10
 i386 assembly - jmp
 -------------------
 
-Betingelsesløst spring enten relativt til næste instruktion eller absolut.
+Betingelsesløst spring enten relativt til instruktionen eller absolut.
 
 [source,asm]
 ------------------------------------------------
@@ -311,7 +311,7 @@ jmp eax   ; Spring til adressen i eax
 ------------------------------------------------
 
 Spring er en kilde til forvirring, for assembleren vil oversætte 'jmp short 0' til '0xeb 0xfe' som betyder 'spring 2 tilbage'.
-Det er fordi, vi som programmører ikke bør bekymre os om størrelsen på opcoder, så vi læser springene som relative til instruktionen selv, men maskinkoden springer relativt til instruktionen efter 'jmp' instruktionen.
+Det er fordi, vi som programmører ikke bør bekymre os om størrelsen på opcoder, så vi læser og skriver springene som relative til instruktionen selv, men maskinkoden springer relativt til instruktionen efter 'jmp' instruktionen.
 
 Spring baglæns angiver typisk afslutningen af et loop, mens spring fremad er typiske for 'if' statements. IDA Pro er god til at visualisere dette.
 
@@ -324,7 +324,7 @@ http://unixwiz.net/techtips/x86-jumps.html
 
 [source,asm]
 ------------------------------------------------
-test eax, eax      ;Sæt EFLAGS ud fra EAX
+test eax, eax      ;Sæt FLAGS ud fra EAX
 je nul             ;Hvis ZF er sat så spring til 'nul' label
 ;eax is not nul    ;Gør dette, hvis eax ikke er nul
 
@@ -338,7 +338,7 @@ end:               ;Afslut
 i386 assembly - call/ret
 ------------------------
 
-'call' ligger adresse på næste instruktion på stakken og springer så til en (relativ eller absolut) adresse.
+'call' pusher adresse på næste instruktion på stakken og springer så til en (relativ eller absolut) adresse.
 
 'ret' popper adressen fra stakken ind i 'eip'.
 
