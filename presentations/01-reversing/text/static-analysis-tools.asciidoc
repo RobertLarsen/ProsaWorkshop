@@ -1,6 +1,6 @@
 Statisk analyse værktøjer - IDA Pro
 -----------------------------------
-https://www.hex-rays.com/products/ida/
+https://www.hex-rays.com/products/ida/ $1129.00 ex moms
 
 https://www.hex-rays.com/products/ida/support/download_freeware.shtml
 
@@ -68,7 +68,7 @@ name_watch_t *__fastcall name_watch_alloc(char *a1, int a2, name_watch_t *a3)
 
 Statisk analyse værktøjer - Hopper
 ----------------------------------
-http://www.hopperapp.com/
+http://www.hopperapp.com/  $89.00 incl. moms
 
 image::../images/hopper.jpg[]
 
