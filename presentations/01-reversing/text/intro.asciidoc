@@ -5,6 +5,7 @@ Hvorfor?
 - De fleste andre har bare mange binaries.
 - Du vil få bedre forståelse af software og bliver dermed en bedre programmør.
 - Du vil kunne rette i software i sin binære form.
+- Du vil (med lidt øvelse) kunne gennemskue IoT devices (hvorfor snakker dit køleskab med verden?)
 
 Typiske reverser opgaver
 ------------------------
