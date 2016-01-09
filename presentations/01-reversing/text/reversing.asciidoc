@@ -142,6 +142,26 @@ include::../examples/condition_1.c[]
 include::../examples/condition_1.s[]
 ------------------------------------------------
 
+...som svarer til:
+
+[source,c]
+------------------------------------------------
+int condition_1(int number) {
+    register int ret;
+    if (number <= 0) goto a;
+    ret = 1;
+    goto end;
+a:
+    if (number > -1) goto b;
+    ret = -1;
+    goto end;
+b:
+    ret = 0;
+end:
+    return ret;
+}
+------------------------------------------------
+
 Reversing - Betingelser - if
 ----------------------------
 
