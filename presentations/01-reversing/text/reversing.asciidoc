@@ -559,7 +559,7 @@ Reversing - Anden opgave
 
 Gennemsku filformatet som ProsaFileFormat.bin benytter.
 
-Denne laver vi også sammen og ser på IDA Pros structure definitions.
+Denne laver vi også sammen.
 
 Ekstraopgave...der er en memory leak. Kan I finde den?
 
