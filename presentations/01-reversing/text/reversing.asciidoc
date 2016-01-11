@@ -142,6 +142,24 @@ include::../examples/condition_1.c[]
 include::../examples/condition_1.s[]
 ------------------------------------------------
 
+...som svarer til:
+
+[source,c]
+------------------------------------------------
+int condition_1(int number) {
+    register int ret;
+    if (number <= 0) goto a;
+    ret = 1;
+    goto end;
+a: if (number > -1) goto b;
+    ret = -1;
+    goto end;
+b: ret = 0;
+end:
+    return ret;
+}
+------------------------------------------------
+
 Reversing - Betingelser - if
 ----------------------------
 
@@ -155,6 +173,22 @@ include::../examples/condition_2.c[]
 include::../examples/condition_2.s[]
 ------------------------------------------------
 
+...som svarer til:
+
+[source,c]
+------------------------------------------------
+int condition_2(int number) {
+    register int ret;
+    if (number <= 0) goto a;
+    if (number > 10) goto a;
+    ret = 1;
+    goto end;
+a: ret = 0;
+end:
+    return ret;    
+}
+------------------------------------------------
+
 Reversing - Betingelser - if
 ----------------------------
 
@@ -166,6 +200,22 @@ include::../examples/condition_3.c[]
 [source,asm]
 ------------------------------------------------
 include::../examples/condition_3.s[]
+------------------------------------------------
+
+...som svarer til:
+
+[source,c]
+------------------------------------------------
+int condition_3(int number) {
+    register int ret;
+    if (number > 100) goto a;
+    if (number >= -100) goto b;
+a:  ret = 1;
+    goto end;
+b:  ret = 0;
+end:
+    return ret;
+}
 ------------------------------------------------
 
 Reversing - Betingelser - switch
@@ -509,7 +559,7 @@ Reversing - Anden opgave
 
 Gennemsku filformatet som ProsaFileFormat.bin benytter.
 
-Denne laver vi også sammen og ser på IDA Pros structure definitions.
+Denne laver vi også sammen.
 
 Ekstraopgave...der er en memory leak. Kan I finde den?
 

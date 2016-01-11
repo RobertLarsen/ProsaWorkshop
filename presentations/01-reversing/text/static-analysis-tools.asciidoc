@@ -1,6 +1,6 @@
 Statisk analyse værktøjer - IDA Pro
 -----------------------------------
-https://www.hex-rays.com/products/ida/
+https://www.hex-rays.com/products/ida/ $1129.00 ex moms
 
 https://www.hex-rays.com/products/ida/support/download_freeware.shtml
 
@@ -10,7 +10,7 @@ image::../images/ida-pro.jpg[]
 
 Statisk analyse værktøjer - IDA Pro + disassembler
 --------------------------------------------------
-
+Original kode (ligger i scripts/wait_for_change.c)
 [source,c]
 ------------------------------------------------
 typedef struct _name_watch_t {
@@ -30,7 +30,7 @@ name_watch_t * name_watch_alloc(char * file, int descriptor, name_watch_t * next
 
 Statisk analyse værktøjer - IDA Pro + disassembler
 --------------------------------------------------
-
+IDAs første decompilering
 [source,c]
 ------------------------------------------------
 void *__fastcall name_watch_alloc(__int64 a1, int a2, __int64 a3) 
@@ -49,7 +49,7 @@ void *__fastcall name_watch_alloc(__int64 a1, int a2, __int64 a3)
 
 Statisk analyse værktøjer - IDA Pro + disassembler
 --------------------------------------------------
-
+Efter lidt genskabelse af strukturer
 [source,c]
 ------------------------------------------------
 name_watch_t *__fastcall name_watch_alloc(char *a1, int a2, name_watch_t *a3)
@@ -68,7 +68,7 @@ name_watch_t *__fastcall name_watch_alloc(char *a1, int a2, name_watch_t *a3)
 
 Statisk analyse værktøjer - Hopper
 ----------------------------------
-http://www.hopperapp.com/
+http://www.hopperapp.com/  $89.00 incl. moms
 
 image::../images/hopper.jpg[]
 
