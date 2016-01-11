@@ -348,6 +348,10 @@ include::../examples/optimizations_2.c[]
 include::../examples/optimizations_2.s[]
 ------------------------------------------------
 
+Reversing - Main metodens stak
+------------------------------
+image::../images/main_stack_frame.png[]
+
 Reversing - Første opgave
 -------------------------
 

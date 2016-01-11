@@ -41,6 +41,7 @@ presentations/01-reversing/examples/t
 presentations/01-reversing/examples/t.c
 presentations/01-reversing/images/got_plt_01.png
 presentations/01-reversing/images/got_plt_02.png
+presentations/01-reversing/images/main_stack_frame.png
 presentations/01-reversing/images/prologue_epilogue_01.png
 presentations/01-reversing/images/prologue_epilogue_02.png
 presentations/01-reversing/images/prologue_epilogue_03.png
