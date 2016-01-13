@@ -77,8 +77,8 @@ echo '#Next services have no canaries but aslr' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion --port 10003' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow --port 10004' >> /tmp/rc.local
 echo '#Last services have canaries and aslr' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion_canarie --port 10005' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canarie --port 10006' >> /tmp/rc.local
+echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion_canary --port 10005' >> /tmp/rc.local
+echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canary --port 10006' >> /tmp/rc.local
 echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' >> /tmp/rc.local
 chmod 755 /tmp/rc.local
 sudo chown root.root /tmp/rc.local
@@ -95,8 +95,8 @@ echo 'source ~/.repositories/peda/peda.py' >> /home/vagrant/.gdbinit
 
 echo 'export A=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion' | sudo tee -a /etc/bash.bashrc
 echo 'export B=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow' | sudo tee -a /etc/bash.bashrc
-echo 'export C=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion_canarie' | sudo tee -a /etc/bash.bashrc
-echo 'export D=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canarie' | sudo tee -a /etc/bash.bashrc
+echo 'export C=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion_canary' | sudo tee -a /etc/bash.bashrc
+echo 'export D=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary' | sudo tee -a /etc/bash.bashrc
 
 #Install Metasploit
 sudo gem2.2 install bundler
@@ -123,20 +123,20 @@ EOF
 Vagrant.configure(2) do |config|
     config.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
     config.vm.provision "shell", inline: $install, privileged: false
-    #integer_conversion no aslr no canarie
+    #integer_conversion no aslr no canary
     config.vm.network "forwarded_port", guest: 10001, host: 10001
-    #integer_overflow no aslr no canarie
+    #integer_overflow no aslr no canary
     config.vm.network "forwarded_port", guest: 10002, host: 10002
-    #integer_conversion aslr no canarie
+    #integer_conversion aslr no canary
     config.vm.network "forwarded_port", guest: 10003, host: 10003
-    #integer_overflow aslr no canarie
+    #integer_overflow aslr no canary
     config.vm.network "forwarded_port", guest: 10004, host: 10004
-    #integer_conversion aslr and canarie
+    #integer_conversion aslr and canary
     config.vm.network "forwarded_port", guest: 10005, host: 10005
-    #integer_overflow aslr and canarie
+    #integer_overflow aslr and canary
     config.vm.network "forwarded_port", guest: 10006, host: 10006
 
     #Forward a couple of  ports for debugging and playing around
     config.vm.network "forwarded_port", guest: 1337, host: 1337
     config.vm.network "forwarded_port", guest: 9876, host: 9876
-end
+ey
