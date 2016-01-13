@@ -10,34 +10,32 @@ i386 assembly - Registre
 
 CPUens interne hukommelse
 [role="incremental"]
-- EAX : Accumulator
-- EBX : Base
-- ECX : Counter
-- EDX : Data
-- ESI : Source Index
-- EDI : Destination Index
-- EBP : Base Pointer
-- ESP : Stack Pointer
-- EIP : Instruction Pointer
-- FLAGS : Flags (duh)
+- EAX (ax,ah,al): Accumulator (IO, multiplikation, division, syscall number, return value)
+- EBX (bx,bh,bl): Base (base pointer for memory access)
+- ECX (cx,ch,cl): Counter (looping and counting)
+- EDX (dx,dh,dl): Data (multiplikation, division, udviddelse af eax til 64 bit)
+- ESI : Source Index (memory reads)
+- EDI : Destination Index (memory writes)
+- EBP : Base Pointer (bunden af nuværende stack frame)
+- ESP : Stack Pointer (toppen af stakken, toppen af nuværende stack frame)
+- EIP : Instruction Pointer (peger på NÆSTE, ikke nuværende, instruktion)
+- FLAGS : En række boolske værdier (de vigtigste er beskrevet på næste slide)
 
 i386 assembly - FLAGS
 ---------------------
 
-Bruges til betingede spring.
-
+Bruges til betingede spring. Der er mange, men her er de vigtigste:
 [role="incremental"]
-- CF : Carry flag (sat ved mente eller lån)
 - ZF : Zero flag (hvis resultat = 0)
+- CF : Carry flag (sat ved mente eller lån)
 - SF : Sign flag (MSB i resultat)
-- DF : Direction flag (bruges til string instruktioner)
 - OF : Overflow flag (hvis resultat overflower
        fra positiv til negativ eller omvendt)
 
 i386 assembly - Instruktioner
 -----------------------------
 
-Hvad CPUen kan gøre
+Hvad CPUen kan gøre. Igen, der er mange (CISC husker I nok), men vi kan klare os med meget få.
 
 i386 assembly - mov
 -------------------
@@ -166,7 +164,11 @@ i386 assembly - shl/shr
 
 'shl' = logical shift left
 
+image::../images/shl.png[]
+
 'shr' = logical shift right
+
+image::../images/shr.png[]
 
 [source,asm]
 ------------------------------------------------
@@ -183,6 +185,8 @@ i386 assembly - sal/sar
 
 'sar' = arithmetic shift right
 
+image::../images/sar.png[]
+
 [source,asm]
 ------------------------------------------------
 sal eax, 2       ; eax = eax << 2
@@ -198,7 +202,11 @@ i386 assembly - ror/rol
 
 'rol' = rotate left
 
+image::../images/rol.png[]
+
 'ror' = rotate right
+
+image::../images/ror.png[]
 
 [source,asm]
 ------------------------------------------------
@@ -214,6 +222,8 @@ i386 assembly - and
 
 Bitvise and. Nulstil bits.
 
+image::../images/and.png[]
+
 [source,asm]
 ------------------------------------------------
 and eax 0x0000ff00   ;Isolér 16 bits
@@ -227,6 +237,8 @@ i386 assembly - or
 
 Bitwise or. Sæt bits.
 
+image::../images/or.png[]
+
 [source,asm]
 ------------------------------------------------
 or eax, 0x80000000  ;Sæt most significant bit
@@ -236,6 +248,8 @@ i386 assembly - xor
 -------------------
 
 Bitwise exclusive or. Skift bits tilstand.
+
+image::../images/xor.png[]
 
 [source,asm]
 ------------------------------------------------
@@ -259,6 +273,8 @@ i386 assembly - test
 
 Er som en bitwise 'and' instruktion bortset fra at destinations registret ikke ændres.
 
+Bruges ofte til at teste for lighed og ulighed.
+
 [source,asm]
 ------------------------------------------------
 test eax, eax   ; Sæt ZF hvis eax == 0, SF hvis eax < 0
@@ -270,6 +286,8 @@ i386 assembly - cmp
 
 Er som en 'sub' instruktion bortset fra at destinations registret ikke ændres.
 
+Bruges ofte til at teste for større end og mindre end eller lighed/ulighed.
+
 [source,asm]
 ------------------------------------------------
 cmp eax, 10   ; Sæt ZF hvis eax == 10
@@ -280,17 +298,20 @@ cmp eax, 10   ; Sæt ZF hvis eax == 10
 i386 assembly - jmp
 -------------------
 
-Betingelsesløst spring enten relativt til næste instruktion eller absolut.
+Betingelsesløst spring enten relativt til instruktionen eller absolut.
 
 [source,asm]
 ------------------------------------------------
-jmp short -2  ; Spring to bytes baglæns fra næste instruktion
-              ; (uendeligt loop)
-jmp eax       ; Spring til adressen i eax
+jmp 47    ; Spring relativt
+
+jmp label ; Spring til "label"
+
+label:    ; <---som er her
+jmp eax   ; Spring til adressen i eax
 ------------------------------------------------
 
 Spring er en kilde til forvirring, for assembleren vil oversætte 'jmp short 0' til '0xeb 0xfe' som betyder 'spring 2 tilbage'.
-Det er fordi, vi som programmører ikke bør bekymre os om størrelsen på opcoder, så vi læser springene som relative til instruktionen selv.
+Det er fordi, vi som programmører ikke bør bekymre os om størrelsen på opcoder, så vi læser og skriver springene som relative til instruktionen selv, men maskinkoden springer relativt til instruktionen efter 'jmp' instruktionen.
 
 Spring baglæns angiver typisk afslutningen af et loop, mens spring fremad er typiske for 'if' statements. IDA Pro er god til at visualisere dette.
 
@@ -303,7 +324,7 @@ http://unixwiz.net/techtips/x86-jumps.html
 
 [source,asm]
 ------------------------------------------------
-test eax, eax      ;Sæt EFLAGS ud fra EAX
+test eax, eax      ;Sæt FLAGS ud fra EAX
 je nul             ;Hvis ZF er sat så spring til 'nul' label
 ;eax is not nul    ;Gør dette, hvis eax ikke er nul
 
@@ -317,7 +338,7 @@ end:               ;Afslut
 i386 assembly - call/ret
 ------------------------
 
-'call' ligger adresse på næste instruktion på stakken og springer så til en (relativ eller absolut) adresse.
+'call' pusher adresse på næste instruktion på stakken og springer så til en (relativ eller absolut) adresse.
 
 'ret' popper adressen fra stakken ind i 'eip'.
 

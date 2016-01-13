@@ -11,14 +11,4 @@ Binary Reverse Engineering
 :max-width: 45em
 :data-uri:
 
-include::text/intro.asciidoc[]
-
-include::text/static-analysis-tools.asciidoc[]
-
-include::text/dynamic-analysis-tools.asciidoc[]
-
-include::text/i386-intro.asciidoc[]
-
-include::text/reversing.asciidoc[]
-
-include::text/readinglist.asciidoc[]
+include::text/index.asciidoc[]

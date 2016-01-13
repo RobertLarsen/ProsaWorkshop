@@ -31,9 +31,10 @@ else:
                 do_print = True
 
         if do_print:
-            m = re.match('^([0-9a-f]+:)\s+([0-9a-f]{2} )+\s+(.*)$', line)
+            m = re.match('^([0-9a-f]+:)\t( ?[0-9a-f]{2})+(\s+(.*))?$', line)
             if m:
-                print '%s  %s' % (m.group(1), m.group(3))
+                if not m.group(4) is None:
+                    print '%s  %s' % (m.group(1), m.group(4))
             else:
                 print line
             if line == '':

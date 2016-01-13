@@ -15,3 +15,8 @@ Staged
     * Store payloads
 
 Bad characters og encoding (venetian, alpha-numeric, alpha-upper, shikata ga nai)
+
+Brug i386.linux.connect + i386.linux.dupsh
+Brug i386.linux.findpeer + i386.linux.readfile
+
+Overskriv retur adresse med 10 bytes så man skal lave en 'jmp -100' for at ramme sin shellcode.

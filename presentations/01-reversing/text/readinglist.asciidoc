@@ -39,3 +39,10 @@ http://www.opensecuritytraining.info/IntermediateX86.html (13:28:40)
 http://www.opensecuritytraining.info/IntroductionToReverseEngineering.html (6:47:55)
 
 http://www.opensecuritytraining.info/ReverseEngineeringMalware.html (5:31:58)
+
+Selvstudie - Opgaver
+--------------------
+
+http://crackmes.de/
+
+http://challenges.re/

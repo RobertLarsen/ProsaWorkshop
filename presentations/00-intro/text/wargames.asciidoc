@@ -10,6 +10,12 @@ http://treasure.pwnies.dk
 
 image::../images/treasure.png[]
 
+Wargames - VulnHub
+------------------
+https://www.vulnhub.com/
+
+image::../images/vulnhub.png[]
+
 Wargames - Smash The Stack
 --------------------------
 http://io.smashthestack.org/
@@ -32,4 +38,10 @@ Wargames - ctftime
 ------------------
 http://ctftime.org/
 
-image::images/ctftime.png[]
+image::../images/ctftime.png[]
+
+Wargames - CTF Repository
+-------------------------
+http://shell-storm.org/repo/CTF/
+
+image::../images/ctf_repo.png[]

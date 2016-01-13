@@ -23,4 +23,4 @@ Dynamisk analyse værktøjer - Wireshark
 --------------------------------------
 https://www.wireshark.org/
 
-image::images/wireshark.png[]
+image::../images/wireshark.png[]

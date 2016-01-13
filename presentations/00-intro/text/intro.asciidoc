@@ -1,8 +1,47 @@
+Hakker?
+-------
+
+image::../images/trivial_question.jpg[]
+
+Hakker?
+-------
+
+image::../images/trivial_answer.jpg[]
+
 Prosas binary hacking workshop
 ------------------------------
-Formål:
+Aftenens formål:
+
+* At introducere emnerne for de øvrige aftener
+* At introducere den software, som vi kommer til at bruge
+* At løse et par hacker challenges
+* At introducere pwntools
+
+Prosas binary hacking workshop
+------------------------------
+Formål med workshoppen:
 
 At blive istand til at løse CTF opgaver som involverer programmer i binær form
+
+ProsaCTF 2014
+--------------
+image::../images/ctf2014_teams.png[]
+
+ProsaCTF 2014
+--------------
+image::../images/ctf2014_crackme.png[]
+
+ProsaCTF 2014
+--------------
+image::../images/ctf2014_bof.png[]
+
+ProsaCTF 2014
+--------------
+image::../images/ctf2014_trampolining.png[]
+
+ProsaCTF 2014
+--------------
+image::../images/ctf2014_ret2libc.png[]
 
 Job hos Forsvarets Efterretningstjeneste?
 -----------------------------------------

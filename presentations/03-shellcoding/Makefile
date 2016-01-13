@@ -4,7 +4,7 @@ EXAMPLE_ELF=$(EXAMPLE_ASM_FILES:.asm=.elf)
 EXAMPLE_SHELLCODE=$(EXAMPLE_ASM_FILES:.asm=.shellcode)
 SVG_FILES=$(wildcard images/*.svg)
 SVG_PNG_FILES=$(SVG_FILES:.svg=.png)
-ASCIIDOC_FLAGS=--attribute duration=240 --attribute data-uri
+ASCIIDOC_FLAGS=--attribute duration=240 --attribute data-uri --attribute stylesheet=prosa.css
 
 .phony: watch clean all
 
