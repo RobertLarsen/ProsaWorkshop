@@ -8,8 +8,8 @@ https://www.hex-rays.com/products/ida/support/download_demo.shtml
 
 image::../images/ida-pro.jpg[]
 
-Statisk analyse værktøjer - IDA Pro + disassembler
---------------------------------------------------
+Statisk analyse værktøjer - IDA Pro + decompiler
+------------------------------------------------
 Original kode (ligger i scripts/wait_for_change.c)
 [source,c]
 ------------------------------------------------
@@ -28,8 +28,8 @@ name_watch_t * name_watch_alloc(char * file, int descriptor, name_watch_t * next
 }
 ------------------------------------------------
 
-Statisk analyse værktøjer - IDA Pro + disassembler
---------------------------------------------------
+Statisk analyse værktøjer - IDA Pro + decompiler
+------------------------------------------------
 IDAs første decompilering
 [source,c]
 ------------------------------------------------
@@ -47,8 +47,8 @@ void *__fastcall name_watch_alloc(__int64 a1, int a2, __int64 a3)
 }
 ------------------------------------------------
 
-Statisk analyse værktøjer - IDA Pro + disassembler
---------------------------------------------------
+Statisk analyse værktøjer - IDA Pro + decompiler
+------------------------------------------------
 Efter lidt genskabelse af strukturer
 [source,c]
 ------------------------------------------------
