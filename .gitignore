@@ -66,4 +66,5 @@ presentations/02-exploitation/t
 presentations/02-exploitation/assignments/root*
 presentations/02-exploitation/assignments/*.bug
 presentations/02-exploitation/assignments/*_canary
+presentations/02-exploitation/assignments/*_pie
 presentations/02-exploitation/assignments/simple_login
