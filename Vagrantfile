@@ -139,4 +139,4 @@ Vagrant.configure(2) do |config|
     #Forward a couple of  ports for debugging and playing around
     config.vm.network "forwarded_port", guest: 1337, host: 1337
     config.vm.network "forwarded_port", guest: 9876, host: 9876
-ey
+end
