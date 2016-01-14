@@ -135,6 +135,10 @@ Vagrant.configure(2) do |config|
     config.vm.network "forwarded_port", guest: 10005, host: 10005
     #integer_overflow aslr and canary
     config.vm.network "forwarded_port", guest: 10006, host: 10006
+    #integer_conversion aslr, canary and pie
+    config.vm.network "forwarded_port", guest: 10007, host: 10007
+    #integer_overflow aslr, canary and pie
+    config.vm.network "forwarded_port", guest: 10008, host: 10008
 
     #Forward a couple of  ports for debugging and playing around
     config.vm.network "forwarded_port", guest: 1337, host: 1337
