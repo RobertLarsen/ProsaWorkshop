@@ -70,15 +70,23 @@ ulimit -c 100000
 echo 'vagrant     soft      core      unlimited' | sudo tee /etc/security/limits.conf
 
 echo 'cd /vagrant/presentations/02-exploitation/assignments' >> /tmp/rc.local
+echo '#First kill running assignment processes' >> /tmp/rc.local
+echo 'for file in root/assignments/*; do' >> /tmp/rc.local
+echo '    base=$(basename ${file})' >> /tmp/rc.local
+echo '    killall ${base}' >> /tmp/rc.local
+echo 'done' >> /tmp/rc.local
 echo '#First services have no canaries and no aslr' >> /tmp/rc.local
 echo 'setarch $(uname -m) -R chroot --userspec=1000:1000 root /assignments/integer_conversion --port 10001' >> /tmp/rc.local
 echo 'setarch $(uname -m) -R chroot --userspec=1000:1000 root /assignments/integer_overflow --port 10002' >> /tmp/rc.local
 echo '#Next services have no canaries but aslr' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion --port 10003' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow --port 10004' >> /tmp/rc.local
-echo '#Last services have canaries and aslr' >> /tmp/rc.local
+echo '#Next services have canaries and aslr' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion_canary --port 10005' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canary --port 10006' >> /tmp/rc.local
+echo '#Last services have canaries, aslr and pie' >> /tmp/rc.local
+echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion_canary_pie --port 10007' >> /tmp/rc.local
+echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canary_pie --port 10008' >> /tmp/rc.local
 echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' >> /tmp/rc.local
 chmod 755 /tmp/rc.local
 sudo chown root.root /tmp/rc.local
@@ -97,6 +105,8 @@ echo 'export A=/vagrant/presentations/02-exploitation/assignments/root/assignmen
 echo 'export B=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow' | sudo tee -a /etc/bash.bashrc
 echo 'export C=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion_canary' | sudo tee -a /etc/bash.bashrc
 echo 'export D=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary' | sudo tee -a /etc/bash.bashrc
+echo 'export E=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion_canary_pie' | sudo tee -a /etc/bash.bashrc
+echo 'export F=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary_pie' | sudo tee -a /etc/bash.bashrc
 
 #Install Metasploit
 sudo gem2.2 install bundler
