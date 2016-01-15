@@ -6,7 +6,8 @@ _start:
 
 b:  pop edx       ;Make edx point to /bin/bash
                   ;Do stuff
-    mov eax, 1    ;SYS_exit
+    xor eax, eax  ;Zero eax
+    inc eax       ;eax = 1 = SYS_exit
     xor ebx, ebx  ;exit code
     int 0x80      ;syscall
 
