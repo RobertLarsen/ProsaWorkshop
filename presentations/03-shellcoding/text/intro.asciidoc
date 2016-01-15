@@ -73,6 +73,8 @@ $ ndisasm -b 32 skeleton.shellcode
 00000007  CD80              int 0x80
 ------------------------------------------------
 
+...for nul bytes vil man typisk gerne undgå (hvorfor?)
+
 Skelet
 ------
 
@@ -90,6 +92,36 @@ $ ndisasm -b 32 skeleton.shellcode
 00000002  40                inc eax
 00000003  31DB              xor ebx,ebx
 00000005  CD80              int 0x80
+------------------------------------------------
+
+Og vi sparede endda to bytes!
+
+Test shellcode
+--------------
+Mange måder men jeg foretrækker denne.
+
+Terminal 1:
+[source,bash]
+------------------------------------------------
+$ strace run_shellcode32 1337
+.......
+accept(3,
+------------------------------------------------
+
+Terminal 2:
+[source,bash]
+------------------------------------------------
+$ nc localhost 1337 < skeleton.shellcode
+------------------------------------------------
+
+Terminal 1 (fortsat):
+[source,bash]
+------------------------------------------------
+......
+read(4, "1\300@1\333\315\200", 4096)    = 7
+_exit(0)                                = ?
++++ exited with 0 +++
+vagrant@localhost:~$ 
 ------------------------------------------------
 
 System kald
