@@ -17,7 +17,7 @@ images/%.png: images/%.svg
 	inkscape --export-area-drawing --export-png=$@ $<
 
 examples/%.elf: examples/%.o
-	ld -melf_i386 -o $@ $<
+	ld --strip-all -melf_i386 -o $@ $<
 
 examples/%.o: examples/%.asm
 	nasm -f elf -o $@ $<
