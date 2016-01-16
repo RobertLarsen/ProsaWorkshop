@@ -6,9 +6,9 @@ _start:
 
 b:  pop edx           ;Make edx point to string
     xor eax, eax      ;Make eax nul
-    mov [edx+5], al   ;Replace first X with a nul byte
-    mov [edx+11], al  ;Replace second X with a nul byte
-    mov [edx+17], al  ;Replace third X with a nul byte
+    mov [edx+5], al   ;Replace first X with a null byte
+    mov [edx+11], al  ;Replace second X with a null byte
+    mov [edx+17], al  ;Replace third X with a null byte
     ;Now edx points to first string
     ;Second string lies six bytes past edx
     ;Third string lies 12 bytes past edx
