@@ -134,6 +134,11 @@ I i386/Linux bruger man 'int 0x80' instruktionen til at udføre system kald, sys
 System kald
 -----------
 
+'man 2 open' giver 'open' system kaldets manual side
+
+System kald
+-----------
+
 Konstanter kan findes med 'constgrep'
 
 [source,c]
@@ -149,11 +154,6 @@ $ constgrep -c i386 SYS_open
 $ constgrep -c i386 O_RDONLY
 #define O_RDONLY 0x0
 ------------------------------------------------
-
-System kald
------------
-
-'man 2 open' giver 'open' system kaldets manual side
 
 System kald
 -----------
