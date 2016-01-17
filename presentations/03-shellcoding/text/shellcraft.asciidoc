@@ -2,6 +2,8 @@ Shellcraft
 ----------
 Shellcraft er pwntools samling af shellcode.
 
+TIP: For de interesserede ligger al shellcode under 'pwnlib/shellcraft/templates' og er skrevet i Mako templates.
+
 Shellcraft
 ----------
 Shellcraft er pwntools samling af shellcode.
