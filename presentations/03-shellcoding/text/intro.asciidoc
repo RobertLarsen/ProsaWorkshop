@@ -198,9 +198,10 @@ Eller:
 include::../examples/push_str.asm[]
 ------------------------------------------------
 
-Hello, shellcode world!
------------------------
-
+Opgave 1
+--------
 Første opgave bliver at lave en shellcode, som skriver "Hello, shellcode world!\n" til standard out.
 
-Den laver vi sammen.
+Opgave 2
+--------
+Lad os også prøve det fra et pwntools baseret exploit.
