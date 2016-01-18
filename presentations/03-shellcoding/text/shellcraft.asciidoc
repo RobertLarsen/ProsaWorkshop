@@ -1,0 +1,44 @@
+Shellcraft
+----------
+Shellcraft er pwntools samling af shellcode.
+
+TIP: For de interesserede ligger al shellcode under 'pwnlib/shellcraft/templates' og er skrevet i Mako templates.
+
+Shellcraft
+----------
+Shellcraft er pwntools samling af shellcode.
+
+[source,bash]
+------------------------------------------------
+$ shellcraft | grep i386.linux
+i386.linux.acceptloop_ipv4
+i386.linux.connect
+i386.linux.connectstager
+....
+i386.linux.sh
+i386.linux.stager
+i386.linux.syscall
+------------------------------------------------
+
+Byggeklodser really, plus et par færdigbyggede klar-til-brug.
+
+Shellcraft
+----------
+
+'findpeer' er en ret fantastisk byggeklods.
+
+[source,bash]
+------------------------------------------------
+$ shellcraft i386.linux.findpeer -?                           
+Args: port (defaults to any port)
+    Finds a socket, which is connected to the specified port.
+    Leaves socket in ESI.
+------------------------------------------------
+
+Opgave 3
+--------
+Opgave tre bliver at udbygge opgave to til at sende "Hello world" tilbage til os over vores eksisterende forbindelse.
+
+Opgave 4
+--------
+Opgave tre lavet fuldstændig med shellcraft byggeklodser.
