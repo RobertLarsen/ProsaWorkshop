@@ -50,8 +50,8 @@ Skær alt unødvendigt væk fra opgave fire.
 Standard single stage shellcodes
 --------------------------------
 
-* shell (til lokale exploits)
-* bind
+* sh (til lokale exploits)
+* bind (branch i386-bindshell tilføjer den)
 * connectback
 * findpeer
 * readfile
