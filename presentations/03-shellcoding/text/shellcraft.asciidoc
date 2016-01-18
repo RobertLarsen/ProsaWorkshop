@@ -41,4 +41,8 @@ Opgave tre bliver at udbygge opgave to til at sende "Hello world" tilbage til os
 
 Opgave 4
 --------
-Opgave tre lavet fuldstændig med shellcraft byggeklodser.
+Lav opgave tre fuldstændig med shellcraft byggeklodser.
+
+Opgave 5
+--------
+Skær alt unødvendigt væk fra opgave fire.
