@@ -46,3 +46,12 @@ Lav opgave tre fuldstændig med shellcraft byggeklodser.
 Opgave 5
 --------
 Skær alt unødvendigt væk fra opgave fire.
+
+Standard single stage shellcodes
+--------------------------------
+
+* shell (til lokale exploits)
+* bind
+* connectback
+* findpeer
+* readfile
