@@ -115,6 +115,29 @@ cd $HOME/.repositories/metasploit-framework
 bundle install
 sudo chmod -R a+r /var/lib/gems/2.2.0/gems
 echo 'export PATH=$PATH:$HOME/.repositories/metasploit-framework' >> $HOME/.bashrc
+echo 'export EDITOR=vim'                        >> $HOME/.bashrc
+echo 'function pwn(){'                          >> $HOME/.bashrc
+echo '    if [[ "${1}" == "" ]]; then'          >> $HOME/.bashrc
+echo '        fname=exploit.py'                 >> $HOME/.bashrc
+echo '    else'                                 >> $HOME/.bashrc
+echo '        fname="${1}"'                     >> $HOME/.bashrc
+echo '    fi'                                   >> $HOME/.bashrc
+echo '    if test -f "${fname}"; then'          >> $HOME/.bashrc
+echo '        echo "${fname} already exists."'  >> $HOME/.bashrc
+echo '        false'                            >> $HOME/.bashrc
+echo '    else'                                 >> $HOME/.bashrc
+echo '        touch "${fname}"'                 >> $HOME/.bashrc
+echo '        chmod +x "${fname}"'              >> $HOME/.bashrc
+echo '        cat > "${fname}"<<EOF'            >> $HOME/.bashrc
+echo '#!/usr/bin/env python2'                   >> $HOME/.bashrc
+echo ''                                         >> $HOME/.bashrc
+echo 'from pwn import *'                        >> $HOME/.bashrc
+echo ''                                         >> $HOME/.bashrc
+echo 'context(arch = "i386", os = "linux")'     >> $HOME/.bashrc
+echo 'EOF'                                      >> $HOME/.bashrc
+echo '        ${EDITOR} "${fname}" +'           >> $HOME/.bashrc
+echo '    fi'                                   >> $HOME/.bashrc
+echo '}'                                        >> $HOME/.bashrc
 
 #Install RunShellcode
 git_clone https://github.com/RobertLarsen/RunShellcode.git
@@ -132,6 +155,9 @@ EOF
 
 Vagrant.configure(2) do |config|
     config.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
+    config.vm.provider "virtualbox" do |v|
+        v.memory = 1024
+    end
     config.vm.provision "shell", inline: $install, privileged: false
     #integer_conversion no aslr no canary
     config.vm.network "forwarded_port", guest: 10001, host: 10001
