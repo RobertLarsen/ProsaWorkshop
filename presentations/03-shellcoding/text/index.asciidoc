@@ -1,3 +1,7 @@
 include::intro.asciidoc[]
 
 include::shellcraft.asciidoc[]
+
+include::challenges.asciidoc[]
+
+include::staged.asciidoc[]

