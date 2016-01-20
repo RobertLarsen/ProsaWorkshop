@@ -30,7 +30,11 @@ mkdir .repositories
 
 function git_clone(){
     base=$(basename "${1}" | sed 's/\.git//g')
-    git clone "${1}" ${MY_HOME}/.repositories/"${base}"
+    if test -n "${3}"; then
+        git clone -b "${3}" "${1}" ${MY_HOME}/.repositories/"${base}"
+    else
+        git clone "${1}" ${MY_HOME}/.repositories/"${base}"
+    fi
     if test -n "${2}"; then
         ln -s ${MY_HOME}/.repositories/"${base}" "${2}"/"${base}"
     fi
@@ -43,7 +47,7 @@ git_clone https://github.com/RobertLarsen/WorkstationSetup.git
 HOME=$MY_HOME USER=$MY_NAME bash .repositories/WorkstationSetup/vim.sh
 
 #Install pwntools + dependencies
-git_clone https://github.com/Gallopsled/pwntools.git ${MY_HOME}
+git_clone https://github.com/Gallopsled/pwntools.git ${MY_HOME} i386-bindshell
 cd pwntools
 sudo pip2 install -r requirements.txt
 sudo python setup.py install
