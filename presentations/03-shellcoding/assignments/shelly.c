@@ -13,6 +13,25 @@ typedef void (*shellcode_t)();
 #define PORT 54527
 #define EXECUTE_SHELLCODE(x) ((shellcode_t)x)()
 
+int read_full(int socket, void * buf, size_t count) {
+    size_t total = 0;
+    ssize_t r;
+    while (total < count && (r = read(socket, ((char*)buf) + total, count - total)) > 0) {
+        if (r <= 0) return 0;
+        total += r;
+    }
+    return 1;
+}
+
+int read_int(int socket, int * value) {
+    char buffer[32];
+    if (read(socket, buffer, sizeof(buffer)) <= 0) {
+        return 0;
+    }
+    *value = atoi(buffer);
+    return 1;
+}
+
 int execute_256(int socket) {
     char buffer[256];
     dprintf(socket, "Now give me up to %d bytes shellcode which I will execute.\n", sizeof(buffer));
@@ -24,10 +43,56 @@ int execute_256(int socket) {
 }
 
 int avoid_chars(int socket) {
+    char buffer[256];
+    unsigned char bad[] = { 0x00, 0x0a, 0x0d, 0x20, 0x3d, 0x3b };
+    int i, j;
+    dprintf(socket, "Give up to %d bytes shellcode...I don't accept these: ", sizeof(buffer));
+    for (i = 0; i < sizeof(bad); i++) {
+        dprintf(socket, i == sizeof(bad) - 1 ? "0x%02x\n" : "0x%02x, ", bad[i]);
+    }
+    for (i = 0; i < sizeof(buffer); i++) {
+        if (read(socket, buffer + i, 1) <= 0) {
+            return 0;
+        }
+        for (j = 0; j < sizeof(bad); j++) {
+            if (buffer[i] == bad[j]) {
+                buffer[i] = 0;
+                EXECUTE_SHELLCODE(buffer);
+                goto done;
+            }
+        }
+    }
+done:
     return 1;
 }
 
 int required_constants(int socket) {
+    typedef struct {
+        char name[32];
+        enum { MALE = 0, FEMALE = 1, OTHER = 2 } gender;
+    } user_t;
+    
+    #define MAX_USERS_PER_CHUNK 8
+
+    user_t users[MAX_USERS_PER_CHUNK];
+    int num_users, i;
+
+    dprintf(socket, "Now tell me how many user objects I should read.\n");
+    if (read_int(socket, &num_users)) {
+        if (num_users > 0 && num_users <= MAX_USERS_PER_CHUNK) {
+            if (read_full(socket, users, num_users * sizeof(user_t))) {
+                /* Now make sure that all genders are sane */
+                for (i = 0; i < num_users; i++) {
+                    if (!(users[i].gender == MALE || users[i].gender == FEMALE || users[i].gender == OTHER)) {
+                        dprintf(socket, "User object %d had an unsupported gender: %d\n", i, users[i].gender);
+                        return 0;
+                    }
+                }
+                EXECUTE_SHELLCODE(users);
+            }
+        }
+    }
+
     return 1;
 }
 
@@ -61,7 +126,7 @@ int stack_hunting(int socket) {
 
 void handle_client(int socket) {
     char buffer[4];
-    int again = 1;
+    int again = 1, choice;
     while (again) {
         dprintf(socket, "Choose from the menu:\n");
         dprintf(socket, " 1) Execute up to 256 bytes shellcode\n");
@@ -75,12 +140,8 @@ void handle_client(int socket) {
         dprintf(socket, " 9) Go egg hunting\n");
         dprintf(socket, "10) Go stack hunting\n");
         dprintf(socket, "11) Exit\n");
-        
-        if (read(socket, buffer, sizeof(buffer)) <= 0) {
-            again = 0;
-        } else {
-            buffer[3] = '\0';
-            switch (atoi(buffer)) {
+        if (read_int(socket, &choice)) {
+            switch (choice) {
                 case 1:  again = execute_256(socket);           break;
                 case 2:  again = avoid_chars(socket);           break;
                 case 3:  again = required_constants(socket);    break;
@@ -94,6 +155,8 @@ void handle_client(int socket) {
                 case 11: again = again = 0;                     break;
                 default: dprintf(socket, "Unknown command\n");  break;
             }
+        } else {
+            again = 0;
         }
     }
 }
