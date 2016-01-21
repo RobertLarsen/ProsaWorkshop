@@ -164,6 +164,20 @@ int egg_hunting(int socket) {
 }
 
 int stack_hunting(int socket) {
+#define STACK_HUNTER_SIZE 20
+    char buffer[256];
+    char hunter[rand() & 0xfff + STACK_HUNTER_SIZE];
+    dprintf(socket, "Put some shellcode on the stack.\n");
+    if (read(socket, buffer, sizeof(buffer)) <= 0) {
+        return 0;
+    }
+    dprintf(socket, "Now give me a stack hunter...you get %d bytes", STACK_HUNTER_SIZE);
+    if (read(socket, hunter, STACK_HUNTER_SIZE) <= 0) {
+        return 0;
+    }
+
+    EXECUTE_SHELLCODE(hunter);
+    
     return 1;
 }
 
@@ -295,6 +309,7 @@ int main(int argc, char *argv[]) {
         daemon(0, 0);
     }
 
+    srand(time(NULL) ^ getpid());
     accept_loop(server, handle_client);
 
     return 0;
