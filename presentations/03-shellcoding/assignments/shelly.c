@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -109,10 +110,35 @@ int trampoline_few_bytes(int socket) {
 }
 
 int printable_shellcode(int socket) {
+    char buffer[256];
+    int i;
+
+    dprintf(socket, "I will allow a %d byte shellcode but I will break on the first non printable character received. On newline I will execute.\n", sizeof(buffer));
+    for (i = 0; i < sizeof(buffer); i++) {
+        if (read(socket, buffer + i, 1) <= 0) {
+            return 0;
+        }
+
+        if (buffer[i] == '\n') {
+            EXECUTE_SHELLCODE(buffer);
+        }
+
+        if (!isgraph(buffer[i])) {
+            return 0;
+        }
+    }
+
     return 1;
 }
 
 int large_in_64(int socket) {
+    char buffer[64];
+    dprintf(socket, "Try fitting a large shellcode, say 10.000 bytes, into a %d byte buffer.\n", sizeof(buffer));
+    if (read(socket, buffer, sizeof(buffer)) <= 0) {
+        return 0;
+    }
+    EXECUTE_SHELLCODE(buffer);
+
     return 1;
 }
 
