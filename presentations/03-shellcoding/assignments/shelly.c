@@ -143,6 +143,23 @@ int large_in_64(int socket) {
 }
 
 int egg_hunting(int socket) {
+#define EGG_SHELLCODE_SIZE 256
+#define EGG_HUNTER_SIZE 40
+    char egghunter[EGG_HUNTER_SIZE];
+    void * shellcode = malloc(EGG_SHELLCODE_SIZE);
+    dprintf(socket, "First get me up to %d bytes for a shellcode.\n", EGG_SHELLCODE_SIZE);
+    if (read(socket, shellcode, EGG_SHELLCODE_SIZE) <= 0) {
+        free(shellcode);
+        return 0;
+    }
+    dprintf(socket, "Now give me an egg hunter...max size %d bytes!\n", EGG_HUNTER_SIZE);
+    if (read(socket, egghunter, EGG_HUNTER_SIZE) <= 0) {
+        free(shellcode);
+        return 0;
+    }
+    shellcode = NULL;
+    EXECUTE_SHELLCODE(egghunter);
+
     return 1;
 }
 
