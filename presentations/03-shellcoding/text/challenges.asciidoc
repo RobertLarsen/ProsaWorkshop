@@ -4,6 +4,39 @@ Nogen gange kan man ikke bare bruge en standard shellcode.
 
 Her følger et par eksempler på udfordinger.
 
+Udfordringer - Shelly
+---------------------
+De er implementeret i programmet 'shelly' som ligger i 'assignments'.
+
+[source,bash]
+------------------------------------------------
+$ strace ./assignments/shelly --debug --port 1337
+....
+listen(3, 10)                           = 0
+getpid()                                = 5290
+accept(3,
+------------------------------------------------
+
+Udfordringer - Shelly
+---------------------
+[source,bash]
+------------------------------------------------
+$ nc localhost 1337
+Hello there. How may I help you?
+Choose from the menu:
+ 1) Execute up to 256 bytes shellcode
+ 2) Avoid certain chars
+ 3) Required constants
+ 4) Read pointers
+ 5) Write pointers
+ 6) Trampoline can only execute few bytes
+ 7) Shellcode needs to be printable
+ 8) Try fitting a 10000 byte shellcode into 64 bytes
+ 9) Go egg hunting
+10) Go stack hunting
+11) Exit
+------------------------------------------------
+
 Udfordringer - Filtre (bad chars)
 ---------------------------------
 [source,c]
