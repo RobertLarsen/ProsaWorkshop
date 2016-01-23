@@ -1,23 +1,72 @@
 Stages
 ------
+Fra WikiPedia:
+
+"When the amount of data that an attacker can inject into the target process is too limited to execute useful shellcode directly, it may be possible to execute it in stages. First, a small piece of shellcode (stage 1) is executed. This code then downloads a larger piece of shellcode (stage 2) into the process's memory and executes it."
 
 Stages - Store shellcodes
 -------------------------
+[source,bash]
+------------------------------------------------
+ 8) Try fitting a 10000 byte shellcode into 64 bytes
+------------------------------------------------
 [source,c]
 ------------------------------------------------
 include::../assignments/large_in_64[]
 ------------------------------------------------
 
+Stages - Store shellcodes
+-------------------------
+[source,python]
+------------------------------------------------
+LARGE_SHELLCODE = asm(shellcraft.nop()) * 10000 +\
+                  asm(shellcraft.findpeersh())
+------------------------------------------------
+
+[source,bash]
+------------------------------------------------
+$ shellcraft i386.linux.stager -?
+Recives a fixed sized payload into a mmaped buffer
+Useful in conjuncion with findpeer.
+Args:
+    sock, the socket to read the payload from.
+    size, the size of the payload
+------------------------------------------------
+
 Stages - Egg hunting
 --------------------
+[source,bash]
+------------------------------------------------
+ 9) Go egg hunting
+------------------------------------------------
 [source,c]
 ------------------------------------------------
 include::../assignments/egg_hunting[]
 ------------------------------------------------
 
+TIP: Læs 'papers/egghunt-shellcode.pdf'
+
 Stages - Stack hunting
 ----------------------
+[source,bash]
+------------------------------------------------
+10) Go stack hunting
+------------------------------------------------
 [source,c]
 ------------------------------------------------
 include::../assignments/stack_hunting[]
+------------------------------------------------
+
+Stages - Stack hunting
+----------------------
+'pwntools' stackhunter til i386 er KUNST!!!
+[source,bash]
+------------------------------------------------
+$ shellcraft i386.stackhunter | disasm -c i386
+   0:   3d 58 eb fc 7a          cmp    eax,0x7afceb58
+   5:   75 fa                   jne    0x1
+   7:   ff e4                   jmp    esp
+$ echo -en '\x58\xeb\xfc' | disasm -c i386                                            
+   0:   58                      pop    eax
+   1:   eb fc                   jmp    0xffffffff
 ------------------------------------------------

