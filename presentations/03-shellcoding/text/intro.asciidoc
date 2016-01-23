@@ -90,6 +90,28 @@ $ ndisasm -b 32 skeleton.shellcode
 
 Og vi sparede endda to bytes!
 
+Alternativer
+------------
+Der er stort set altid flere måder at opnå det samme.
+
+F.eks. nulstilling af 'eax':
+[source,asm]
+------------------------------------------------
+mov eax, 0
+
+xor eax, eax
+
+sub eax, eax
+
+xor ebx, ebx
+mov eax, ebx
+
+xor ebx, ebx
+mul ebx
+
+...sikkert flere
+------------------------------------------------
+
 Test shellcode
 --------------
 Mange måder men jeg foretrækker denne.
