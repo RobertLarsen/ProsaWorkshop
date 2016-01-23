@@ -252,11 +252,11 @@ void handle_client(int socket) {
     while (again) {
         dprintf(socket, "Choose from the menu:\n");
         dprintf(socket, " 1) Execute up to 256 bytes shellcode\n");
-        dprintf(socket, " 2) Avoid certain chars\n");
-        dprintf(socket, " 3) Required constants\n");
-        dprintf(socket, " 4) Read pointers\n");
-        dprintf(socket, " 5) Write pointers\n");
-        dprintf(socket, " 6) Trampoline can only execute few bytes\n");
+        dprintf(socket, " 2) Trampoline can only execute few bytes\n");
+        dprintf(socket, " 3) Read pointers\n");
+        dprintf(socket, " 4) Write pointers\n");
+        dprintf(socket, " 5) Required constants\n");
+        dprintf(socket, " 6) Avoid certain chars\n");
         dprintf(socket, " 7) Shellcode needs to be printable\n");
         dprintf(socket, " 8) Try fitting a 10000 byte shellcode into 64 bytes\n");
         dprintf(socket, " 9) Go egg hunting\n");
@@ -264,15 +264,15 @@ void handle_client(int socket) {
         dprintf(socket, "11) Exit\n");
         if (read_int(socket, &choice)) {
             switch (choice) {
-                case 1:  again = execute_256(socket);           break;
-                case 2:  again = avoid_chars(socket);           break;
-                case 3:  again = required_constants(socket);    break;
-                case 4:  again = read_pointers(socket);         break;
-                case 5:  again = write_pointers(socket);        break;
-                case 6:  again = trampoline_few_bytes(socket);  break;
-                case 7:  again = printable_shellcode(socket);   break;
-                case 8:  again = large_in_64(socket);           break;
-                case 9:  again = egg_hunting(socket);           break;
+                case  1: again = execute_256(socket);           break;
+                case  2: again = trampoline_few_bytes(socket);  break;
+                case  3: again = read_pointers(socket);         break;
+                case  4: again = write_pointers(socket);        break;
+                case  5: again = required_constants(socket);    break;
+                case  6: again = avoid_chars(socket);           break;
+                case  7: again = printable_shellcode(socket);   break;
+                case  8: again = large_in_64(socket);           break;
+                case  9: again = egg_hunting(socket);           break;
                 case 10: again = stack_hunting(socket);         break;
                 case 11: again = again = 0;                     break;
                 default: dprintf(socket, "Unknown command\n");  break;

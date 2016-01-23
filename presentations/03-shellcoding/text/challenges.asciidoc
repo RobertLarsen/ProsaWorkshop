@@ -25,11 +25,11 @@ $ nc localhost 1337
 Hello there. How may I help you?
 Choose from the menu:
  1) Execute up to 256 bytes shellcode
- 2) Avoid certain chars
- 3) Required constants
- 4) Read pointers
- 5) Write pointers
- 6) Trampoline can only execute few bytes
+ 2) Trampoline can only execute few bytes
+ 3) Read pointers
+ 4) Write pointers
+ 5) Required constants
+ 6) Avoid certain chars
  7) Shellcode needs to be printable
  8) Try fitting a 10000 byte shellcode into 64 bytes
  9) Go egg hunting
