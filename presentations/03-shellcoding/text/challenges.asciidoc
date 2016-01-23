@@ -6,18 +6,38 @@ Her følger et par eksempler på udfordinger.
 
 Udfordringer - Filtre (bad chars)
 ---------------------------------
+[source,c]
+------------------------------------------------
+include::../assignments/avoid_chars[]
+------------------------------------------------
 
 Udfordringer - Krævede konstanter
 ---------------------------------
+[source,c]
+------------------------------------------------
+include::../assignments/required_constants[]
+------------------------------------------------
 
 Udfordringer - Læste pointer
 ----------------------------
+[source,c]
+------------------------------------------------
+include::../assignments/read_pointers[]
+------------------------------------------------
 
 Udfordringer - Skrevne pointere
 -------------------------------
+[source,c]
+------------------------------------------------
+include::../assignments/write_pointers[]
+------------------------------------------------
 
 Udfordringer - 'ESP' + meget få bytes
 -------------------------------------
+[source,c]
+------------------------------------------------
+include::../assignments/trampoline_few_bytes[]
+------------------------------------------------
 
 [source,python]
 ------------------------------------------------
@@ -30,3 +50,7 @@ PAYLOAD += asm('jmp -%d' % len(PAYLOAD))
 
 Udfordringer - Printable
 ------------------------
+[source,c]
+------------------------------------------------
+include::../assignments/printable_shellcode[]
+------------------------------------------------
