@@ -39,31 +39,102 @@ Choose from the menu:
 
 Udfordringer - 'ESP' + meget få bytes
 -------------------------------------
+[source,bash]
+------------------------------------------------
+ 2) Trampoline can only execute few bytes
+------------------------------------------------
+
+Typisk for off-by-a-few bugs.
 [source,c]
 ------------------------------------------------
 include::../assignments/trampoline_few_bytes[]
 ------------------------------------------------
 
+Udfordringer - 'ESP' + meget få bytes
+-------------------------------------
+Typisk for off-by-a-few bugs.
+
+image:../images/off-by-a-few.png[]
+
+Udfordringer - 'ESP' + meget få bytes
+-------------------------------------
+Typisk for off-by-a-few bugs.
+
+image:../images/off-by-a-few-solution.png[]
+
+Short jumps (+127/-128) kan gøres på to bytes, skal man længere fylder det fem bytes.
+
 Udfordringer - Læste pointer
 ----------------------------
+[source,bash]
+------------------------------------------------
+ 3) Read pointers
+------------------------------------------------
 [source,c]
 ------------------------------------------------
 include::../assignments/read_pointers[]
 ------------------------------------------------
 
+Udfordringer - Læste pointer
+----------------------------
+image:../images/read_pointer.png[]
+
+Udfordringer - Læste pointer
+----------------------------
+image:../images/read_pointer-solution.png[]
+
+I en ikke position independent executable:
+[source,bash]
+------------------------------------------------
+$ cat /proc/12708/maps | grep shelly
+08048000-0804a000 r-xp 00000000 fc:01 3553329   ...
+0804b000-0804c000 r-xp 00002000 fc:01 3553329   ...
+0804c000-0804d000 rwxp 00003000 fc:01 3553329   ...
+------------------------------------------------
+
 Udfordringer - Skrevne pointere
 -------------------------------
+[source,bash]
+------------------------------------------------
+ 4) Write pointers
+------------------------------------------------
 [source,c]
 ------------------------------------------------
 include::../assignments/write_pointers[]
 ------------------------------------------------
 
+Udfordringer - Skrevne pointere
+-------------------------------
+image:../images/write_pointer.png[]
+
+Udfordringer - Skrevne pointere
+-------------------------------
+image:../images/write_pointer-solution.png[]
+
+I en ikke position independent executable:
+[source,bash]
+------------------------------------------------
+$ cat /proc/12708/maps | grep shelly
+08048000-0804a000 r-xp 00000000 fc:01 3553329   ...
+0804b000-0804c000 r-xp 00002000 fc:01 3553329   ...
+0804c000-0804d000 rwxp 00003000 fc:01 3553329   ...
+------------------------------------------------
+
 Udfordringer - Krævede konstanter
 ---------------------------------
+[source,bash]
+------------------------------------------------
+ 5) Required constants
+------------------------------------------------
+
 [source,c]
 ------------------------------------------------
 include::../assignments/required_constants[]
 ------------------------------------------------
+
+Udfordringer - Krævede konstanter
+---------------------------------
+image:../images/required_constants-solution.png[width="800"]
 
 Udfordringer - Filtre (bad chars)
 ---------------------------------
