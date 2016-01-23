@@ -64,7 +64,7 @@ assignments/shelly: assignments/shelly.c
 clean:
 	rm -rf index.html $(SVG_PNG_FILES) $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) $(EXAMPLE_OBJECTS)
 
-watch: all
+watch: all $(IMPLS)
 	wait_for_change Makefile *.asciidoc text/*.asciidoc examples/*.asm | while read f; do rm -f index.html; make; done
 
 watch_shelly: assignments/shelly
