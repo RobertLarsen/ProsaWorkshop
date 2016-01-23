@@ -1,0 +1,10 @@
+Custom shellcode
+----------------
+ProsaCTF 2013 Tree Traverse opgaven (nu til 32 bit).
+
+Læs opgavebeskrivelsen her:
+http://ctf2013.the-playground.dk/index.php?page=tree-traverse
+
+Dog, istedet for at pointer til roden ligger i 'rdi' registret ligger det nu på 'esp + 4' i hukommelsen.
+
+Lytter på 'localhost:9191'
