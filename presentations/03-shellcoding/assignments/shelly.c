@@ -33,6 +33,7 @@ int read_int(int socket, int * value) {
     return 1;
 }
 
+/* execute_256 STARTS HERE */
 int execute_256(int socket) {
     char buffer[256];
     dprintf(socket, "Now give me up to %d bytes shellcode which I will execute.\n", sizeof(buffer));
@@ -42,7 +43,9 @@ int execute_256(int socket) {
     EXECUTE_SHELLCODE(buffer);
     return 1;
 }
+/* execute_256 ENDS HERE */
 
+/* avoid_chars STARTS HERE */
 int avoid_chars(int socket) {
     char buffer[256];
     unsigned char bad[] = { 0x00, 0x0a, 0x0d, 0x20, 0x3d, 0x3b };
@@ -66,7 +69,9 @@ int avoid_chars(int socket) {
 done:
     return 1;
 }
+/* avoid_chars ENDS HERE */
 
+/* required_constants STARTS HERE */
 int required_constants(int socket) {
     typedef struct {
         char name[32];
@@ -81,6 +86,7 @@ int required_constants(int socket) {
     dprintf(socket, "Now tell me how many user objects I should read.\n");
     if (read_int(socket, &num_users)) {
         if (num_users > 0 && num_users <= MAX_USERS_PER_CHUNK) {
+            dprintf(socket, "Fine, I will now expect %d bytes from you.\n", num_users * sizeof(user_t));
             if (read_full(socket, users, num_users * sizeof(user_t))) {
                 /* Now make sure that all genders are sane */
                 for (i = 0; i < num_users; i++) {
@@ -96,19 +102,38 @@ int required_constants(int socket) {
 
     return 1;
 }
+/* required_constants ENDS HERE */
 
+/* read_pointers STARTS HERE */
 int read_pointers(int socket) {
     return 1;
 }
+/* read_pointers ENDS HERE */
 
+/* write_pointers STARTS HERE */
 int write_pointers(int socket) {
     return 1;
 }
+/* write_pointers ENDS HERE */
 
+/* trampoline_few_bytes STARTS HERE */
 int trampoline_few_bytes(int socket) {
+    struct {
+        char buffer[256];
+        int last;
+    } shellcode;
+
+    dprintf(socket, "I will now read %d bytes from you but I will only execute the last %d bytes!\n", sizeof(shellcode), sizeof(shellcode.last));
+    if (read(socket, &shellcode, sizeof(shellcode)) <= 0) {
+        return 0;
+    }
+    EXECUTE_SHELLCODE(&shellcode.last);
+
     return 1;
 }
+/* trampoline_few_bytes ENDS HERE */
 
+/* printable_shellcode STARTS HERE */
 int printable_shellcode(int socket) {
     char buffer[256];
     int i;
@@ -130,7 +155,9 @@ int printable_shellcode(int socket) {
 
     return 1;
 }
+/* printable_shellcode ENDS HERE */
 
+/* large_in_64 STARTS HERE */
 int large_in_64(int socket) {
     char buffer[64];
     dprintf(socket, "Try fitting a large shellcode, say 10.000 bytes, into a %d byte buffer.\n", sizeof(buffer));
@@ -141,7 +168,9 @@ int large_in_64(int socket) {
 
     return 1;
 }
+/* large_in_64 ENDS HERE */
 
+/* egg_hunting STARTS HERE */
 int egg_hunting(int socket) {
 #define EGG_SHELLCODE_SIZE 256
 #define EGG_HUNTER_SIZE 40
@@ -162,16 +191,18 @@ int egg_hunting(int socket) {
 
     return 1;
 }
+/* egg_hunting ENDS HERE */
 
+/* stack_hunting STARTS HERE */
 int stack_hunting(int socket) {
-#define STACK_HUNTER_SIZE 20
+#define STACK_HUNTER_SIZE 10
     char buffer[256];
     char hunter[rand() & 0xfff + STACK_HUNTER_SIZE];
     dprintf(socket, "Put some shellcode on the stack.\n");
     if (read(socket, buffer, sizeof(buffer)) <= 0) {
         return 0;
     }
-    dprintf(socket, "Now give me a stack hunter...you get %d bytes", STACK_HUNTER_SIZE);
+    dprintf(socket, "Now give me a stack hunter...you get %d bytes.\n", STACK_HUNTER_SIZE);
     if (read(socket, hunter, STACK_HUNTER_SIZE) <= 0) {
         return 0;
     }
@@ -180,6 +211,7 @@ int stack_hunting(int socket) {
     
     return 1;
 }
+/* stack_hunting ENDS HERE */
 
 void handle_client(int socket) {
     char buffer[4];
