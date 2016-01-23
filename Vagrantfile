@@ -134,6 +134,7 @@ echo '        touch "${fname}"'                 >> $HOME/.bashrc
 echo '        chmod +x "${fname}"'              >> $HOME/.bashrc
 echo '        cat > "${fname}"<<EOF'            >> $HOME/.bashrc
 echo '#!/usr/bin/env python2'                   >> $HOME/.bashrc
+echo '# -*- coding: utf-8 -*-'                  >> $HOME/.bashrc
 echo ''                                         >> $HOME/.bashrc
 echo 'from pwn import *'                        >> $HOME/.bashrc
 echo ''                                         >> $HOME/.bashrc
