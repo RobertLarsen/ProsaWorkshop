@@ -71,7 +71,7 @@ assignments/root: assignments/treebuilder
 	head -c 20 /dev/urandom | md5sum | awk '{print $$1}' > assignments/flag
 
 clean:
-	rm -rf index.html $(SVG_PNG_FILES) $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) $(EXAMPLE_OBJECTS)
+	rm -rf index.html $(SVG_PNG_FILES) $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) $(EXAMPLE_OBJECTS) assignments/root assignments/shelly assignments/treebuilder $(IMPLS)
 
 watch: all $(IMPLS)
 	wait_for_change Makefile *.asciidoc text/*.asciidoc examples/*.asm | while read f; do rm -f index.html; make; done
