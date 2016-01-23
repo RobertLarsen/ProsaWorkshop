@@ -10,7 +10,7 @@ CFLAGS=-m32 -z execstack -fno-stack-protector -Wno-deprecated-declarations
 
 .phony: watch clean all
 
-all: index.html $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) assignments/shelly
+all: index.html $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) assignments/shelly assignments/treebuilder
 
 assignments/execute_256: assignments/shelly.c
 	awk '/execute_256 STARTS/{flag=1;next}/execute_256 ENDS/{flag=0}flag' $< > $@
@@ -60,6 +60,9 @@ examples/%.shellcode: examples/%.asm
 
 assignments/shelly: assignments/shelly.c
 	$(CC) $(CFLAGS) -o $@ $^
+
+assignments/treebuilder: assignments/treebuilder.c
+	$(CC) -m32 -fPIC -pie -ggdb -o $@ $^
 
 clean:
 	rm -rf index.html $(SVG_PNG_FILES) $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) $(EXAMPLE_OBJECTS)
