@@ -91,6 +91,8 @@ echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canary --po
 echo '#Last services have canaries, aslr and pie' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion_canary_pie --port 10007' >> /tmp/rc.local
 echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canary_pie --port 10008' >> /tmp/rc.local
+echo 'cd /vagrant/presentations/03-shellcoding/assignments' >> /tmp/rc.local
+echo 'cat flag | chroot --userspec=1000:1000 root /assignments/treebuilder' >> /tmp/rc.local
 echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' >> /tmp/rc.local
 chmod 755 /tmp/rc.local
 sudo chown root.root /tmp/rc.local
@@ -180,6 +182,9 @@ Vagrant.configure(2) do |config|
     config.vm.network "forwarded_port", guest: 10007, host: 10007
     #integer_overflow aslr, canary and pie
     config.vm.network "forwarded_port", guest: 10008, host: 10008
+
+    #TreeTraverse shellcode challenge
+    config.vm.network "forwarded_port", guest: 9191, host: 9191
 
     #Forward a couple of  ports for debugging and playing around
     config.vm.network "forwarded_port", guest: 1337, host: 1337
