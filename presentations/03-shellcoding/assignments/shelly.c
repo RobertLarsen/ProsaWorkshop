@@ -106,12 +106,45 @@ int required_constants(int socket) {
 
 /* read_pointers STARTS HERE */
 int read_pointers(int socket) {
+    struct {
+        char buffer1[10];
+        int * debugging;
+        char buffer2[128];
+    } data;
+    data.debugging = &debug;
+
+    dprintf(socket, "Write %d bytes which I will execute, but beware...I WILL read that pointer!\n", sizeof(data));
+    if (read(socket, &data, sizeof(data)) <= 0) {
+        return 0;
+    }
+
+    if (*data.debugging) {
+        dprintf(socket, "Debugging is turned on.\n");
+    }
+    EXECUTE_SHELLCODE(&data);
+
     return 1;
 }
 /* read_pointers ENDS HERE */
 
 /* write_pointers STARTS HERE */
 int write_pointers(int socket) {
+    struct {
+        char buffer1[10];
+        int * debugging;
+        char buffer2[128];
+    } data;
+    data.debugging = &debug;
+
+    dprintf(socket, "Write %d bytes which I will execute, but beware...I WILL write that pointer!\n", sizeof(data));
+    if (read(socket, &data, sizeof(data)) <= 0) {
+        return 0;
+    }
+
+    *data.debugging = 1;
+    dprintf(socket, "We just turned debugging on.\n");
+    EXECUTE_SHELLCODE(&data);
+
     return 1;
 }
 /* write_pointers ENDS HERE */
