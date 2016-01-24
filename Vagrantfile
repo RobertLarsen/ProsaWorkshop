@@ -79,6 +79,7 @@ echo 'for file in root/assignments/*; do' >> /tmp/rc.local
 echo '    base=$(basename ${file})' >> /tmp/rc.local
 echo '    killall ${base}' >> /tmp/rc.local
 echo 'done' >> /tmp/rc.local
+echo 'killall treebuilder' >> /tmp/rc.local
 echo '#First services have no canaries and no aslr' >> /tmp/rc.local
 echo 'setarch $(uname -m) -R chroot --userspec=1000:1000 root /assignments/integer_conversion --port 10001' >> /tmp/rc.local
 echo 'setarch $(uname -m) -R chroot --userspec=1000:1000 root /assignments/integer_overflow --port 10002' >> /tmp/rc.local
