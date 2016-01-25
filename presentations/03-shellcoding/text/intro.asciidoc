@@ -140,6 +140,17 @@ _exit(0)                                = ?
 vagrant@localhost:~$ 
 ------------------------------------------------
 
+Test shellcode
+--------------
+Her er et par gode instruktioner at kende:
+
+[source,asm]
+------------------------------------------------
+nop  ; No OPeration, har opcode 0x90
+
+int3 ; Software breakpoint, har opcode 0xcc
+------------------------------------------------
+
 System kald
 -----------
 Typisk skal shellcode "bare" udføre en stribe system kald med de rigtige argumenter.
