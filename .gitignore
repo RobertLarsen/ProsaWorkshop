@@ -59,12 +59,13 @@ presentations/01-reversing/index.xml
 presentations/01-reversing/passphrase
 presentations/01-reversing/structure
 presentations/01-reversing/structure.i64
-presentations/01-reversing/t
-presentations/01-reversing/t.c
-presentations/02-exploitation/t
 
 presentations/02-exploitation/assignments/root*
 presentations/02-exploitation/assignments/*.bug
 presentations/02-exploitation/assignments/*_canary
 presentations/02-exploitation/assignments/*_pie
 presentations/02-exploitation/assignments/simple_login
+
+presentations/03-shellcoding/assignments/root
+
+upload.sh
