@@ -5,7 +5,7 @@ Fra WikiPedia:
 "When the amount of data that an attacker can inject into the target process is too limited to execute useful shellcode directly, it may be possible to execute it in stages. First, a small piece of shellcode (stage 1) is executed. This code then downloads a larger piece of shellcode (stage 2) into the process's memory and executes it."
 
 Opgave 12 - Store shellcodes
--------------------------
+----------------------------
 [source,bash]
 ------------------------------------------------
  8) Try fitting a 10000 byte shellcode into 64 bytes
@@ -16,7 +16,7 @@ include::../assignments/large_in_64[]
 ------------------------------------------------
 
 Opgave 12 - Store shellcodes
--------------------------
+----------------------------
 [source,python]
 ------------------------------------------------
 LARGE_SHELLCODE = asm(shellcraft.nop()) * 10000 +\
@@ -34,7 +34,7 @@ Args:
 ------------------------------------------------
 
 Opgave 13 - Egg hunting
---------------------
+-----------------------
 [source,bash]
 ------------------------------------------------
  9) Go egg hunting
@@ -47,7 +47,7 @@ include::../assignments/egg_hunting[]
 TIP: Læs 'papers/egghunt-shellcode.pdf'
 
 Opgave 14 - Stack hunting
-----------------------
+-------------------------
 [source,bash]
 ------------------------------------------------
 10) Go stack hunting
@@ -58,7 +58,7 @@ include::../assignments/stack_hunting[]
 ------------------------------------------------
 
 Opgave 14 - Stack hunting
-----------------------
+-------------------------
 'pwntools' stackhunter til i386 er KUNST!!!
 [source,bash]
 ------------------------------------------------

