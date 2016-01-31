@@ -37,7 +37,7 @@ Choose from the menu:
 11) Exit
 ------------------------------------------------
 
-Udfordringer - 'ESP' + meget få bytes
+Opgave 6 - 'ESP' + meget få bytes
 -------------------------------------
 [source,bash]
 ------------------------------------------------
@@ -50,13 +50,13 @@ Typisk for off-by-a-few bugs.
 include::../assignments/trampoline_few_bytes[]
 ------------------------------------------------
 
-Udfordringer - 'ESP' + meget få bytes
+Opgave 6 - 'ESP' + meget få bytes
 -------------------------------------
 Typisk for off-by-a-few bugs.
 
 image:../images/off-by-a-few.png[]
 
-Udfordringer - 'ESP' + meget få bytes
+Opgave 6 - 'ESP' + meget få bytes
 -------------------------------------
 Typisk for off-by-a-few bugs.
 
@@ -64,7 +64,7 @@ image:../images/off-by-a-few-solution.png[]
 
 Short jumps (+127/-128) kan gøres på to bytes, skal man længere fylder det fem bytes.
 
-Udfordringer - Læste pointer
+Opgave 7 - Læste pointer
 ----------------------------
 [source,bash]
 ------------------------------------------------
@@ -75,11 +75,11 @@ Udfordringer - Læste pointer
 include::../assignments/read_pointers[]
 ------------------------------------------------
 
-Udfordringer - Læste pointer
+Opgave 7 - Læste pointer
 ----------------------------
 image:../images/read_pointer.png[]
 
-Udfordringer - Læste pointer
+Opgave 7 - Læste pointer
 ----------------------------
 image:../images/read_pointer-solution.png[]
 
@@ -92,7 +92,7 @@ $ cat /proc/12708/maps | grep shelly
 0804c000-0804d000 rwxp 00003000 fc:01 3553329   ...
 ------------------------------------------------
 
-Udfordringer - Skrevne pointere
+Opgave 8 - Skrevne pointere
 -------------------------------
 [source,bash]
 ------------------------------------------------
@@ -103,11 +103,11 @@ Udfordringer - Skrevne pointere
 include::../assignments/write_pointers[]
 ------------------------------------------------
 
-Udfordringer - Skrevne pointere
+Opgave 8 - Skrevne pointere
 -------------------------------
 image:../images/write_pointer.png[]
 
-Udfordringer - Skrevne pointere
+Opgave 8 - Skrevne pointere
 -------------------------------
 image:../images/write_pointer-solution.png[]
 
@@ -120,7 +120,7 @@ $ cat /proc/12708/maps | grep shelly
 0804c000-0804d000 rwxp 00003000 fc:01 3553329   ...
 ------------------------------------------------
 
-Udfordringer - Krævede konstanter
+Opgave 9 - Krævede konstanter
 ---------------------------------
 [source,bash]
 ------------------------------------------------
@@ -132,11 +132,11 @@ Udfordringer - Krævede konstanter
 include::../assignments/required_constants[]
 ------------------------------------------------
 
-Udfordringer - Krævede konstanter
+Opgave 9 - Krævede konstanter
 ---------------------------------
 image:../images/required_constants-solution.png[width="800"]
 
-Udfordringer - Filtre (bad chars)
+Opgave 10 - Filtre (bad chars)
 ---------------------------------
 [source,bash]
 ------------------------------------------------
@@ -147,11 +147,11 @@ Udfordringer - Filtre (bad chars)
 include::../assignments/avoid_chars[]
 ------------------------------------------------
 
-Udfordringer - Filtre (bad chars)
+Opgave 10 - Filtre (bad chars)
 ---------------------------------
 image:../images/encoder_decoder.png[]
 
-Udfordringer - Filtre (bad chars)
+Opgave 10 - Filtre (bad chars)
 ---------------------------------
 [source,bash]
 ------------------------------------------------
@@ -168,7 +168,7 @@ buf += "\x5b\x14\xe3\x6f\x6d\x4c\xef\xd7\xf4\x5c\x6f"
 
 Det er lidt forskelligt hvor meget Shikata Ga Nai decoderen fylder, men omkring 25-30 bytes. Hver byte i den oprindelige shellcode tilføjer én enkodet byte.
 
-Udfordringer - Printable
+Opgave 11 - Printable
 ------------------------
 [source,bash]
 ------------------------------------------------
@@ -179,7 +179,7 @@ Udfordringer - Printable
 include::../assignments/printable_shellcode[]
 ------------------------------------------------
 
-Udfordringer - Printable
+Opgave 11 - Printable
 ------------------------
 [source,bash]
 ------------------------------------------------

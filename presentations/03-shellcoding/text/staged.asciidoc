@@ -4,7 +4,7 @@ Fra WikiPedia:
 
 "When the amount of data that an attacker can inject into the target process is too limited to execute useful shellcode directly, it may be possible to execute it in stages. First, a small piece of shellcode (stage 1) is executed. This code then downloads a larger piece of shellcode (stage 2) into the process's memory and executes it."
 
-Stages - Store shellcodes
+Opgave 12 - Store shellcodes
 -------------------------
 [source,bash]
 ------------------------------------------------
@@ -15,7 +15,7 @@ Stages - Store shellcodes
 include::../assignments/large_in_64[]
 ------------------------------------------------
 
-Stages - Store shellcodes
+Opgave 12 - Store shellcodes
 -------------------------
 [source,python]
 ------------------------------------------------
@@ -33,7 +33,7 @@ Args:
     size, the size of the payload
 ------------------------------------------------
 
-Stages - Egg hunting
+Opgave 13 - Egg hunting
 --------------------
 [source,bash]
 ------------------------------------------------
@@ -46,7 +46,7 @@ include::../assignments/egg_hunting[]
 
 TIP: Læs 'papers/egghunt-shellcode.pdf'
 
-Stages - Stack hunting
+Opgave 14 - Stack hunting
 ----------------------
 [source,bash]
 ------------------------------------------------
@@ -57,7 +57,7 @@ Stages - Stack hunting
 include::../assignments/stack_hunting[]
 ------------------------------------------------
 
-Stages - Stack hunting
+Opgave 14 - Stack hunting
 ----------------------
 'pwntools' stackhunter til i386 er KUNST!!!
 [source,bash]
