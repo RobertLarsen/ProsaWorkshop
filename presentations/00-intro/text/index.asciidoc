@@ -10,6 +10,8 @@ include::pwnable-cmd2.asciidoc[]
 
 include::pwnable-blackjack.asciidoc[]
 
+include::pwnable-lotto.asciidoc[]
+
 include::pwntools.asciidoc[]
 
 include::selfstudy.asciidoc[]
