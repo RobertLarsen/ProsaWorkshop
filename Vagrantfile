@@ -155,6 +155,8 @@ sudo gcc      -o /usr/bin/run_shellcode64 run_shellcode.c
 
 sudo gcc -o /usr/bin/wait_for_change /vagrant/scripts/wait_for_change.c
 
+cp /vagrant/scripts/tmux.conf /home/vagrant/.tmux.conf
+
 echo vagrant:vagrant | sudo chpasswd
 
 POST=$(date +%s)
