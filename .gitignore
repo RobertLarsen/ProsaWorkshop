@@ -67,5 +67,26 @@ presentations/02-exploitation/assignments/*_pie
 presentations/02-exploitation/assignments/simple_login
 
 presentations/03-shellcoding/assignments/root
+presentations/03-shellcoding/assignments/avoid_chars
+presentations/03-shellcoding/assignments/egg_hunting
+presentations/03-shellcoding/assignments/execute_256
+presentations/03-shellcoding/assignments/flag
+presentations/03-shellcoding/assignments/large_in_64
+presentations/03-shellcoding/assignments/printable_shellcode
+presentations/03-shellcoding/assignments/read_pointers
+presentations/03-shellcoding/assignments/required_constants
+presentations/03-shellcoding/assignments/shelly
+presentations/03-shellcoding/assignments/stack_hunting
+presentations/03-shellcoding/assignments/trampoline_few_bytes
+presentations/03-shellcoding/assignments/treebuilder
+presentations/03-shellcoding/assignments/write_pointers
+presentations/03-shellcoding/images/encoder_decoder.png
+presentations/03-shellcoding/images/off-by-a-few-solution.png
+presentations/03-shellcoding/images/off-by-a-few.png
+presentations/03-shellcoding/images/read_pointer-solution.png
+presentations/03-shellcoding/images/read_pointer.png
+presentations/03-shellcoding/images/required_constants-solution.png
+presentations/03-shellcoding/images/write_pointer-solution.png
+presentations/03-shellcoding/images/write_pointer.png
 
 upload.sh
