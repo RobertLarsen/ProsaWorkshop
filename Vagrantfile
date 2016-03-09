@@ -22,7 +22,7 @@ sudo -E apt-get -y install git python-pip python-dev build-essential \
     gcc-multilib libc6-i386 libc6-dev-i386 inkscape qemu-user-static \
     libreadline-dev libssl-dev libpq-dev nmap libreadline5 ruby2.2   \
     libsqlite3-dev libpcap-dev openjdk-7-jre autoconf postgresql nasm\
-    pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev
+    pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev dos2unix
 
 sudo update-alternatives --set ruby /usr/bin/ruby2.2
 
@@ -63,6 +63,7 @@ wget https://asciidoc-slidy2-backend-plugin.googlecode.com/svn/downloads/slidy2-
 asciidoc --backend install slidy2-v1.0.4.zip
 ln -s /vagrant/presentations/prosa.css /home/vagrant/.asciidoc/backends/slidy2
 
+dos2unix /vagrant/scripts/make_chroot.sh
 cd /vagrant/presentations
 for file in */; do
     cd ${file}
