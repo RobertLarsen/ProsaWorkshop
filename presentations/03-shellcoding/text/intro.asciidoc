@@ -187,7 +187,7 @@ Der kan man se, at 'exit' har system kald nr. 1 og at exit code skal i 'ebx', li
 
 Hvor er vi?
 -----------
-Som sagt skal shellcode være position independent, men bærer den data skal den vide, hvor de er.
+Som sagt skal shellcode være position independent, men bærer den data, skal den vide, hvor de er.
 
 Her er et trick:
 
