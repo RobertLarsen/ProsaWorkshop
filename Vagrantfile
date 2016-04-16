@@ -143,6 +143,8 @@ echo ''                                         >> $HOME/.bashrc
 echo 'from pwn import *'                        >> $HOME/.bashrc
 echo ''                                         >> $HOME/.bashrc
 echo 'context(arch = "i386", os = "linux")'     >> $HOME/.bashrc
+echo ''                                         >> $HOME/.bashrc
+echo 'SHELLCODE = asm(shellcraft.findpeersh())' >> $HOME/.bashrc
 echo 'EOF'                                      >> $HOME/.bashrc
 echo '        ${EDITOR} "${fname}" +'           >> $HOME/.bashrc
 echo '    fi'                                   >> $HOME/.bashrc
