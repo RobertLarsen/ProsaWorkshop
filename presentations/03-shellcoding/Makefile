@@ -9,9 +9,11 @@ ASCIIDOC_FLAGS=--attribute duration=240 --attribute data-uri --attribute stylesh
 CFLAGS=-m32 -z execstack -fno-stack-protector -Wno-deprecated-declarations 
 MAKE_CHROOT=../../scripts/make_chroot.sh
 
-.phony: watch clean all
+.phony: watch clean all no_presentation
 
-all: index.html $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) assignments/shelly assignments/root
+all: index.html no_presentation
+
+no_presentation: $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) assignments/shelly assignments/root
 
 assignments/execute_256: assignments/shelly.c
 	awk '/execute_256 STARTS/{flag=1;next}/execute_256 ENDS/{flag=0}flag' $< > $@

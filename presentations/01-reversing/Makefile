@@ -16,9 +16,11 @@ SCRIPTS_LOCATION=../../scripts
 EIP=$(SCRIPTS_LOCATION)/eip.py
 DIS_FUNC=$(SCRIPTS_LOCATION)/disassemble_function.py
 
-.phony: watch clean all encrypt-assignments
+.phony: watch clean all encrypt-assignments no_presentation
 
-all: index.html $(ASSIGNMENT_BINARIES)
+all: index.html no_presentation
+
+no_presentation: $(ASSIGNMENT_BINARIES)
 
 index.html: index.asciidoc text/*.asciidoc $(EXAMPLE_ASM_FILES) $(SVG_PNG_FILES) $(PROLOGUE_FILES)
 	asciidoc $(ASCIIDOC_FLAGS) --backend slidy2 --out-file=- $< | sed -e '/id="footer"/,+6d' -e 's/next_slide(false/next_slide(true/' -e 's/previous_slide(false/previous_slide(true/' -e 's/key == 188/key == 116 || key == 27/' > $@

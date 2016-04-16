@@ -18,11 +18,11 @@ sudo -E apt-get -y update
 sudo -E apt-get -y upgrade
 sudo -E apt-get -y install git python-pip python-dev build-essential \
     python-software-properties gdb curl vim exuberant-ctags pyflakes \
-    cmake clang-3.5 realpath asciidoc tmux source-highlight libpq5   \
+    cmake clang-3.5 realpath tmux source-highlight libpq5 dos2unix   \
     gcc-multilib libc6-i386 libc6-dev-i386 inkscape qemu-user-static \
     libreadline-dev libssl-dev libpq-dev nmap libreadline5 ruby2.2   \
     libsqlite3-dev libpcap-dev openjdk-7-jre autoconf postgresql nasm\
-    pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev dos2unix
+    pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev 
 
 sudo update-alternatives --set ruby /usr/bin/ruby2.2
 
@@ -58,16 +58,23 @@ sudo apt-add-repository --yes ppa:pwntools/binutils
 sudo apt-get update
 sudo apt-get install binutils-{arm,i386,mips}-linux-gnu
 
-cd /tmp
-wget https://asciidoc-slidy2-backend-plugin.googlecode.com/svn/downloads/slidy2-v1.0.4.zip
-asciidoc --backend install slidy2-v1.0.4.zip
-ln -s /vagrant/presentations/prosa.css /home/vagrant/.asciidoc/backends/slidy2
+if test -f /vagrant/build_asciidoc; then
+    sudo -E apt-get -y install asciidoc
+    cd /tmp
+    wget https://asciidoc-slidy2-backend-plugin.googlecode.com/svn/downloads/slidy2-v1.0.4.zip
+    asciidoc --backend install slidy2-v1.0.4.zip
+    ln -s /vagrant/presentations/prosa.css /home/vagrant/.asciidoc/backends/slidy2
+fi
 
 dos2unix /vagrant/scripts/make_chroot.sh
 cd /vagrant/presentations
 for file in */; do
     cd ${file}
-    make
+    if test -f /vagrant/build_asciidoc; then
+        make all
+    else
+        make no_presentation
+    fi
     cd ..
 done
 

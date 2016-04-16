@@ -4,7 +4,7 @@ typedef struct {     /* Size in bytes * Packed index * Aligned index */
     char first;      /*      1        *        0     *       0       */ 
     int second;      /*      4        *        1     *       4       */
     short third;     /*      2        *        5     *       8       */
-    long long fourth;/*      8        *        7     *      16       */
+    long long fourth;/*      8        *        7     *      12       */
 } /* __attribute__((packed)) */ some_struct_t;
 
 some_struct_t global;
