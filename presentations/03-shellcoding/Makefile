@@ -69,7 +69,7 @@ assignments/treebuilder: assignments/treebuilder.c
 
 assignments/root: assignments/treebuilder
 	$(MAKE_CHROOT) $@/ $^ /bin/bash /bin/ls /bin/cat /usr/bin/id
-	ln -s bash $@/bin/sh
+	cp $@/bin/bash $@/bin/sh
 	head -c 20 /dev/urandom | md5sum | awk '{print $$1}' > assignments/flag
 
 clean:
