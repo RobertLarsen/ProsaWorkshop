@@ -9,6 +9,7 @@ presentations/*/index.html
 *.id0
 *.id1
 *.o
+build_asciidoc
 
 presentations/02-exploitation/assignments/integer_conversion
 presentations/02-exploitation/assignments/integer_overflow
