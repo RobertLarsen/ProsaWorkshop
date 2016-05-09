@@ -22,7 +22,8 @@ sudo -E apt-get -y install git python-pip python-dev build-essential \
     gcc-multilib libc6-i386 libc6-dev-i386 inkscape qemu-user-static \
     libreadline-dev libssl-dev libpq-dev nmap libreadline5 ruby2.2   \
     libsqlite3-dev libpcap-dev openjdk-7-jre autoconf postgresql nasm\
-    pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev 
+    pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev radare2 \
+    python3-pip
 
 sudo update-alternatives --set ruby /usr/bin/ruby2.2
 
@@ -122,6 +123,7 @@ echo 'export C=/vagrant/presentations/02-exploitation/assignments/root/assignmen
 echo 'export D=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary' | sudo tee -a /etc/bash.bashrc
 echo 'export E=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion_canary_pie' | sudo tee -a /etc/bash.bashrc
 echo 'export F=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary_pie' | sudo tee -a /etc/bash.bashrc
+echo 'export TERM=xterm-256color' | sudo tee -a /etc/bash.bashrc
 
 #Install Metasploit
 sudo gem2.2 install bundler
@@ -162,6 +164,14 @@ git_clone https://github.com/RobertLarsen/RunShellcode.git
 cd $HOME/.repositories/RunShellcode
 sudo gcc -m32 -o /usr/bin/run_shellcode32 run_shellcode.c
 sudo gcc      -o /usr/bin/run_shellcode64 run_shellcode.c
+
+#Install plasma
+git_clone https://github.com/joelpx/plasma.git
+cd $HOME/.repositories/plasma
+sudo pip3 install future
+./requirements.sh
+python3 setup.py build_ext
+sudo python3 setup.py install
 
 sudo gcc -o /usr/bin/wait_for_change /vagrant/scripts/wait_for_change.c
 
