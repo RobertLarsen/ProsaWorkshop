@@ -51,6 +51,7 @@ HOME=$MY_HOME USER=$MY_NAME bash .repositories/WorkstationSetup/vim.sh
 git_clone https://github.com/Gallopsled/pwntools.git ${MY_HOME} i386-bindshell
 cd pwntools
 sudo pip2 install -r requirements.txt
+sudo pip2 install --upgrade paramiko==1.15.2
 sudo python setup.py install
 cd ${MY_HOME}
 
