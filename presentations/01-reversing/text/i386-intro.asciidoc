@@ -226,7 +226,7 @@ image::../images/and.png[]
 
 [source,asm]
 ------------------------------------------------
-and eax 0x0000ff00   ;Isolér 16 bits
+and eax 0x0000ff00   ;Isolér 8 bits
                      ;Måske den grønne komponent i ARGB
 
 and eax, ebx
