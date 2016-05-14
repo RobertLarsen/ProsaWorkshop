@@ -118,3 +118,8 @@ http://www.radare.org/r/
 
 image::../images/webui-graph.png[]
 
+Statisk analyse værktøjer - plasma
+----------------------------------
+https://github.com/joelpx/plasma
+
+image::../images/plasma.png[]
