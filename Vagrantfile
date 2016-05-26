@@ -169,10 +169,7 @@ sudo gcc      -o /usr/bin/run_shellcode64 run_shellcode.c
 #Install plasma
 git_clone https://github.com/joelpx/plasma.git
 cd $HOME/.repositories/plasma
-sudo pip3 install future
-./requirements.sh
-python3 setup.py build_ext
-sudo python3 setup.py install
+bash install.sh
 
 sudo gcc -o /usr/bin/wait_for_change /vagrant/scripts/wait_for_change.c
 
