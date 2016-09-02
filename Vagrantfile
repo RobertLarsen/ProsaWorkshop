@@ -48,7 +48,7 @@ git_clone https://github.com/RobertLarsen/WorkstationSetup.git
 HOME=$MY_HOME USER=$MY_NAME bash .repositories/WorkstationSetup/vim.sh
 
 #Install pwntools + dependencies
-git_clone https://github.com/Gallopsled/pwntools.git ${MY_HOME} i386-bindshell
+git_clone https://github.com/Gallopsled/pwntools.git ${MY_HOME}
 cd pwntools
 sudo pip2 install -r requirements.txt
 sudo pip2 install --upgrade paramiko==1.17.0
