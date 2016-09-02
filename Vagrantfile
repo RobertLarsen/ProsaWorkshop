@@ -63,8 +63,8 @@ sudo apt-get install binutils-{arm,i386,mips}-linux-gnu
 if test -f /vagrant/build_asciidoc; then
     sudo -E apt-get -y install asciidoc
     cd /tmp
-    wget https://asciidoc-slidy2-backend-plugin.googlecode.com/svn/downloads/slidy2-v1.0.4.zip
-    asciidoc --backend install slidy2-v1.0.4.zip
+    wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-slidy2-backend-plugin/slidy2-v1.0.3.zip
+    asciidoc --backend install slidy2-v1.0.3.zip
     ln -s /vagrant/presentations/prosa.css /home/vagrant/.asciidoc/backends/slidy2
 fi
 
