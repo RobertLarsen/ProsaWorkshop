@@ -3,8 +3,6 @@
 
 $install = <<EOF
 PRE=$(date +%s)
-MY_NAME=vagrant
-MY_HOME=/home/${MY_NAME}
 
 export DEBIAN_FRONTEND=noninteractive
 #Use DK archives
@@ -23,21 +21,22 @@ sudo -E apt-get -y install git python-pip python-dev build-essential \
     libreadline-dev libssl-dev libpq-dev nmap libreadline5 ruby2.2   \
     libsqlite3-dev libpcap-dev openjdk-7-jre autoconf postgresql nasm\
     pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev radare2 \
-    python3-pip
+    python3-pip docker.io
 
 sudo update-alternatives --set ruby /usr/bin/ruby2.2
+sudo usermod -aG docker vagrant
 
 mkdir .repositories
 
 function git_clone(){
     base=$(basename "${1}" | sed 's/\.git//g')
     if test -n "${3}"; then
-        git clone -b "${3}" "${1}" ${MY_HOME}/.repositories/"${base}"
+        git clone -b "${3}" "${1}" ${HOME}/.repositories/"${base}"
     else
-        git clone "${1}" ${MY_HOME}/.repositories/"${base}"
+        git clone "${1}" ${HOME}/.repositories/"${base}"
     fi
     if test -n "${2}"; then
-        ln -s ${MY_HOME}/.repositories/"${base}" "${2}"/"${base}"
+        ln -s ${HOME}/.repositories/"${base}" "${2}"/"${base}"
     fi
 }
 
@@ -45,15 +44,15 @@ function git_clone(){
 git_clone https://github.com/RobertLarsen/WorkstationSetup.git
 
 #Install Vim
-HOME=$MY_HOME USER=$MY_NAME bash .repositories/WorkstationSetup/vim.sh
+bash .repositories/WorkstationSetup/vim.sh
 
 #Install pwntools + dependencies
-git_clone https://github.com/Gallopsled/pwntools.git ${MY_HOME}
+git_clone https://github.com/Gallopsled/pwntools.git ${HOME}
 cd pwntools
 sudo pip2 install -r requirements.txt
 sudo pip2 install --upgrade paramiko==1.17.0
 sudo python setup.py install
-cd ${MY_HOME}
+cd ${HOME}
 
 #Install many binutils
 sudo apt-add-repository --yes ppa:pwntools/binutils
@@ -126,13 +125,6 @@ echo 'export E=/vagrant/presentations/02-exploitation/assignments/root/assignmen
 echo 'export F=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary_pie' | sudo tee -a /etc/bash.bashrc
 echo 'export TERM=xterm-256color' | sudo tee -a /etc/bash.bashrc
 
-#Install Metasploit
-sudo gem2.2 install bundler
-git_clone https://github.com/rapid7/metasploit-framework.git
-cd $HOME/.repositories/metasploit-framework
-bundle install
-sudo chmod -R a+r /var/lib/gems/2.2.0/gems
-echo 'export PATH=$PATH:$HOME/.repositories/metasploit-framework' >> $HOME/.bashrc
 echo 'export EDITOR=vim'                        >> $HOME/.bashrc
 echo 'function pwn(){'                          >> $HOME/.bashrc
 echo '    if [[ "${1}" == "" ]]; then'          >> $HOME/.bashrc
@@ -159,6 +151,19 @@ echo 'EOF'                                      >> $HOME/.bashrc
 echo '        ${EDITOR} "${fname}" +'           >> $HOME/.bashrc
 echo '    fi'                                   >> $HOME/.bashrc
 echo '}'                                        >> $HOME/.bashrc
+echo 'function plasma(){'                       >> $HOME/.bashrc
+echo '    real=$(realpath "${1}")'              >> $HOME/.bashrc
+echo '    dir=$(dirname "${real}")'             >> $HOME/.bashrc
+echo '    base=$(basename "${real}")'           >> $HOME/.bashrc
+echo '    docker run --rm -it -v "${dir}":/workdir robertlarsen/plasma:latest -i "./${base}"' >> $HOME/.bashrc
+echo '}'                                        >> $HOME/.bashrc
+echo 'function msfvenom(){'                     >> $HOME/.bashrc
+echo '    docker run --rm -it robertlarsen/metasploit:latest msfvenom $*' >> $HOME/.bashrc
+echo '}'                                        >> $HOME/.bashrc
+echo 'function msfconsole(){'                   >> $HOME/.bashrc
+echo '    docker run --rm -it robertlarsen/metasploit:latest msfconsole $*' >> $HOME/.bashrc
+echo '}'                                        >> $HOME/.bashrc
+
 
 #Install RunShellcode
 git_clone https://github.com/RobertLarsen/RunShellcode.git
@@ -166,10 +171,9 @@ cd $HOME/.repositories/RunShellcode
 sudo gcc -m32 -o /usr/bin/run_shellcode32 run_shellcode.c
 sudo gcc      -o /usr/bin/run_shellcode64 run_shellcode.c
 
-#Install plasma
-git_clone https://github.com/joelpx/plasma.git
-cd $HOME/.repositories/plasma
-bash install.sh
+#Install plasma and metasploit docker image
+sudo docker pull robertlarsen/plasma:latest
+sudo docker pull robertlarsen/metasploit:latest
 
 sudo gcc -o /usr/bin/wait_for_change /vagrant/scripts/wait_for_change.c
 
