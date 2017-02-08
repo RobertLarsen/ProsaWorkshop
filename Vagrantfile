@@ -42,6 +42,7 @@ function git_clone(){
 
 #Get workstation setup
 git_clone https://github.com/RobertLarsen/WorkstationSetup.git
+ln -s ~/.repositories/WorkstationSetup/files/tmux.conf ~/.tmux.conf
 
 #Install Vim
 bash .repositories/WorkstationSetup/vim.sh
@@ -176,8 +177,6 @@ sudo docker pull robertlarsen/plasma:latest
 sudo docker pull robertlarsen/metasploit:latest
 
 sudo gcc -o /usr/bin/wait_for_change /vagrant/scripts/wait_for_change.c
-
-cp /vagrant/scripts/tmux.conf /home/vagrant/.tmux.conf
 
 echo vagrant:vagrant | sudo chpasswd
 
