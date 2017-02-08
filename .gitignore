@@ -21,6 +21,11 @@ presentations/02-exploitation/images/simple_login_stack_canary.png
 presentations/03-shellcoding/examples/*.elf
 presentations/03-shellcoding/examples/*.shellcode
 
+presentations/04-advanced-exploitation/assignments/root/
+presentations/04-advanced-exploitation/assignments/fmt
+presentations/04-advanced-exploitation/assignments/fmt.bug
+presentations/04-advanced-exploitation/images/printf_stack.png
+
 **/peda-session*
 **/core
 **/.gdb_history
