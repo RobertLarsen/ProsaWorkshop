@@ -105,6 +105,10 @@ echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canary_pie 
 echo 'cd /vagrant/presentations/03-shellcoding/assignments' >> /tmp/rc.local
 echo 'cat flag | chroot --userspec=1000:1000 root /assignments/treebuilder' >> /tmp/rc.local
 echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' >> /tmp/rc.local
+echo '#Format string service' >> /tmp/rc.local
+echo 'killall fmt' >> /tmp/rc.local
+echo 'cd /vagrant/presentations/04-advanced-exploitation/assignments' >> /tmp/rc.local
+echo 'chroot --userspec=1000:1000 root /assignments/fmt --port 20001' >> /tmp/rc.local
 chmod 755 /tmp/rc.local
 sudo chown root.root /tmp/rc.local
 sudo rm -f /etc/rc.local
@@ -124,6 +128,7 @@ echo 'export C=/vagrant/presentations/02-exploitation/assignments/root/assignmen
 echo 'export D=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary' | sudo tee -a /etc/bash.bashrc
 echo 'export E=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion_canary_pie' | sudo tee -a /etc/bash.bashrc
 echo 'export F=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary_pie' | sudo tee -a /etc/bash.bashrc
+echo 'export G=/vagrant/presentations/04-advanced-exploitation/assignments/root/assignments/fmt' | sudo tee -a /etc/bash.bashrc
 echo 'export TERM=xterm-256color' | sudo tee -a /etc/bash.bashrc
 
 echo 'export EDITOR=vim'                        >> $HOME/.bashrc
