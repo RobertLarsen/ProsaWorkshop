@@ -116,11 +116,11 @@ sudo mv /tmp/rc.local /etc
 sudo bash /etc/rc.local
 
 
-git_clone https://github.com/zachriggle/peda.git
 echo 'set follow-fork-mode child'          >> /home/vagrant/.gdbinit
 echo 'set disassembly-flavor intel'        >> /home/vagrant/.gdbinit
 echo 'set auto-load safe-path /'           >> /home/vagrant/.gdbinit
-echo 'source ~/.repositories/peda/peda.py' >> /home/vagrant/.gdbinit
+git_clone https://github.com/pwndbg/pwndbg.git
+cd ~/.repositories/pwndbg/ && ~/.repositories/pwndbg/setup.sh
 
 echo 'export A=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion' | sudo tee -a /etc/bash.bashrc
 echo 'export B=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow' | sudo tee -a /etc/bash.bashrc
