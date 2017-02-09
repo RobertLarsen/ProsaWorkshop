@@ -12,6 +12,7 @@ sudo perl -pi -e 's/us.archive/dk.archive/g' /etc/apt/sources.list
 sudo -E apt-get -y update
 sudo apt-get install -y software-properties-common 
 sudo apt-add-repository -y ppa:brightbox/ruby-ng
+sudo add-apt-repository -y ppa:pi-rho/dev
 sudo -E apt-get -y update
 sudo -E apt-get -y upgrade
 sudo -E apt-get -y install git python-pip python-dev build-essential \
@@ -120,7 +121,7 @@ echo 'set follow-fork-mode child'          >> /home/vagrant/.gdbinit
 echo 'set disassembly-flavor intel'        >> /home/vagrant/.gdbinit
 echo 'set auto-load safe-path /'           >> /home/vagrant/.gdbinit
 git_clone https://github.com/pwndbg/pwndbg.git
-cd ~/.repositories/pwndbg/ && ~/.repositories/pwndbg/setup.sh
+cd ~/.repositories/pwndbg/ && ./setup.sh
 
 echo 'export A=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion' | sudo tee -a /etc/bash.bashrc
 echo 'export B=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow' | sudo tee -a /etc/bash.bashrc
