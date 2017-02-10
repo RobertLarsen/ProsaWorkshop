@@ -46,7 +46,7 @@ git_clone https://github.com/RobertLarsen/WorkstationSetup.git
 ln -s ~/.repositories/WorkstationSetup/files/tmux.conf ~/.tmux.conf
 
 #Install Vim
-bash .repositories/WorkstationSetup/vim.sh
+bash .repositories/WorkstationSetup/vim.sh NoYCM
 
 #Install pwntools + dependencies
 git_clone https://github.com/Gallopsled/pwntools.git ${HOME}
