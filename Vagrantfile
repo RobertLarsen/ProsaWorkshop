@@ -22,7 +22,7 @@ sudo -E apt-get -y install git python-pip python-dev build-essential \
     libreadline-dev libssl-dev libpq-dev nmap libreadline5 ruby2.2   \
     libsqlite3-dev libpcap-dev openjdk-7-jre autoconf postgresql nasm\
     pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev radare2 \
-    python3-pip docker.io
+    python3-pip docker.io execstack
 
 sudo update-alternatives --set ruby /usr/bin/ruby2.2
 sudo usermod -aG docker vagrant
@@ -81,41 +81,118 @@ for file in */; do
     cd ..
 done
 
+function create_flag(){
+    head -c 20 /dev/urandom | md5sum - | awk '{print $1}' > $1
+}
+function create_flag_unless_exists(){
+    test -s $1 || create_flag $1
+}
+create_flag_unless_exists /vagrant/presentations/02-exploitation/assignments/integer_conversion.flag
+create_flag_unless_exists /vagrant/presentations/02-exploitation/assignments/integer_conversion_aslr.flag
+create_flag_unless_exists /vagrant/presentations/02-exploitation/assignments/integer_conversion_canary.flag
+create_flag_unless_exists /vagrant/presentations/02-exploitation/assignments/integer_conversion_canary_pie.flag
+create_flag_unless_exists /vagrant/presentations/02-exploitation/assignments/integer_overflow.flag
+create_flag_unless_exists /vagrant/presentations/02-exploitation/assignments/integer_overflow_aslr.flag
+create_flag_unless_exists /vagrant/presentations/02-exploitation/assignments/integer_overflow_canary.flag
+create_flag_unless_exists /vagrant/presentations/02-exploitation/assignments/integer_overflow_canary_pie.flag
+create_flag_unless_exists /vagrant/presentations/03-shellcoding/assignments/treebuilder.flag
+create_flag_unless_exists /vagrant/presentations/03-shellcoding/assignments/shelly.flag
+create_flag_unless_exists /vagrant/presentations/04-advanced-exploitation/assignments/fmt.flag
+create_flag_unless_exists /vagrant/presentations/04-advanced-exploitation/assignments/fmt_nx.flag
+
+sudo docker run -d \
+           --name integer_conversion \
+           --restart always \
+           -p 10001:10001 \
+           -v /vagrant/presentations/02-exploitation/assignments/integer_conversion.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /02-exploitation/integer_conversion --port 10001
+
+sudo docker run -d \
+           --name integer_overflow\
+           --restart always \
+           -p 10002:10002 \
+           -v /vagrant/presentations/02-exploitation/assignments/integer_overflow.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /02-exploitation/integer_overflow --port 10002
+
+sudo docker run -d \
+           --name integer_conversion_aslr\
+           --restart always \
+           -p 10003:10003 \
+           -v /vagrant/presentations/02-exploitation/assignments/integer_conversion_aslr.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /02-exploitation/integer_conversion --port 10003
+
+sudo docker run -d \
+           --name integer_overflow_aslr\
+           --restart always \
+           -p 10004:10004 \
+           -v /vagrant/presentations/02-exploitation/assignments/integer_overflow_aslr.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /02-exploitation/integer_overflow --port 10004
+
+sudo docker run -d \
+           --name integer_conversion_canary\
+           --restart always \
+           -p 10005:10005 \
+           -v /vagrant/presentations/02-exploitation/assignments/integer_conversion_canary.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /02-exploitation/integer_conversion_canary --port 10005
+
+sudo docker run -d \
+           --name integer_overflow_canary\
+           --restart always \
+           -p 10006:10006 \
+           -v /vagrant/presentations/02-exploitation/assignments/integer_overflow_canary.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /02-exploitation/integer_overflow_canary --port 10006
+
+sudo docker run -d \
+           --name integer_conversion_canary_pie\
+           --restart always \
+           -p 10007:10007 \
+           -v /vagrant/presentations/02-exploitation/assignments/integer_conversion_canary_pie.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /02-exploitation/integer_conversion_canary_pie --port 10007
+
+sudo docker run -d \
+           --name integer_overflow_canary_pie\
+           --restart always \
+           -p 10008:10008 \
+           -v /vagrant/presentations/02-exploitation/assignments/integer_overflow_canary_pie.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /02-exploitation/integer_overflow_canary_pie --port 10008
+
+sudo docker run -d \
+           --name treebuilder\
+           --restart always \
+           -p 9191:9191\
+           -v /vagrant/presentations/03-shellcoding/assignments/treebuilder.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /03-shellcoding/treebuilder
+
+sudo docker run -d \
+           --name format_string\
+           --restart always \
+           -p 20001:20001\
+           -v /vagrant/presentations/04-advanced-exploitation/assignments/fmt.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /04-advanced-exploitation/fmt --port 20001
+
+sudo docker run -d \
+           --name format_string_nx\
+           --restart always \
+           -p 20002:20002\
+           -v /vagrant/presentations/04-advanced-exploitation/assignments/fmt_nx.flag:/flag \
+           robertlarsen/prosaworkshop:latest \
+           /04-advanced-exploitation/fmt_nx --port 20002
+
 ulimit -c 100000
 echo 'vagrant     soft      core      unlimited' | sudo tee /etc/security/limits.conf
 
-echo 'cd /vagrant/presentations/02-exploitation/assignments' >> /tmp/rc.local
-echo '#First kill running assignment processes' >> /tmp/rc.local
-echo 'for file in root/assignments/*; do' >> /tmp/rc.local
-echo '    base=$(basename ${file})' >> /tmp/rc.local
-echo '    killall ${base}' >> /tmp/rc.local
-echo 'done' >> /tmp/rc.local
-echo 'killall treebuilder' >> /tmp/rc.local
-echo '#First services have no canaries and no aslr' >> /tmp/rc.local
-echo 'setarch $(uname -m) -R chroot --userspec=1000:1000 root /assignments/integer_conversion --port 10001' >> /tmp/rc.local
-echo 'setarch $(uname -m) -R chroot --userspec=1000:1000 root /assignments/integer_overflow --port 10002' >> /tmp/rc.local
-echo '#Next services have no canaries but aslr' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion --port 10003' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow --port 10004' >> /tmp/rc.local
-echo '#Next services have canaries and aslr' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion_canary --port 10005' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canary --port 10006' >> /tmp/rc.local
-echo '#Last services have canaries, aslr and pie' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/integer_conversion_canary_pie --port 10007' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/integer_overflow_canary_pie --port 10008' >> /tmp/rc.local
-echo 'cd /vagrant/presentations/03-shellcoding/assignments' >> /tmp/rc.local
-echo 'cat flag | chroot --userspec=1000:1000 root /assignments/treebuilder' >> /tmp/rc.local
-echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' >> /tmp/rc.local
-echo '#Format string service' >> /tmp/rc.local
-echo 'killall fmt' >> /tmp/rc.local
-echo 'cd /vagrant/presentations/04-advanced-exploitation/assignments' >> /tmp/rc.local
-echo 'chroot --userspec=1000:1000 root /assignments/fmt --port 20001' >> /tmp/rc.local
-chmod 755 /tmp/rc.local
-sudo chown root.root /tmp/rc.local
-sudo rm -f /etc/rc.local
-sudo mv /tmp/rc.local /etc
+echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' | sudo tee /etc/rc.local
 sudo bash /etc/rc.local
-
 
 echo 'set follow-fork-mode child'          >> /home/vagrant/.gdbinit
 echo 'set disassembly-flavor intel'        >> /home/vagrant/.gdbinit
