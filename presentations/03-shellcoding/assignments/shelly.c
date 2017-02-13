@@ -370,10 +370,6 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    if (!debug) {
-        daemon(0, 0);
-    }
-
     srand(time(NULL) ^ getpid());
     accept_loop(server, handle_client);
 
