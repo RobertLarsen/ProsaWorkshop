@@ -69,18 +69,6 @@ if test -f /vagrant/build_asciidoc; then
     ln -s /vagrant/presentations/prosa.css /home/vagrant/.asciidoc/backends/slidy2
 fi
 
-dos2unix /vagrant/scripts/make_chroot.sh
-cd /vagrant/presentations
-for file in */; do
-    cd ${file}
-    if test -f /vagrant/build_asciidoc; then
-        make all
-    else
-        make no_presentation
-    fi
-    cd ..
-done
-
 function create_flag(){
     head -c 20 /dev/urandom | md5sum - | awk '{print $1}' > $1
 }
@@ -187,6 +175,12 @@ sudo docker run -d \
            -v /vagrant/presentations/04-advanced-exploitation/assignments/fmt_nx.flag:/flag \
            robertlarsen/prosaworkshop:latest \
            /04-advanced-exploitation/fmt_nx --port 20002
+
+for project in 02-exploitation 03-shellcoding 04-advanced-exploitation; do
+    for file in $(docker run --rm robertlarsen/prosaworkshop ls ${project} | grep -v '\.c'); do
+        docker run --rm robertlarsen/prosaworkshop cat ${project}/${file} > /vagrant/presentations/${project}/assignments/${file}
+    done
+done
 
 ulimit -c 100000
 echo 'vagrant     soft      core      unlimited' | sudo tee /etc/security/limits.conf
