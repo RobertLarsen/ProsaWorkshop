@@ -178,7 +178,7 @@ sudo docker run -d \
 
 for project in 02-exploitation 03-shellcoding 04-advanced-exploitation; do
     for file in $(docker run --rm robertlarsen/prosaworkshop ls ${project} | grep -v '\.c'); do
-        docker run --rm robertlarsen/prosaworkshop cat ${project}/${file} > /vagrant/presentations/${project}/assignments/${file}
+        echo docker cp integer_conversion:/${project}/${file} /vagrant/presentations/${project}/assignments
     done
 done
 
