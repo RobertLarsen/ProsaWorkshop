@@ -178,7 +178,7 @@ sudo docker run -d \
 
 for project in 02-exploitation 03-shellcoding 04-advanced-exploitation; do
     for file in $(docker run --rm robertlarsen/prosaworkshop ls ${project} | grep -v '\.c'); do
-        echo docker cp integer_conversion:/${project}/${file} /vagrant/presentations/${project}/assignments
+        docker cp integer_conversion:/${project}/${file} /vagrant/presentations/${project}/assignments
     done
 done
 
@@ -194,13 +194,14 @@ echo 'set auto-load safe-path /'           >> /home/vagrant/.gdbinit
 git_clone https://github.com/pwndbg/pwndbg.git
 cd ~/.repositories/pwndbg/ && ./setup.sh
 
-echo 'export A=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion' | sudo tee -a /etc/bash.bashrc
-echo 'export B=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow' | sudo tee -a /etc/bash.bashrc
-echo 'export C=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion_canary' | sudo tee -a /etc/bash.bashrc
-echo 'export D=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary' | sudo tee -a /etc/bash.bashrc
-echo 'export E=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_conversion_canary_pie' | sudo tee -a /etc/bash.bashrc
-echo 'export F=/vagrant/presentations/02-exploitation/assignments/root/assignments/integer_overflow_canary_pie' | sudo tee -a /etc/bash.bashrc
-echo 'export G=/vagrant/presentations/04-advanced-exploitation/assignments/root/assignments/fmt' | sudo tee -a /etc/bash.bashrc
+echo 'export A=/vagrant/presentations/02-exploitation/assignments/integer_conversion' | sudo tee -a /etc/bash.bashrc
+echo 'export B=/vagrant/presentations/02-exploitation/assignments/integer_overflow' | sudo tee -a /etc/bash.bashrc
+echo 'export C=/vagrant/presentations/02-exploitation/assignments/integer_conversion_canary' | sudo tee -a /etc/bash.bashrc
+echo 'export D=/vagrant/presentations/02-exploitation/assignments/integer_overflow_canary' | sudo tee -a /etc/bash.bashrc
+echo 'export E=/vagrant/presentations/02-exploitation/assignments/integer_conversion_canary_pie' | sudo tee -a /etc/bash.bashrc
+echo 'export F=/vagrant/presentations/02-exploitation/assignments/integer_overflow_canary_pie' | sudo tee -a /etc/bash.bashrc
+echo 'export G=/vagrant/presentations/04-advanced-exploitation//assignments/fmt' | sudo tee -a /etc/bash.bashrc
+echo 'export H=/vagrant/presentations/04-advanced-exploitation//assignments/fmt_nx' | sudo tee -a /etc/bash.bashrc
 echo 'export TERM=xterm-256color' | sudo tee -a /etc/bash.bashrc
 
 echo 'export EDITOR=vim'                        >> $HOME/.bashrc
