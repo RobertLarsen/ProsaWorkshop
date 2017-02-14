@@ -185,6 +185,8 @@ void child_died(int sig) {
 
 void handle_alarm(int sig);
 
+void handle_sigterm(int sig);
+
 int main(int argc, char const *argv[]) {
     tree_t ** entries;
     int i, rnd, num_entries, server, client;
@@ -202,6 +204,8 @@ int main(int argc, char const *argv[]) {
     num_entries = argc < 3 ? 10 : atoi(argv[2]);
     uid = argc < 4 ? 1000 : atoi(argv[3]);
     gid = argc < 5 ? 1000 : atoi(argv[4]);
+
+    signal(SIGTERM, handle_sigterm);
 
     if ((server = create_server(port)) != -1) {
         srand(time(NULL));
@@ -282,5 +286,9 @@ int main(int argc, char const *argv[]) {
 }
 
 void handle_alarm(int sig) {
+    exit(0);
+}
+
+void handle_sigterm(int sig) {
     exit(0);
 }

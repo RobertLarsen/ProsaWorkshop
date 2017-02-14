@@ -5,6 +5,7 @@
 #include <time.h>
 #include <getopt.h>
 #include <netinet/in.h>
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -350,6 +351,10 @@ void accept_loop(int server, void(*client_handler)(int)) {
     }
 }
 
+void handle_sigterm(int sig) {
+    exit(0);
+}
+
 int main(int argc, char *argv[]) {
     int server, client, status, port = PORT, opt_idx = 0, c;
     pid_t pid;
@@ -358,6 +363,8 @@ int main(int argc, char *argv[]) {
         { "debug", no_argument, &debug, 1 },
         { "port", required_argument, 0, 'p' }
     };
+
+    signal(SIGTERM, exit);
 
     while ((c = getopt_long(argc, argv, "p:", long_options, &opt_idx)) != -1) {
         switch (c) {
