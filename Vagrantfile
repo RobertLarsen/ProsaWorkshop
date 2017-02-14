@@ -265,7 +265,10 @@ EOF
 Vagrant.configure(2) do |config|
     config.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
     config.vm.provider "virtualbox" do |v|
-        v.memory = 1024
+        v.memory = 2048
+    end
+    config.vm.provider "vmware_workstation" do |v|
+        v.vmx['memsize'] = '2048'
     end
     config.vm.provision "shell", inline: $install, privileged: false
     #integer_conversion no aslr no canary
