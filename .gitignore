@@ -9,6 +9,9 @@ presentations/*/index.html
 *.id0
 *.id1
 *.o
+**/*.flag
+**/.*.db
+**/0*.html
 build_asciidoc
 
 presentations/02-exploitation/assignments/integer_conversion
@@ -94,5 +97,19 @@ presentations/03-shellcoding/images/read_pointer.png
 presentations/03-shellcoding/images/required_constants-solution.png
 presentations/03-shellcoding/images/write_pointer-solution.png
 presentations/03-shellcoding/images/write_pointer.png
+
+presentations/04-advanced-exploitation/images/arbitrary_pointer_1.png
+presentations/04-advanced-exploitation/images/arbitrary_pointer_2.png
+presentations/04-advanced-exploitation/images/arbitrary_pointer_3.png
+presentations/04-advanced-exploitation/images/arbitrary_pointer_4.png
+presentations/04-advanced-exploitation/images/arbitrary_pointer_5.png
+presentations/04-advanced-exploitation/images/arbitrary_pointer_6.png
+presentations/04-advanced-exploitation/images/arbitrary_pointer_7.png
+presentations/04-advanced-exploitation/images/arbitrary_pointer_8.png
+presentations/04-advanced-exploitation/images/got_plt_01.png
+presentations/04-advanced-exploitation/images/got_plt_02.png
+presentations/04-advanced-exploitation/images/got_plt_03.png
+presentations/04-advanced-exploitation/images/write_stack.png
+
 
 upload.sh
