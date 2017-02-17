@@ -9,22 +9,16 @@ export DEBIAN_FRONTEND=noninteractive
 sudo perl -pi -e 's/us.archive/dk.archive/g' /etc/apt/sources.list
 
 #Install packages
-sudo -E apt-get -y update
-sudo apt-get install -y software-properties-common 
-sudo apt-add-repository -y ppa:brightbox/ruby-ng
-sudo add-apt-repository -y ppa:pi-rho/dev
-sudo -E apt-get -y update
-sudo -E apt-get -y upgrade
-sudo -E apt-get -y install git python-pip python-dev build-essential \
-    python-software-properties gdb curl vim exuberant-ctags pyflakes \
-    cmake clang-3.5 realpath tmux source-highlight libpq5 dos2unix   \
-    gcc-multilib libc6-i386 libc6-dev-i386 inkscape qemu-user-static \
-    libreadline-dev libssl-dev libpq-dev nmap libreadline5 ruby2.2   \
-    libsqlite3-dev libpcap-dev openjdk-7-jre autoconf postgresql nasm\
-    pgadmin3 zlib1g-dev libxml2-dev libxslt1-dev ruby2.2-dev radare2 \
-    python3-pip docker.io execstack
+sudo -E apt -y update
+sudo -E apt -y upgrade
+sudo -E apt -y install \
+    software-properties-common git python-pip python-dev build-essential \
+    python-software-properties gdb curl vim exuberant-ctags pyflakes cmake \
+    clang-3.5 realpath tmux source-highlight gcc-multilib libc6-i386 nasm \
+    libc6-dev-i386 inkscape libreadline-dev libssl-dev libpq-dev nmap radare2 \
+    libreadline5 ruby2.3 python3-pip docker.io binutils-mips-linux-gnu \
+    binutils-arm-linux-gnueabi
 
-sudo update-alternatives --set ruby /usr/bin/ruby2.2
 sudo usermod -aG docker vagrant
 
 mkdir .repositories
@@ -50,19 +44,13 @@ bash .repositories/WorkstationSetup/vim.sh NoYCM
 
 #Install pwntools + dependencies
 git_clone https://github.com/Gallopsled/pwntools.git ${HOME}
-cd pwntools
-sudo pip2 install -r requirements.txt
-sudo pip2 install --upgrade paramiko==1.17.0
-sudo python setup.py install
-cd ${HOME}
+sudo pip install --upgrade --editable ./pwntools
 
 #Install many binutils
-sudo apt-add-repository --yes ppa:pwntools/binutils
-sudo apt-get update
-sudo apt-get install binutils-{arm,i386,mips}-linux-gnu
+sudo apt -y install 
 
 if test -f /vagrant/build_asciidoc; then
-    sudo -E apt-get -y install asciidoc
+    sudo -E apt -y install asciidoc
     cd /tmp
     wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-slidy2-backend-plugin/slidy2-v1.0.3.zip
     asciidoc --backend install slidy2-v1.0.3.zip
@@ -182,7 +170,6 @@ for project in 02-exploitation 03-shellcoding 04-advanced-exploitation; do
     done
 done
 
-ulimit -c 100000
 echo 'vagrant     soft      core      unlimited' | sudo tee /etc/security/limits.conf
 
 echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' | sudo tee /etc/rc.local
@@ -192,7 +179,7 @@ echo 'set follow-fork-mode child'          >> /home/vagrant/.gdbinit
 echo 'set disassembly-flavor intel'        >> /home/vagrant/.gdbinit
 echo 'set auto-load safe-path /'           >> /home/vagrant/.gdbinit
 git_clone https://github.com/pwndbg/pwndbg.git
-cd ~/.repositories/pwndbg/ && ./setup.sh
+cd ~/.repositories/pwndbg/ && echo y | ./setup.sh
 
 echo 'export A=/vagrant/presentations/02-exploitation/assignments/integer_conversion' | sudo tee -a /etc/bash.bashrc
 echo 'export B=/vagrant/presentations/02-exploitation/assignments/integer_overflow' | sudo tee -a /etc/bash.bashrc
@@ -263,7 +250,7 @@ echo "Installation took "$((POST-PRE))" seconds"
 EOF
 
 Vagrant.configure(2) do |config|
-    config.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
+    config.vm.box = "bento/ubuntu-16.04"
     config.vm.provider "virtualbox" do |v|
         v.memory = 2048
     end
