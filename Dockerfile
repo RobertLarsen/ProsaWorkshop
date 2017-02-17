@@ -10,8 +10,8 @@ COPY presentations/03-shellcoding/assignments/treebuilder.c /03-shellcoding/tree
 COPY presentations/04-advanced-exploitation/assignments/fmt.c    /04-advanced-exploitation/fmt.c
 
 
-RUN groupadd -r exploitable && \
-    useradd -mrg exploitable exploitable && \
+RUN groupadd -rg 1000 exploitable && \
+    useradd -mrg exploitable -u 1000 exploitable && \
     apt-get update && \
     apt-get -y install libc6-dev-i386 execstack && \
     gcc -m32 -z execstack -Wno-deprecated-declarations -fno-stack-protector -o /02-exploitation/integer_conversion /02-exploitation/integer_conversion.c && \
