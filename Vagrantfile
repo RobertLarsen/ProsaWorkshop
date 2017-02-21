@@ -17,7 +17,7 @@ sudo -E apt -y install \
     clang-3.5 realpath tmux source-highlight gcc-multilib libc6-i386 nasm \
     libc6-dev-i386 inkscape libreadline-dev libssl-dev libpq-dev nmap radare2 \
     libreadline5 ruby2.3 python3-pip docker.io binutils-mips-linux-gnu \
-    binutils-arm-linux-gnueabi
+    binutils-arm-linux-gnueabi libffi-dev
 
 sudo usermod -aG docker vagrant
 
@@ -43,11 +43,7 @@ ln -s ~/.repositories/WorkstationSetup/files/tmux.conf ~/.tmux.conf
 bash .repositories/WorkstationSetup/vim.sh NoYCM
 
 #Install pwntools + dependencies
-git_clone https://github.com/Gallopsled/pwntools.git ${HOME}
-sudo pip install --upgrade --editable ./pwntools
-
-#Install many binutils
-sudo apt -y install 
+sudo pip2 install --upgrade pwntools
 
 if test -f /vagrant/build_asciidoc; then
     sudo -E apt -y install asciidoc
@@ -175,12 +171,6 @@ echo 'vagrant     soft      core      unlimited' | sudo tee /etc/security/limits
 echo 'echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope' | sudo tee /etc/rc.local
 sudo bash /etc/rc.local
 
-echo 'set follow-fork-mode child'          >> /home/vagrant/.gdbinit
-echo 'set disassembly-flavor intel'        >> /home/vagrant/.gdbinit
-echo 'set auto-load safe-path /'           >> /home/vagrant/.gdbinit
-git_clone https://github.com/pwndbg/pwndbg.git
-cd ~/.repositories/pwndbg/ && echo y | ./setup.sh
-
 echo 'export A=/vagrant/presentations/02-exploitation/assignments/integer_conversion' | sudo tee -a /etc/bash.bashrc
 echo 'export B=/vagrant/presentations/02-exploitation/assignments/integer_overflow' | sudo tee -a /etc/bash.bashrc
 echo 'export C=/vagrant/presentations/02-exploitation/assignments/integer_conversion_canary' | sudo tee -a /etc/bash.bashrc
@@ -242,6 +232,14 @@ sudo docker pull robertlarsen/plasma:latest
 sudo docker pull robertlarsen/metasploit:latest
 
 sudo gcc -o /usr/bin/wait_for_change /vagrant/scripts/wait_for_change.c
+
+#       #Setup GDB
+#       echo 'set follow-fork-mode child'          >> ~/.gdbinit
+#       echo 'set disassembly-flavor intel'        >> ~/.gdbinit
+#       echo 'set auto-load safe-path /'           >> ~/.gdbinit
+#       git clone https://github.com/pwndbg/pwndbg.git ~/.repositories/pwndbg
+#       cd ~/.repositories/pwndbg/ && echo y | ./setup.sh
+#       cd $HOME
 
 echo vagrant:vagrant | sudo chpasswd
 
