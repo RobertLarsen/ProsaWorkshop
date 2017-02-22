@@ -7,13 +7,12 @@ SVG_PNG_FILES=$(SVG_FILES:.svg=.png)
 IMPLS=assignments/execute_256 assignments/avoid_chars assignments/required_constants assignments/read_pointers assignments/write_pointers assignments/trampoline_few_bytes assignments/printable_shellcode assignments/large_in_64 assignments/egg_hunting assignments/stack_hunting
 ASCIIDOC_FLAGS=--attribute duration=240 --attribute data-uri --attribute stylesheet=prosa.css
 CFLAGS=-m32 -z execstack -fno-stack-protector -Wno-deprecated-declarations 
-MAKE_CHROOT=../../scripts/make_chroot.sh
 
 .phony: watch clean all no_presentation
 
 all: index.html no_presentation
 
-no_presentation: $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) assignments/shelly assignments/root
+no_presentation: $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) assignments/shelly
 
 assignments/execute_256: assignments/shelly.c
 	awk '/execute_256 STARTS/{flag=1;next}/execute_256 ENDS/{flag=0}flag' $< > $@
@@ -66,11 +65,6 @@ assignments/shelly: assignments/shelly.c
 
 assignments/treebuilder: assignments/treebuilder.c
 	$(CC) -m32 -fPIC -pie -ggdb -o $@ $^
-
-assignments/root: assignments/treebuilder
-	$(MAKE_CHROOT) $@/ $^ /bin/bash /bin/ls /bin/cat /usr/bin/id
-	cp $@/bin/bash $@/bin/sh
-	head -c 20 /dev/urandom | md5sum | awk '{print $$1}' > assignments/flag
 
 clean:
 	rm -rf index.html $(SVG_PNG_FILES) $(EXAMPLE_ELF) $(EXAMPLE_SHELLCODE) $(EXAMPLE_OBJECTS) assignments/root assignments/shelly assignments/treebuilder $(IMPLS)
