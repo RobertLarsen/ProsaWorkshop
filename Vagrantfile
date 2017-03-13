@@ -72,6 +72,9 @@ create_flag_unless_exists /vagrant/presentations/03-shellcoding/assignments/shel
 create_flag_unless_exists /vagrant/presentations/04-advanced-exploitation/assignments/fmt.flag
 create_flag_unless_exists /vagrant/presentations/04-advanced-exploitation/assignments/fmt_nx.flag
 
+sudo curl -s -L "https://github.com/docker/compose/releases/download/1.11.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
 sudo docker run -d \
            --name integer_conversion \
            --restart always \
@@ -233,13 +236,14 @@ sudo docker pull robertlarsen/metasploit:latest
 
 sudo gcc -o /usr/bin/wait_for_change /vagrant/scripts/wait_for_change.c
 
-#       #Setup GDB
-#       echo 'set follow-fork-mode child'          >> ~/.gdbinit
-#       echo 'set disassembly-flavor intel'        >> ~/.gdbinit
-#       echo 'set auto-load safe-path /'           >> ~/.gdbinit
-#       git clone https://github.com/pwndbg/pwndbg.git ~/.repositories/pwndbg
-#       cd ~/.repositories/pwndbg/ && echo y | ./setup.sh
-#       cd $HOME
+#Setup GDB
+sudo pip3 install capstone unicorn keystone-engine ropgadget ropper 
+git_clone https://github.com/hugsy/gef.git
+echo 'set follow-fork-mode child'          >> ~/.gdbinit
+echo 'set disassembly-flavor intel'        >> ~/.gdbinit
+echo 'set auto-load safe-path /'           >> ~/.gdbinit
+echo 'source ~/.repositories/gef/gef.py'   >> ~/.gdbinit
+
 
 echo vagrant:vagrant | sudo chpasswd
 
