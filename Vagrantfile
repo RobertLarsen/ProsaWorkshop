@@ -17,7 +17,7 @@ sudo -E apt -y install \
     clang-3.5 realpath tmux source-highlight gcc-multilib libc6-i386 nasm \
     libc6-dev-i386 inkscape libreadline-dev libssl-dev libpq-dev nmap radare2 \
     libreadline5 ruby2.3 python3-pip docker.io binutils-mips-linux-gnu \
-    binutils-arm-linux-gnueabi libffi-dev
+    binutils-arm-linux-gnueabi libffi-dev execstack
 
 sudo usermod -aG docker vagrant
 
