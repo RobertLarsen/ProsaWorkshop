@@ -237,7 +237,7 @@ sudo docker pull robertlarsen/metasploit:latest
 sudo gcc -o /usr/bin/wait_for_change /vagrant/scripts/wait_for_change.c
 
 #Setup GDB
-sudo pip3 install capstone unicorn keystone-engine ropgadget ropper 
+sudo pip3 install capstone unicorn keystone-engine ropgadget ropper retdec-python
 git_clone https://github.com/hugsy/gef.git
 echo 'set follow-fork-mode child'          >> ~/.gdbinit
 echo 'set disassembly-flavor intel'        >> ~/.gdbinit
