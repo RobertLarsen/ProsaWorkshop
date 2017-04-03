@@ -336,15 +336,11 @@ void accept_loop(int server, void(*client_handler)(int)) {
             if ((pid = fork())) {
                 /* Parent */
                 close(client);
-                waitpid(pid, &status, 0);
             } else {
                 /* Child */
                 close(server);
-                if (fork()) {
-                    close(client);
-                } else {
-                    client_accepted(client, client_handler);
-                }
+                client_accepted(client, client_handler);
+                close(client);
                 exit(0);
             }
         }
@@ -353,6 +349,11 @@ void accept_loop(int server, void(*client_handler)(int)) {
 
 void handle_sigterm(int sig) {
     exit(0);
+}
+
+void handle_child(int sig) {
+    int status;
+    wait(&status);
 }
 
 int main(int argc, char *argv[]) {
@@ -364,7 +365,8 @@ int main(int argc, char *argv[]) {
         { "port", required_argument, 0, 'p' }
     };
 
-    signal(SIGTERM, exit);
+    signal(SIGTERM, handle_sigterm);
+    signal(SIGCHLD, handle_child);
 
     while ((c = getopt_long(argc, argv, "p:", long_options, &opt_idx)) != -1) {
         switch (c) {

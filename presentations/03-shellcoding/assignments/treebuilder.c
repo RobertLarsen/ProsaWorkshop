@@ -186,6 +186,7 @@ void child_died(int sig) {
 void handle_alarm(int sig);
 
 void handle_sigterm(int sig);
+void handle_child(int sig);
 
 int main(int argc, char const *argv[]) {
     tree_t ** entries;
@@ -206,6 +207,7 @@ int main(int argc, char const *argv[]) {
     gid = argc < 5 ? 1000 : atoi(argv[4]);
 
     signal(SIGTERM, handle_sigterm);
+    signal(SIGCHLD, handle_child);
 
     if ((server = create_server(port)) != -1) {
         srand(time(NULL));
@@ -291,4 +293,9 @@ void handle_alarm(int sig) {
 
 void handle_sigterm(int sig) {
     exit(0);
+}
+
+void handle_child(int sig) {
+    int status;
+    wait(&status);
 }
