@@ -106,10 +106,15 @@ presentations/04-advanced-exploitation/images/arbitrary_pointer_5.png
 presentations/04-advanced-exploitation/images/arbitrary_pointer_6.png
 presentations/04-advanced-exploitation/images/arbitrary_pointer_7.png
 presentations/04-advanced-exploitation/images/arbitrary_pointer_8.png
+presentations/04-advanced-exploitation/images/bad_chaining.png
+presentations/04-advanced-exploitation/images/good_chaining.png
+presentations/04-advanced-exploitation/images/ret2libc_1.png
+presentations/04-advanced-exploitation/images/ret2libc_2.png
 presentations/04-advanced-exploitation/images/got_plt_01.png
 presentations/04-advanced-exploitation/images/got_plt_02.png
 presentations/04-advanced-exploitation/images/got_plt_03.png
 presentations/04-advanced-exploitation/images/write_stack.png
+presentations/04-advanced-exploitation/assignments/fmt_nx
 
 
 upload.sh
