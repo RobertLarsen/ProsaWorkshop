@@ -2,4 +2,4 @@
 - name: Workshop
   hosts: workshop
   roles:
-      - RobertLarsen.prosaworkshop
+      - RobertLarsen.workshop
