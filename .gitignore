@@ -1,6 +1,7 @@
 *.swp
 presentations/*/index.html
 .vagrant
+workshop.retry
 *.s
 *.so
 *.idb
@@ -28,6 +29,7 @@ presentations/04-advanced-exploitation/assignments/root/
 presentations/04-advanced-exploitation/assignments/fmt
 presentations/04-advanced-exploitation/assignments/fmt.bug
 presentations/04-advanced-exploitation/images/printf_stack.png
+presentations/04-advanced-exploitation/*.py
 
 **/peda-session*
 **/core
