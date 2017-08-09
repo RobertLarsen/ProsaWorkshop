@@ -115,6 +115,7 @@ presentations/04-advanced-exploitation/images/ret2libc_2.png
 presentations/04-advanced-exploitation/images/got_plt_01.png
 presentations/04-advanced-exploitation/images/got_plt_02.png
 presentations/04-advanced-exploitation/images/got_plt_03.png
+presentations/04-advanced-exploitation/images/stack_for_leak.png
 presentations/04-advanced-exploitation/images/write_stack.png
 presentations/04-advanced-exploitation/assignments/fmt_nx
 
