@@ -43,40 +43,6 @@ ProsaCTF 2014
 --------------
 image::../images/ctf2014_ret2libc.png[]
 
-Job hos Forsvarets Efterretningstjeneste?
------------------------------------------
-
-image::../images/fe_job_00.png[]
-
-Job hos Forsvarets Efterretningstjeneste?
------------------------------------------
-
-image::../images/fe_job_01.png[]
-
-Emnet for reverse engineering workshoppen
-
-Vi ser på, hvordan forskellige C kode strukturer ser ud compilet til i386 på Linux
-
-Job hos Forsvarets Efterretningstjeneste?
------------------------------------------
-
-image::../images/fe_job_02.png[]
-
-Emner for exploitation workshoppen
-
-Vi går i detaljer med stak baserede buffer overflows samt ASLR og canaries, og hvis tiden tillader det, skimmer vi over format strings, info leaks, write-what-where, heap overflows, ROP og lidt andre teknikker
-
-Er der interesse, siger Prosa, at vi kan udvidde med en aften mere
-
-Job hos Forsvarets Efterretningstjeneste?
------------------------------------------
-
-image::../images/fe_job_03.png[]
-
-Emnet for shellcode workshoppen
-
-Vi holder os til Linux på i386 og vil ende med at lave en simpel shellcode men kigger også på mere avancerede emner
-
 Krav for deltagelse
 -------------------
 
