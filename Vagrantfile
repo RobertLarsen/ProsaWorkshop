@@ -13,8 +13,7 @@ cd /vagrant
 sudo -E apt -y update
 sudo -E apt -y install python-pip
 sudo -E pip install ansible
-sudo -E ansible-galaxy install RobertLarsen.workshop
-sudo -E rm -rf /home/vagrant/.ansible
+ansible-galaxy install RobertLarsen.workshop
 ansible-playbook -i inventory workshop.yml
 
 POST=$(date +%s)
