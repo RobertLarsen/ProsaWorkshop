@@ -10,7 +10,7 @@ Shellcraft er pwntools samling af shellcode.
 
 [source,bash]
 ------------------------------------------------
-$ shellcraft | grep i386.linux
+$ shellcraft --list i386.linux
 i386.linux.acceptloop_ipv4
 i386.linux.connect
 i386.linux.connectstager
