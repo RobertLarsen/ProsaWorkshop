@@ -14,7 +14,7 @@ sudo -E apt -y update
 sudo -E apt -y install python-pip
 sudo -E pip install ansible
 ansible-galaxy install RobertLarsen.workshop
-ansible-playbook -i inventory workshop.yml
+ansible-playbook -i /home/vagrant/.ansible/roles/RobertLarsen.workshop/tests/inventory /home/vagrant/.ansible/roles/RobertLarsen.workshop/tests/test.yml
 
 POST=$(date +%s)
 echo "Installation took "$((POST-PRE))" seconds"

@@ -1,5 +1,0 @@
----
-- name: Workshop
-  hosts: workshop
-  roles:
-      - RobertLarsen.workshop

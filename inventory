@@ -1,2 +1,0 @@
-[workshop]
-localhost ansible_connection=local
