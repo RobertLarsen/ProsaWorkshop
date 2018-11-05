@@ -1,0 +1,34 @@
+Indhold dag 1 - Reverse Engineering
+-----------------------------------
+
+* Værktøjer
+* i386 assembly
+* Compilerer genereret kode
+* Calling conventions
+* Stack layout og indhold
+
+Indhold dag 2 - Exploitation 
+----------------------------
+
+* Stack based buffer overflows
+* Brug af GNU debugger
+* Brug af pwntools under udvikling af exploits
+* Omgåelse af ASLR
+* Omgåelse af stack canaries
+
+Indhold dag 3 - Shellcoding
+---------------------------
+
+* Udvikling af shellcode til i386/Linux
+* Udvikling med pwntools
+* Typiske udfordringer under shellcoding
+
+Indhold dag 4 - Advanced Exploitation 
+-------------------------------------
+
+* Format string vulnerabilities
+* Arbitrary Read/Write primitives
+* Info leaks
+* GOT overwrites
+* Omgåelse af no execute via ret2libc
+* Omgåelse af no execute via Return Oriented Programming

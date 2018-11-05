@@ -1,5 +1,7 @@
 include::intro.asciidoc[]
 
+include::contents.asciidoc[]
+
 include::software.asciidoc[]
 
 include::wargames.asciidoc[]
