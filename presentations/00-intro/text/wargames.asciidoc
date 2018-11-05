@@ -4,12 +4,6 @@ http://overthewire.org/wargames/bandit/
 
 image::../images/overthewire.png[]
 
-Wargames - Pwnies Treasure Hunt
--------------------------------
-http://treasure.pwnies.dk
-
-image::../images/treasure.png[]
-
 Wargames - VulnHub
 ------------------
 https://www.vulnhub.com/
