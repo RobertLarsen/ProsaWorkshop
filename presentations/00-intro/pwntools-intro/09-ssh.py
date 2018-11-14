@@ -16,7 +16,7 @@ solutions = (
 
 def solve(name, password, cmd):
     doing.update('Solving %s' % name)
-    con = ssh(user = name, password = password, host = 'bandit.labs.overthewire.org')
+    con = ssh(user = name, password = password, host = 'bandit.labs.overthewire.org', port = 2220)
     shell = con.shell(tty = False)
     shell.sendline(cmd)
     next_password = shell.recvline().strip()
