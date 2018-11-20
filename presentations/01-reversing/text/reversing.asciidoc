@@ -239,6 +239,17 @@ Reversing - Loops - for
 include::../examples/for_loop.c[]
 ------------------------------------------------
 
+Reversing - Main metodens stak
+------------------------------
+image::../images/main_stack_frame.png[]
+
+Reversing - Første opgave
+-------------------------
+
+Skriv en serienummergenerator til ProsaCrackme.bin
+
+Denne laver vi sammen og introducerer samtidig IDA Pro.
+
 [source,asm]
 ------------------------------------------------
 include::../examples/for_loop.s[]
@@ -309,6 +320,13 @@ include::../examples/structures.c[]
 include::../examples/structures.s[]
 ------------------------------------------------
 
+Reversing - Tredje opgave
+-------------------------
+
+ProsaBomb.bin
+
+Denne starter vi på sammen, derefter tager I resten på egen hånd eller i grupper.
+
 Reversing - Intrinsics
 ----------------------
 
@@ -347,17 +365,6 @@ include::../examples/optimizations_2.c[]
 ------------------------------------------------
 include::../examples/optimizations_2.s[]
 ------------------------------------------------
-
-Reversing - Main metodens stak
-------------------------------
-image::../images/main_stack_frame.png[]
-
-Reversing - Første opgave
--------------------------
-
-Skriv en serienummergenerator til ProsaCrackme.bin
-
-Denne laver vi sammen og introducerer samtidig IDA Pro.
 
 Reversing - Position Independent Code - Relocations
 ---------------------------------------------------
@@ -587,13 +594,6 @@ $ gdb -q ./breakme
 Reading symbols from ./breakme...Segmentation fault (core dumped)
 $
 ------------------------------------------------
-
-Reversing - Tredje opgave
--------------------------
-
-ProsaBomb.bin
-
-Denne starter vi på sammen, derefter tager I resten på egen hånd eller i grupper.
 
 Reversing - Fjerde opgave
 -------------------------
