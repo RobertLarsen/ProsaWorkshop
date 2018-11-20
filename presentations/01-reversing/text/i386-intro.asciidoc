@@ -292,7 +292,7 @@ Bruges ofte til at teste for større end og mindre end eller lighed/ulighed.
 ------------------------------------------------
 cmp eax, 10   ; Sæt ZF hvis eax == 10
               ; Nulstil ZF og sæt SF = OF hvis eax > 10
-              ; Sæt SF != OF hvis eax > 10
+              ; Sæt SF != OF hvis eax < 10
 ------------------------------------------------
 
 i386 assembly - jmp
