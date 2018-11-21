@@ -43,6 +43,6 @@ http://www.opensecuritytraining.info/ReverseEngineeringMalware.html (5:31:58)
 Selvstudie - Opgaver
 --------------------
 
-http://crackmes.de/
+https://crackmes.one/
 
 http://challenges.re/
