@@ -239,6 +239,11 @@ Reversing - Loops - for
 include::../examples/for_loop.c[]
 ------------------------------------------------
 
+[source,asm]
+------------------------------------------------
+include::../examples/for_loop.s[]
+------------------------------------------------
+
 Reversing - Main metodens stak
 ------------------------------
 image::../images/main_stack_frame.png[]
@@ -249,11 +254,6 @@ Reversing - Første opgave
 Skriv en serienummergenerator til ProsaCrackme.bin
 
 Denne laver vi sammen og introducerer samtidig IDA Pro.
-
-[source,asm]
-------------------------------------------------
-include::../examples/for_loop.s[]
-------------------------------------------------
 
 Reversing - Loops - while
 -------------------------
