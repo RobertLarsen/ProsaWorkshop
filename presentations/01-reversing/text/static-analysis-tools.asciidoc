@@ -82,4 +82,5 @@ Statisk analyse værktøjer
 * https://sourceware.org/binutils/docs/binutils/objdump.html
 * http://www.radare.org/r/
 * https://github.com/joelpx/plasma
+* https://github.com/avast/retdec
 
