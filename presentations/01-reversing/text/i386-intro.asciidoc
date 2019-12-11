@@ -113,7 +113,7 @@ sub [esp], edx            ;Memory/Register
 i386 assembly - mul/imul
 ------------------------
 
-'mul' = Unsigned multiplication (bliver stort set aldrig brugt af compilerne).
+'mul' = Unsigned multiplication
 
 'edx' og 'eax' får henholdsvis de høje og lave 32 bit af unsigned multiplikation mellem 'eax' og source.
 
