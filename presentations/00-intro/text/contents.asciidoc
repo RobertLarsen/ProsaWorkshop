@@ -16,6 +16,10 @@ Indhold dag 2 - Exploitation
 * Omgåelse af ASLR
 * Omgåelse af stack canaries
 
+[NOTE]
+**Sårbarhed/vulnerability** = fejl i software som har betydning for sikkerheden i softwaren.
+**Exploit** = software som udnytter en sårbarhed til at opnå et eller andet mål som ikke var tilsigtet med den sårbare software.
+
 Indhold dag 3 - Shellcoding
 ---------------------------
 
@@ -32,3 +36,9 @@ Indhold dag 4 - Advanced Exploitation
 * GOT overwrites
 * Omgåelse af no execute via ret2libc
 * Omgåelse af no execute via Return Oriented Programming
+
+Indhold dag 5 - Final exam/CTF
+------------------------------
+
+image::../images/CTF.png[]
+
