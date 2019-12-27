@@ -22,6 +22,8 @@ if len(sys.argv) > 1 and sys.argv[1] == 'remote':
 else:
     tube = process('./bf')
 
-print tube.recvuntil(']\n')
-tube.send(brainfuck("Hello, World!") + '\n')
-print tube.recvall()
+print(tube.recvuntil(']\n'))
+bf = brainfuck("Hello, World!")
+print(bf)
+tube.send(bf + '\n')
+print(tube.recvall())
