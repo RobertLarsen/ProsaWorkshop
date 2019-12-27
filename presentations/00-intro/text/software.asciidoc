@@ -8,7 +8,7 @@ På din maskine:
 - Git - https://git-scm.com/
 - Putty (eller anden ssh klient) - http://www.chiark.greenend.org.uk/~sgtatham/putty/
 - IDA Pro - https://www.hex-rays.com/products/ida/
-** Gratis version kan fint bruges til vores formål men er lidt gammel
+** Gratis version kan fint bruges til vores formål
 ** Demo version er også ok, men kan ikke gemme arbejdet og timer ud efter nogen brug
 - Resten leveres gennem det Vagrant setup som findes her:
 ** https://github.com/RobertLarsen/ProsaWorkshop
