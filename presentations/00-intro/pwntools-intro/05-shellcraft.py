@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 from pwn import *
 import sys
@@ -11,6 +11,6 @@ else:
 context(arch = arch, os = 'linux')
 
 assembly = shellcraft.syscall('SYS_socket', 'AF_INET', 'SOCK_STREAM', 0)
-print '    /* Syscall on %s architecture */' % arch
-print assembly
-print '    /* Assembled: %s */' % enhex(asm(assembly))
+print('    /* Syscall on %s architecture */' % arch)
+print(assembly)
+print('    /* Assembled: %s */' % enhex(asm(assembly)))

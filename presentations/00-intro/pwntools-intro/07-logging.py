@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 from pwn import *
 import sys
@@ -6,7 +6,7 @@ import sys
 #Uncomment next line for more silliness
 #splash()
 
-def brute(alphabet = 'abcdefghijklmnopqrstuvwxyz'):
+def brute(alphabet='abcdefghijklmnopqrstuvwxyz'):
     indices = []
     while True:
         carry = True

