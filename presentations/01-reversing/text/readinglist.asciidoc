@@ -27,6 +27,11 @@ image::../images/reverse_engineering_code_with_ida_pro.jpg[]
 
 image::../images/bad_review.png[]
 
+Selvstudie - 30 Tips
+--------------------
+
+https://blog.whtaguy.com/2020/04/guys-30-reverse-engineering-tips-tricks.html
+
 Selvstudie - Video
 ------------------
 
