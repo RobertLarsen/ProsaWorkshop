@@ -24,6 +24,7 @@ Vagrant.configure(2) do |config|
     config.vm.box = "bento/ubuntu-16.04"
     config.vm.provider "virtualbox" do |v|
         v.memory = 2048
+        v.customize ['modifyvm', :id, '--cableconnected1', 'on']
     end
     config.vm.provider "vmware_workstation" do |v|
         v.vmx['memsize'] = '2048'
